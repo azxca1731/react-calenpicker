@@ -1,9 +1,8 @@
-// Demo component
-// this is only example component
-
 import React from "react";
 import PropTypes from "prop-types";
 import "./CalendarHead.style";
+
+import Month from "../../Components/Month/Month";
 
 class CalendarHead extends React.Component {
   constructor(props) {
@@ -13,7 +12,11 @@ class CalendarHead extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <div classNameName="CalendarHead" />;
+    return (
+      <div classNameName="CalendarHead">
+        <Month />
+      </div>
+    );
   }
 }
 

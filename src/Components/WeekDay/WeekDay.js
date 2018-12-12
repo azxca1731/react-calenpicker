@@ -1,6 +1,3 @@
-// Demo component
-// this is only example component
-
 import React from "react";
 import PropTypes from "prop-types";
 import "./WeekDay.style";
@@ -13,7 +10,17 @@ class WeekDay extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <div classNameName="WeekDay" />;
+    return (
+      <thead className="WeekDay__thead">
+        <li className="WeekDay__day">Sun</li>
+        <li className="WeekDay__day">Mon</li>
+        <li className="WeekDay__day">Tue</li>
+        <li className="WeekDay__day">Wed</li>
+        <li className="WeekDay__day">Thu</li>
+        <li className="WeekDay__day">Fri</li>
+        <li className="WeekDay__day">Sat</li>
+      </thead>
+    );
   }
 }
 

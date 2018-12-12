@@ -1,6 +1,3 @@
-// Demo component
-// this is only example component
-
 import React from "react";
 import PropTypes from "prop-types";
 import "./Template.style";
@@ -13,14 +10,21 @@ class Template extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <div classNameName="Template" />;
+    const { head, children } = this.props;
+    return (
+      <div className="Template">
+        {head}
+        {children}
+      </div>
+    );
   }
 }
 
 Template.defaultProps = {};
 
 Template.propTypes = {
-  name: PropTypes.string
+  head: PropTypes.object,
+  children: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default Template;

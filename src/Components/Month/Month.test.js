@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Calendar from "index";
+import Month from "index";
 
-describe("Calendar", () => {
+describe("Month", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<Calendar />);
+    const wrapper = shallow(<Month />);
     expect(wrapper).toHaveLength(1);
   });
 });
