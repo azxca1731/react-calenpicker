@@ -13,8 +13,8 @@ class CalendarBody extends React.Component {
 
   render() {
     return (
-      <div classNameName="CalendarBody">
-        <table>
+      <div className="CalendarBody">
+        <table className="CalendarBody__table">
           <WeekDay />
           <tbody>
             <Week />

@@ -11,7 +11,7 @@ class WeekDay extends React.Component {
 
   render() {
     return (
-      <thead className="WeekDay__thead">
+      <thead className="WeekDay">
         <li className="WeekDay__day">Sun</li>
         <li className="WeekDay__day">Mon</li>
         <li className="WeekDay__day">Tue</li>

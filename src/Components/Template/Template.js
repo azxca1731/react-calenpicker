@@ -24,7 +24,10 @@ Template.defaultProps = {};
 
 Template.propTypes = {
   head: PropTypes.object,
-  children: PropTypes.arrayOf(PropTypes.object)
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 };
 
 export default Template;

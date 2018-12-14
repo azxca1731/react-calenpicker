@@ -13,7 +13,7 @@ class CalendarHead extends React.Component {
 
   render() {
     return (
-      <div classNameName="CalendarHead">
+      <div className="CalendarHead">
         <Month />
       </div>
     );
