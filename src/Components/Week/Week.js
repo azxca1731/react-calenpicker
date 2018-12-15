@@ -33,7 +33,7 @@ class Week extends React.Component {
 Week.defaultProps = {};
 
 Week.propTypes = {
-  weekNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+  weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5])
 };
 
 export default Week;

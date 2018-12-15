@@ -11,20 +11,13 @@ class DateProvider extends Component {
   }
 
   state = {
-    dateObjectArray: [{ dayNumber: 1 }]
+    dateObjectArray: []
   };
 
   actions = {
     setDateObjectArray: dateObjectArray => {
-      // console.log(dateObjectArray);
-      // console.log(this);
+      console.log(dateObjectArray);
       this.setState({ dateObjectArray });
-      console.log(this.state);
-    },
-    getDayToDate: date => {
-      console.log(this.state.dateObjectArray);
-
-      // return this.state.dateObjectArray[date];
     }
   };
 

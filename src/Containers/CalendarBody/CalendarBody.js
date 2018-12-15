@@ -64,12 +64,12 @@ class CalendarBody extends React.Component {
         <table className="CalendarBody__table">
           <WeekDay />
           <tbody>
+            <Week weekNumber={0} />
             <Week weekNumber={1} />
-            {/* <Week weekNumber={2} />
+            <Week weekNumber={2} />
             <Week weekNumber={3} />
             <Week weekNumber={4} />
             <Week weekNumber={5} />
-            <Week weekNumber={6} /> */}
           </tbody>
         </table>
       </div>
