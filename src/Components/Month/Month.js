@@ -10,14 +10,15 @@ class Month extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <div className="Month">2018.12</div>;
+    const { month } = this.props;
+    return <div className="Month">{month}</div>;
   }
 }
 
 Month.defaultProps = {};
 
 Month.propTypes = {
-  name: PropTypes.string
+  month: PropTypes.string
 };
 
 export default Month;

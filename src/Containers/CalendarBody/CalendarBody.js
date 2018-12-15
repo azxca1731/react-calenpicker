@@ -13,7 +13,7 @@ class CalendarBody extends React.Component {
   }
 
   calculateMonth = () => {
-    const today = new Date();
+    const today = new Date(this.props.month);
     const currentMonthFirstDay = new Date(
       today.getFullYear(),
       today.getMonth()
@@ -58,7 +58,13 @@ class CalendarBody extends React.Component {
 
   componentDidMount() {}
 
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.month !== this.props.month) return true;
+    else return false;
+  }
+
   render() {
+    this.props.setDateObjectArray(this.calculateMonth());
     return (
       <div className="CalendarBody">
         <table className="CalendarBody__table">
@@ -83,6 +89,7 @@ CalendarBody.propTypes = {
   name: PropTypes.string
 };
 
-export default DayConnector(({ actions }) => ({
+export default DayConnector(({ state, actions }) => ({
+  month: `${state.year}-${state.month + 1}`,
   setDateObjectArray: actions.setDateObjectArray
 }))(CalendarBody);
