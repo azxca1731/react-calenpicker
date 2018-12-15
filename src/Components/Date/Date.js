@@ -14,12 +14,15 @@ class Date extends React.Component {
     const { weekNumber, dateObjectArray, day } = this.props;
     return (
       <td className="Date">
-        {/* {dateObjectArray.length > 0
-          ? dateObjectArray[weekNumber * day - 1]
-          : null} */}
-        {dateObjectArray.length > 0
-          ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
-          : ""}
+        <span
+          className={
+            day % 6 !== 1 ? "Date_day" : day === 1 ? "Date__sun" : "Date__sat"
+          }
+        >
+          {dateObjectArray.length > 0
+            ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
+            : ""}
+        </span>
       </td>
     );
   }

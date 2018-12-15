@@ -3,4 +3,16 @@
   padding: 0.5vh 0.3% 2vh;
   width: 13.6%;
   text-align: center;
+
+  &_day {
+    color: black;
+  }
+
+  &__sun {
+    color: red;
+  }
+
+  &__sat {
+    color: blue;
+  }
 }

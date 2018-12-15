@@ -10,7 +10,11 @@ class CalendarBody extends React.Component {
   constructor(props) {
     super(props);
 
-    props.setDateObjectArray([
+    props.setDateObjectArray(this.calculateMonth());
+  }
+
+  calculateMonth = () => {
+    const CurrentMonth = [
       { dayNumber: 25 },
       { dayNumber: 26 },
       { dayNumber: 27 },
@@ -53,8 +57,9 @@ class CalendarBody extends React.Component {
       { dayNumber: 3 },
       { dayNumber: 4 },
       { dayNumber: 5 }
-    ]);
-  }
+    ];
+    return CurrentMonth;
+  };
 
   componentDidMount() {}
 
