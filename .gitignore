@@ -7,7 +7,7 @@ coverage
 
 # lock files
 package-lock.json
-yarn.lock
+
 
 # others
 .DS_Store
