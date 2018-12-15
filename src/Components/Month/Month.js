@@ -10,7 +10,7 @@ class Month extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <div classNameName="Month">2018.12</div>;
+    return <div className="Month">2018.12</div>;
   }
 }
 

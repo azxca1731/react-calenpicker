@@ -18,13 +18,13 @@ class Week extends React.Component {
   render() {
     return (
       <tr className="Week">
-        <Date weekNumber={this.props.weekNumber} day="Sun" />
-        <Date weekNumber={this.props.weekNumber} day="Mon" />
-        <Date weekNumber={this.props.weekNumber} day="Tue" />
-        <Date weekNumber={this.props.weekNumber} day="Wed" />
-        <Date weekNumber={this.props.weekNumber} day="Thu" />
-        <Date weekNumber={this.props.weekNumber} day="Fri" />
-        <Date weekNumber={this.props.weekNumber} day="Sat" />
+        <Date weekNumber={this.props.weekNumber} day={1} />
+        <Date weekNumber={this.props.weekNumber} day={2} />
+        <Date weekNumber={this.props.weekNumber} day={3} />
+        <Date weekNumber={this.props.weekNumber} day={4} />
+        <Date weekNumber={this.props.weekNumber} day={5} />
+        <Date weekNumber={this.props.weekNumber} day={6} />
+        <Date weekNumber={this.props.weekNumber} day={7} />
       </tr>
     );
   }

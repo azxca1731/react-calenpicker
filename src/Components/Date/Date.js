@@ -6,16 +6,17 @@ import { DayConnector } from "../../Containers/DateProvider";
 class Date extends React.Component {
   constructor(props) {
     super(props);
-    props.getDayToDate();
+    console.log(props.getDayToDate(props.weekNumber * props.day - 1));
     this.state = {
-      day: props.getDayToDate()
+      // day: props.getDayToDate(props.weekNumber, props.day)
+      day: { dayNumber: 1 }
     };
   }
 
   componentDidMount() {}
 
   render() {
-    return <li className="Date">{this.state.day.dayNumber}</li>;
+    return <td className="Date">{this.state.day.dayNumber}</td>;
   }
 }
 
@@ -25,7 +26,7 @@ Date.defaultProps = {
 
 Date.propTypes = {
   weekNumber: PropTypes.number,
-  day: PropTypes.oneOf(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])
+  day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7])
 };
 
 export default DayConnector(({ actions }) => ({

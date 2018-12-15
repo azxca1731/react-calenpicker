@@ -12,13 +12,15 @@ class WeekDay extends React.Component {
   render() {
     return (
       <thead className="WeekDay">
-        <li className="WeekDay__day">Sun</li>
-        <li className="WeekDay__day">Mon</li>
-        <li className="WeekDay__day">Tue</li>
-        <li className="WeekDay__day">Wed</li>
-        <li className="WeekDay__day">Thu</li>
-        <li className="WeekDay__day">Fri</li>
-        <li className="WeekDay__day">Sat</li>
+        <tr className="WeekDay__tr">
+          <td className="WeekDay__day">Sun</td>
+          <td className="WeekDay__day">Mon</td>
+          <td className="WeekDay__day">Tue</td>
+          <td className="WeekDay__day">Wed</td>
+          <td className="WeekDay__day">Thu</td>
+          <td className="WeekDay__day">Fri</td>
+          <td className="WeekDay__day">Sat</td>
+        </tr>
       </thead>
     );
   }
