@@ -14,51 +14,43 @@ class CalendarBody extends React.Component {
   }
 
   calculateMonth = () => {
-    const CurrentMonth = [
-      { dayNumber: 25 },
-      { dayNumber: 26 },
-      { dayNumber: 27 },
-      { dayNumber: 28 },
-      { dayNumber: 29 },
-      { dayNumber: 30 },
-      { dayNumber: 1 },
-      { dayNumber: 2 },
-      { dayNumber: 3 },
-      { dayNumber: 4 },
-      { dayNumber: 5 },
-      { dayNumber: 6 },
-      { dayNumber: 7 },
-      { dayNumber: 8 },
-      { dayNumber: 9 },
-      { dayNumber: 10 },
-      { dayNumber: 11 },
-      { dayNumber: 12 },
-      { dayNumber: 13 },
-      { dayNumber: 14 },
-      { dayNumber: 15 },
-      { dayNumber: 16 },
-      { dayNumber: 17 },
-      { dayNumber: 18 },
-      { dayNumber: 19 },
-      { dayNumber: 20 },
-      { dayNumber: 21 },
-      { dayNumber: 22 },
-      { dayNumber: 23 },
-      { dayNumber: 24 },
-      { dayNumber: 25 },
-      { dayNumber: 26 },
-      { dayNumber: 27 },
-      { dayNumber: 28 },
-      { dayNumber: 29 },
-      { dayNumber: 30 },
-      { dayNumber: 31 },
-      { dayNumber: 1 },
-      { dayNumber: 2 },
-      { dayNumber: 3 },
-      { dayNumber: 4 },
-      { dayNumber: 5 }
-    ];
-    return CurrentMonth;
+    const today = new Date();
+    const currentMonthFirstDay = new Date(
+      today.getFullYear(),
+      today.getMonth()
+    );
+    const previousMonthLastDay = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      0
+    );
+    const currentMonthLastDay = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      0
+    );
+    const dateObjectArray = [];
+
+    for (let i = 1; i <= currentMonthFirstDay.getDay(); i++) {
+      dateObjectArray.push({
+        dayNumber:
+          previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i
+      });
+    }
+
+    for (let i = 1; i <= currentMonthLastDay.getDate(); i++) {
+      dateObjectArray.push({
+        dayNumber: i
+      });
+    }
+
+    for (let i = 1; i < 7 - currentMonthLastDay.getDay(); i++) {
+      dateObjectArray.push({
+        dayNumber: i
+      });
+    }
+
+    return dateObjectArray;
   };
 
   componentDidMount() {}
