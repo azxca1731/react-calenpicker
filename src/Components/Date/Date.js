@@ -1,16 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Date.style";
+import { DayConnector } from "../../Containers/DateProvider";
 
 class Date extends React.Component {
   constructor(props) {
     super(props);
+    props.getDayToDate();
+    this.state = {
+      day: props.getDayToDate()
+    };
   }
 
   componentDidMount() {}
 
   render() {
-    return <li className="Date">{this.props.day}</li>;
+    return <li className="Date">{this.state.day.dayNumber}</li>;
   }
 }
 
@@ -19,7 +24,10 @@ Date.defaultProps = {
 };
 
 Date.propTypes = {
-  day: PropTypes.string
+  weekNumber: PropTypes.number,
+  day: PropTypes.oneOf(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])
 };
 
-export default Date;
+export default DayConnector(({ actions }) => ({
+  getDayToDate: actions.getDayToDate
+}))(Date);

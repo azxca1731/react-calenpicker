@@ -16,14 +16,24 @@ class Week extends React.Component {
   }
 
   render() {
-    return <tr className="Week">{this.generateDay()}</tr>;
+    return (
+      <tr className="Week">
+        <Date weekNumber={this.props.weekNumber} day="Sun" />
+        <Date weekNumber={this.props.weekNumber} day="Mon" />
+        <Date weekNumber={this.props.weekNumber} day="Tue" />
+        <Date weekNumber={this.props.weekNumber} day="Wed" />
+        <Date weekNumber={this.props.weekNumber} day="Thu" />
+        <Date weekNumber={this.props.weekNumber} day="Fri" />
+        <Date weekNumber={this.props.weekNumber} day="Sat" />
+      </tr>
+    );
   }
 }
 
 Week.defaultProps = {};
 
 Week.propTypes = {
-  name: PropTypes.string
+  weekNumber: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
 };
 
 export default Week;

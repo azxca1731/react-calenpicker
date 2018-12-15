@@ -1,6 +1,3 @@
-// Demo component
-// this is only example component
-
 import React from "react";
 import PropTypes from "prop-types";
 import "./Calendar.style";
@@ -8,6 +5,16 @@ import "./Calendar.style";
 import Template from "../Components/Template";
 import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
+import { DateProvider } from "../Containers/DateProvider";
+
+const AppProvider = ({ contexts, children }) =>
+  contexts.reduce(
+    (prev, context) =>
+      React.createElement(context, {
+        children: prev
+      }),
+    children
+  );
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -18,9 +25,11 @@ class Calendar extends React.Component {
 
   render() {
     return (
-      <Template head={<CalendarHead />}>
-        <CalendarBody />
-      </Template>
+      <AppProvider contexts={[DateProvider]}>
+        <Template head={<CalendarHead />}>
+          <CalendarBody />
+        </Template>
+      </AppProvider>
     );
   }
 }
