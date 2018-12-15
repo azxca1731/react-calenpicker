@@ -6,7 +6,7 @@ import { DayConnector } from "../../Containers/DateProvider";
 class Date extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.getDayToDate(props.weekNumber * props.day - 1));
+    props.getDayToDate(props.weekNumber * props.day - 1);
     this.state = {
       // day: props.getDayToDate(props.weekNumber, props.day)
       day: { dayNumber: 1 }
