@@ -20,7 +20,7 @@ const createUseConsumer = Consumer => mapContextToProps => WrappedComponent => {
   // displayName 설정
   const displayName =
     WrappedComponent.displayName || WrappedComponent.name || "component";
-  UseConsumer.displayName = `UseConsumer(${displayName})`;
+  UseConsumer.displayName = `DayConnector(${displayName})`;
   return UseConsumer;
 };
 

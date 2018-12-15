@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./CalendarHead.style";
 
 import Month from "../../Components/Month/Month";
+import MonthArrow from "../../Components/MonthArrow";
 
 class CalendarHead extends React.Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class CalendarHead extends React.Component {
   render() {
     return (
       <div className="CalendarHead">
+        <MonthArrow type="left" />
         <Month />
+        <MonthArrow type="right" />
       </div>
     );
   }

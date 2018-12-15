@@ -9,7 +9,6 @@ import { DayConnector } from "../DateProvider";
 class CalendarBody extends React.Component {
   constructor(props) {
     super(props);
-
     props.setDateObjectArray(this.calculateMonth());
   }
 
@@ -30,24 +29,28 @@ class CalendarBody extends React.Component {
       0
     );
     const dateObjectArray = [];
+    let count = 0;
 
     for (let i = 1; i <= currentMonthFirstDay.getDay(); i++) {
       dateObjectArray.push({
         dayNumber:
           previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i
       });
+      count++;
     }
 
     for (let i = 1; i <= currentMonthLastDay.getDate(); i++) {
       dateObjectArray.push({
         dayNumber: i
       });
+      count++;
     }
 
-    for (let i = 1; i < 7 - currentMonthLastDay.getDay(); i++) {
+    for (let i = 1; count < 42; i++) {
       dateObjectArray.push({
         dayNumber: i
       });
+      count++;
     }
 
     return dateObjectArray;

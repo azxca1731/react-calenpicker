@@ -11,6 +11,8 @@ class DateProvider extends Component {
   }
 
   state = {
+    year: new Date().getUTCFullYear(),
+    month: new Date().getMonth(),
     dateObjectArray: []
   };
 
@@ -18,6 +20,26 @@ class DateProvider extends Component {
     setDateObjectArray: dateObjectArray => {
       console.log(dateObjectArray);
       this.setState({ dateObjectArray });
+    },
+    increaseMonth: () => {
+      if (this.state.month === 11) {
+        this.setState({
+          month: 0,
+          year: year + 1
+        });
+      } else {
+        this.setState({ month: month + 1 });
+      }
+    },
+    decreaseMonth: () => {
+      if (this.state.month === 0) {
+        this.setState({
+          month: 11,
+          year: year - 1
+        });
+      } else {
+        this.setState({ month: month - 1 });
+      }
     }
   };
 
