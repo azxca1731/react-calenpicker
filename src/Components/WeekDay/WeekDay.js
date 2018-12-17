@@ -1,13 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./WeekDay.style";
 
 class WeekDay extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  componentDidMount() {}
 
   render() {
     return (
@@ -25,11 +22,5 @@ class WeekDay extends React.Component {
     );
   }
 }
-
-WeekDay.defaultProps = {};
-
-WeekDay.propTypes = {
-  name: PropTypes.string
-};
 
 export default WeekDay;

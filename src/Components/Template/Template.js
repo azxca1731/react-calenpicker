@@ -7,8 +7,6 @@ class Template extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
-
   render() {
     const { head, children } = this.props;
     return (
@@ -20,10 +18,8 @@ class Template extends React.Component {
   }
 }
 
-Template.defaultProps = {};
-
 Template.propTypes = {
-  head: PropTypes.object,
+  head: PropTypes.object.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

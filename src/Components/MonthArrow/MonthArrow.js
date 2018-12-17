@@ -7,8 +7,6 @@ class MonthArrow extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
-
   render() {
     const { type, onClick } = this.props;
     return (
@@ -19,11 +17,9 @@ class MonthArrow extends React.Component {
   }
 }
 
-MonthArrow.defaultProps = {};
-
 MonthArrow.propTypes = {
-  type: PropTypes.oneOf(["left", "right"]),
-  onClick: PropTypes.func
+  type: PropTypes.oneOf(["left", "right"]).isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default MonthArrow;

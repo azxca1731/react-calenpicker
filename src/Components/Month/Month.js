@@ -18,7 +18,7 @@ class Month extends React.Component {
 Month.defaultProps = {};
 
 Month.propTypes = {
-  month: PropTypes.string
+  month: PropTypes.string.isRequired
 };
 
 export default Month;

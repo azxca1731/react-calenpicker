@@ -9,7 +9,6 @@ import { DayConnector } from "../DateProvider";
 class CalendarBody extends React.Component {
   constructor(props) {
     super(props);
-    props.setDateObjectArray(this.calculateMonth());
   }
 
   calculateMonth = () => {
@@ -56,8 +55,6 @@ class CalendarBody extends React.Component {
     return dateObjectArray;
   };
 
-  componentDidMount() {}
-
   shouldComponentUpdate(nextProps) {
     if (nextProps.month !== this.props.month) return true;
     else return false;
@@ -83,10 +80,9 @@ class CalendarBody extends React.Component {
   }
 }
 
-CalendarBody.defaultProps = {};
-
 CalendarBody.propTypes = {
-  name: PropTypes.string
+  month: PropTypes.string.isRequired,
+  setDateObjectArray: PropTypes.func.isRequired
 };
 
 export default DayConnector(({ state, actions }) => ({

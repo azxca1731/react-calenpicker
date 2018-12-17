@@ -1,18 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./Week.style";
-import Date from "../Date/Date";
+import Date from "../../Containers/Date";
 
 class Week extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {}
-
-  generateDay() {
-    const day = ["1", "2", "3", "4", "5", "6", "7"];
-    return day.map(item => <Date key={item} />);
   }
 
   render() {
@@ -30,10 +23,8 @@ class Week extends React.Component {
   }
 }
 
-Week.defaultProps = {};
-
 Week.propTypes = {
-  weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5])
+  weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired
 };
 
 export default Week;
