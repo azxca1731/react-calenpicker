@@ -11,8 +11,6 @@ class CalendarHead extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
-
   render() {
     const { month, showNextMonth, showPreviousMonth } = this.props;
     return (
@@ -25,10 +23,10 @@ class CalendarHead extends React.Component {
   }
 }
 
-CalendarHead.defaultProps = {};
-
 CalendarHead.propTypes = {
-  name: PropTypes.string
+  month: PropTypes.string.isRequired,
+  showNextMonth: PropTypes.func.isRequired,
+  showPreviousMonth: PropTypes.func.isRequired
 };
 
 export default DayConnector(({ state, actions }) => ({

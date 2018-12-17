@@ -10,6 +10,11 @@ class Date extends React.Component {
 
   componentDidMount() {}
 
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.dateObjectArray === this.props.dateObjectArray) return false;
+    return true;
+  }
+
   render() {
     const { weekNumber, dateObjectArray, day } = this.props;
     return (
@@ -33,8 +38,9 @@ Date.defaultProps = {
 };
 
 Date.propTypes = {
-  weekNumber: PropTypes.number,
-  day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7])
+  weekNumber: PropTypes.number.isRequired,
+  day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7]).isRequired,
+  dateObjectArray: PropTypes.array.isRequired
 };
 
 export default DayConnector(({ state }) => ({

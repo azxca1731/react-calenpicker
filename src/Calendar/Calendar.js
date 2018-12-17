@@ -21,8 +21,6 @@ class Calendar extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
-
   render() {
     return (
       <AppProvider contexts={[DateProvider]}>

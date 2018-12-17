@@ -1,4 +1,5 @@
 import React, { Component, createContext } from "react";
+import PropTypes from "prop-types";
 import createUseConsumer from "./UseConsumer";
 
 const Context = createContext();
@@ -48,6 +49,13 @@ class DateProvider extends Component {
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }
+
+DateProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
+};
 
 const DayConnector = createUseConsumer(DateConsumer);
 
