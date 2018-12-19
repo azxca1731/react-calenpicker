@@ -7,14 +7,18 @@ import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
 import { DateProvider } from "../Containers/DateProvider";
 
-const AppProvider = ({ contexts, children }) =>
-  contexts.reduce(
-    (prev, context) =>
-      React.createElement(context, {
-        children: prev
-      }),
+const AppProvider = props => {
+  const { contexts, children, ...otherOption } = props;
+  const showOption = {};
+  Object.keys(otherOption)
+    .filter(item => item.indexOf("show") === 0)
+    .map(item => (showOption[item] = otherOption[item]));
+
+  return contexts.reduce(
+    (prev, context) => React.createElement(context, showOption, prev),
     children
   );
+};
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -22,8 +26,9 @@ class Calendar extends React.Component {
   }
 
   render() {
+    const { props } = this;
     return (
-      <AppProvider contexts={[DateProvider]}>
+      <AppProvider contexts={[DateProvider]} {...props}>
         <Template head={<CalendarHead />}>
           <CalendarBody />
         </Template>
@@ -33,11 +38,11 @@ class Calendar extends React.Component {
 }
 
 Calendar.defaultProps = {
-  name: "Default"
+  showonlythismonth: false
 };
 
 Calendar.propTypes = {
-  name: PropTypes.string
+  showonlythismonth: PropTypes.bool
 };
 
 export default Calendar;
