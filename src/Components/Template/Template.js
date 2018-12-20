@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Template.style";
+import style from "./Template.style";
 
 class Template extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Template extends React.Component {
   render() {
     const { head, children } = this.props;
     return (
-      <div className="Template">
+      <div className={style.Template}>
         {head}
         {children}
       </div>

@@ -1,16 +1,16 @@
-import path from 'path';
-import webpack from 'webpack'; //eslint-disable-line
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import path from "path";
+import webpack from "webpack"; //eslint-disable-line
+import CleanWebpackPlugin from "clean-webpack-plugin";
 
 export default () => ({
-  mode: 'production',
+  mode: "production",
   entry: {
-    index: path.join(__dirname, './index.js')
+    index: path.join(__dirname, "./index.js")
   },
 
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist")
   },
 
   module: {
@@ -21,26 +21,44 @@ export default () => ({
 
         use: [
           {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
+              presets: ["@babel/preset-env", "@babel/preset-react"]
             }
           }
         ]
       },
       {
-        test: /\.(scss)$/,
-        loader: 'style-loader!css-loader!sass-loader'
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              localIdentName: "[path][name]__[local]--[hash:base64:5]"
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              modules: true,
+              localIdentName: "[path][name]__[local]--[hash:base64:5]"
+            }
+          }
+        ]
       }
     ]
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.scss']
+    extensions: [".js", ".jsx", ".scss"]
   },
 
   plugins: [
     // Clean dist folder
-    new CleanWebpackPlugin(['./dist/build.js'])
+    new CleanWebpackPlugin(["./dist/build.js"])
   ]
 });

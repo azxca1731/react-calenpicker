@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./MonthArrow.style";
+import style from "./MonthArrow.style";
 
 class MonthArrow extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class MonthArrow extends React.Component {
   render() {
     const { type, onClick } = this.props;
     return (
-      <div className="MonthArrow" onClick={onClick}>
+      <div className={style.MonthArrow} onClick={onClick}>
         {type === "left" ? "❮" : "❯"}
       </div>
     );

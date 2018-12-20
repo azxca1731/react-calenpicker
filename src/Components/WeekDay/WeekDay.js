@@ -1,5 +1,5 @@
 import React from "react";
-import "./WeekDay.style";
+import style from "./WeekDay.style";
 
 class WeekDay extends React.Component {
   constructor(props) {
@@ -8,15 +8,15 @@ class WeekDay extends React.Component {
 
   render() {
     return (
-      <thead className="WeekDay">
-        <tr className="WeekDay__tr">
-          <td className="WeekDay__day">Sun</td>
-          <td className="WeekDay__day">Mon</td>
-          <td className="WeekDay__day">Tue</td>
-          <td className="WeekDay__day">Wed</td>
-          <td className="WeekDay__day">Thu</td>
-          <td className="WeekDay__day">Fri</td>
-          <td className="WeekDay__day">Sat</td>
+      <thead className={style.WeekDay}>
+        <tr className={style.WeekDay__tr}>
+          <td className={style.WeekDay__day}>Sun</td>
+          <td className={style.WeekDay__day}>Mon</td>
+          <td className={style.WeekDay__day}>Tue</td>
+          <td className={style.WeekDay__day}>Wed</td>
+          <td className={style.WeekDay__day}>Thu</td>
+          <td className={style.WeekDay__day}>Fri</td>
+          <td className={style.WeekDay__day}>Sat</td>
         </tr>
       </thead>
     );

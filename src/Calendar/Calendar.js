@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Calendar.style";
 
 import Template from "../Components/Template";
 import CalendarHead from "../Containers/CalendarHead";

@@ -1,44 +1,44 @@
-import path from 'path';
-import webpack from 'webpack';
+import path from "path";
+import webpack from "webpack";
 
 export default () => ({
-  mode: 'development',
+  mode: "development",
   entry: [
-    'react-hot-loader/patch',
+    "react-hot-loader/patch",
     // activate HMR for React
 
-    'webpack-dev-server/client?http://localhost:8080',
+    "webpack-dev-server/client?http://localhost:8080",
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
 
-    'webpack/hot/only-dev-server',
+    "webpack/hot/only-dev-server",
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
 
-    './examples/index.js'
+    "./examples/index.js"
     // the entry point of our app
   ],
 
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/"
     // necessary for HMR to know where to load the hot update chunks
   },
 
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
 
   devServer: {
     hot: true,
     // enable HMR on the server
 
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, "dist"),
     // match the output path
 
-    publicPath: '/',
+    publicPath: "/",
     // match the output `publicPath`
 
-    stats: 'minimal'
+    stats: "minimal"
   },
 
   module: {
@@ -48,22 +48,40 @@ export default () => ({
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
+              presets: ["@babel/preset-env", "@babel/preset-react"]
             }
           }
         ]
       },
       {
-        test: /\.(scss)$/,
-        loader: 'style-loader!css-loader!sass-loader'
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              localIdentName: "[path][name]__[local]--[hash:base64:5]"
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              modules: true,
+              localIdentName: "[path][name]__[local]--[hash:base64:5]"
+            }
+          }
+        ]
       }
     ]
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.scss']
+    extensions: [".js", ".jsx", ".scss"]
   },
 
   plugins: [new webpack.HotModuleReplacementPlugin()],

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Date.style";
+import style from "./Date.style";
 import { DayConnector } from "../../Containers/DateProvider";
 
 class Date extends React.Component {
@@ -8,7 +8,7 @@ class Date extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.dateObjectArray === this.props.dateObjectArray) return false;
@@ -18,10 +18,14 @@ class Date extends React.Component {
   render() {
     const { weekNumber, dateObjectArray, day } = this.props;
     return (
-      <td className="Date">
+      <td className={style.Date}>
         <span
           className={
-            day % 6 !== 1 ? "Date_day" : day === 1 ? "Date__sun" : "Date__sat"
+            day % 6 !== 1
+              ? style.Date_day
+              : day === 1
+                ? style.Date__sun
+                : style.Date__sat
           }
         >
           {dateObjectArray.length > 0
