@@ -9,13 +9,16 @@ import { DateProvider } from "../Containers/DateProvider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
-  const showOption = {};
-  Object.keys(otherOption)
-    .filter(item => item.indexOf("show") === 0)
-    .map(item => (showOption[item] = otherOption[item]));
+  const { timezone, startDate, callbackFunction, ...otherProps } = otherOption;
+  const dateProps = { timezone, startDate, callbackFunction };
 
   return contexts.reduce(
-    (prev, context) => React.createElement(context, showOption, prev),
+    (prev, context) =>
+      React.createElement(
+        context,
+        context.name === "DateProvider" ? dateProps : otherProps,
+        prev
+      ),
     children
   );
 };
@@ -38,11 +41,15 @@ class Calendar extends React.Component {
 }
 
 Calendar.defaultProps = {
-  showonlythismonth: false
+  timezone: "ko",
+  startDate: "",
+  callbackFunction: () => {}
 };
 
 Calendar.propTypes = {
-  showonlythismonth: PropTypes.bool
+  timezone: PropTypes.string,
+  startDate: PropTypes.string,
+  callbackFunction: PropTypes.func
 };
 
 export default Calendar;
