@@ -7,14 +7,21 @@ import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
 import { DateProvider } from "../Containers/DateProvider";
 
-const AppProvider = ({ contexts, children }) =>
-  contexts.reduce(
+const AppProvider = props => {
+  const { contexts, children, ...otherOption } = props;
+  const { timezone, startDate, callbackFunction, ...otherProps } = otherOption;
+  const dateProps = { timezone, startDate, callbackFunction };
+
+  return contexts.reduce(
     (prev, context) =>
-      React.createElement(context, {
-        children: prev
-      }),
+      React.createElement(
+        context,
+        context.name === "DateProvider" ? dateProps : otherProps,
+        prev
+      ),
     children
   );
+};
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -22,8 +29,9 @@ class Calendar extends React.Component {
   }
 
   render() {
+    const { props } = this;
     return (
-      <AppProvider contexts={[DateProvider]}>
+      <AppProvider contexts={[DateProvider]} {...props}>
         <Template head={<CalendarHead />}>
           <CalendarBody />
         </Template>
@@ -33,11 +41,15 @@ class Calendar extends React.Component {
 }
 
 Calendar.defaultProps = {
-  name: "Default"
+  timezone: "ko",
+  startDate: "",
+  callbackFunction: () => {}
 };
 
 Calendar.propTypes = {
-  name: PropTypes.string
+  timezone: PropTypes.string,
+  startDate: PropTypes.string,
+  callbackFunction: PropTypes.func
 };
 
 export default Calendar;
