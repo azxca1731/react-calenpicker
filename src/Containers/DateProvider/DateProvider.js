@@ -13,7 +13,7 @@ class DateProvider extends Component {
 
   state = {
     startDate: this.props.startDate,
-    year: this.props.startDate ? this.props.startDate.substr(0,4) : new Date.getUTCFullYear(),
+    year: this.props.startDate ? this.props.startDate.substr(0,4) : new Date().getUTCFullYear(),
     month: this.props.startDate ? this.props.startDate.substr(5) - 1 : new Date().getMonth(),
     dateObjectArray: []
   };
