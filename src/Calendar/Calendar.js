@@ -41,7 +41,6 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   timezone: "ko",
-  startDate: "",
   callbackFunction: () => {}
 };
 
