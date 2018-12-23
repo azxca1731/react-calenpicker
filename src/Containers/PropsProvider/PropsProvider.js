@@ -42,7 +42,9 @@ PropsProvider.PropTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   cssObject: PropTypes.shape({
-    
+
   })
 }
-export default PropsProvider;
+
+const PropsConnector = createUseConsumer(PropsConsumer);
+export { PropsProvider, PropsConsumer, PropsConnector };
