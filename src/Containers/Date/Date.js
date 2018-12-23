@@ -16,9 +16,9 @@ class Date extends React.Component {
   }
 
   render() {
-    const { weekNumber, dateObjectArray, day } = this.props;
+    const { weekNumber, dateObjectArray, day, dateClicked } = this.props;
     return (
-      <td className={style.Date}>
+      <td className={style.Date} onClick={()=>dateClicked(weekNumber * 7 + day - 1)}>
         <span
           className={
             day % 6 !== 1
@@ -44,9 +44,11 @@ Date.defaultProps = {
 Date.propTypes = {
   weekNumber: PropTypes.number.isRequired,
   day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7]).isRequired,
-  dateObjectArray: PropTypes.array.isRequired
+  dateObjectArray: PropTypes.array.isRequired,
+  dateClicked: PropTypes.func
 };
 
-export default DayConnector(({ state }) => ({
-  dateObjectArray: state.dateObjectArray
+export default DayConnector(({ state, actions }) => ({
+  dateObjectArray: state.dateObjectArray,
+  dateClicked: actions.handleDateClicked
 }))(Date);

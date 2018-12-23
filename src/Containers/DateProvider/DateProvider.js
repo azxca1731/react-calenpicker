@@ -41,6 +41,15 @@ class DateProvider extends Component {
       } else {
         this.setState({ month: this.state.month - 1 });
       }
+    },
+    handleDateClicked: dateObjectKey => {
+      const {year,month,periodStart,dateObjectArray} = this.state;
+      const insertDate = `${year}-${month+1}-${dateObjectArray[dateObjectKey].dayNumber}`
+      if(!periodStart){
+        this.setState({periodStart: insertDate});
+      } else if (new Date(periodStart) < new Date(insertDate)){
+        this.setState({periodEnd: `${year}-${month+1}-${dateObjectArray[dateObjectKey].dayNumber}`});
+      }
     }
   };
 
