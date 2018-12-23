@@ -25,26 +25,19 @@ class PropsProvider extends Component {
 
   render() {
     const { state, actions } = this;
-    const value = { state, actions }
-    return (
-      <Provider value={value}>
-        {this.props.children}
-      </Provider>
-    )
+    const value = { state, actions };
+    return <Provider value={value}>{this.props.children}</Provider>;
   }
 }
 
-PropsProvider.PropTypes = {
+PropsProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
-  cssObject: PropTypes.shape({
-
-  })
-}
+};
 
 const PropsConnector = createUseConsumer(PropsConsumer);
 export { PropsProvider, PropsConsumer, PropsConnector };
