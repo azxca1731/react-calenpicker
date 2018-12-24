@@ -9,6 +9,19 @@ const { Provider, Consumer: PropsConsumer } = Context;
 class PropsProvider extends Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
+=======
+    
+    this.state = {
+      width: props.width,
+      height: props.height,
+      themeColor: props.themeColor,
+      animation: props.animation,
+      duplicate: props.duplicate,
+      onlyThisMonth: props.onlyThisMonth,
+      couldSelectPrevDate: props.couldSelectPrevDate
+    };
+>>>>>>> prop types 정의
   }
 
   state = {
