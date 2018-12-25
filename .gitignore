@@ -3,6 +3,7 @@ dist/*.js
 examples/dist/*.js
 coverage
 
+.vscode
 .idea
 
 # lock files
