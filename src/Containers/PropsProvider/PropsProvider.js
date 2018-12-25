@@ -9,17 +9,16 @@ const { Provider, Consumer: PropsConsumer } = Context;
 class PropsProvider extends Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
-      width: props.width,
-      height: props.height,
-      themeColor: props.themeColor,
-      animation: props.animation,
-      duplicate: props.duplicate,
-      onlyThisMonth: props.onlyThisMonth,
-      couldSelectPrevDate: props.couldSelectPrevDate
-    };
   }
+
+  state = {
+    sizeOption: this.props.sizeOption,
+    themeColor: this.props.themeColor,
+    animation: this.props.animation,
+    duplicate: this.props.duplicate,
+    onlyThisMonth: this.props.onlyThisMonth,
+    couldSelectPrevDate: this.props.couldSelectPrevDate
+  };
 
   actions = {};
 
@@ -35,8 +34,13 @@ PropsProvider.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  sizeOption: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      width: PropTypes.number,
+      height: PropTypes.number
+    })
+  ]),
   themeColor: PropTypes.string,
   animation: PropTypes.bool,
   duplicate: PropTypes.bool,
