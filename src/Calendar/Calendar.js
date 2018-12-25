@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Template from "../Components/Template";
 import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
-import { DateProvider } from "../Containers/Provider";
+import { DateProvider, PropsProvider } from "../Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
@@ -30,7 +30,7 @@ class Calendar extends React.Component {
   render() {
     const { props } = this;
     return (
-      <AppProvider contexts={[DateProvider]} {...props}>
+      <AppProvider contexts={[DateProvider, PropsProvider]} {...props}>
         <Template head={<CalendarHead />}>
           <CalendarBody />
         </Template>
