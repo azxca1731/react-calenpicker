@@ -13,8 +13,12 @@ class DateProvider extends Component {
 
   state = {
     startDate: this.props.startDate,
-    year: this.props.startDate ? this.props.startDate.substr(0,4) : new Date().getUTCFullYear(),
-    month: this.props.startDate ? this.props.startDate.substr(5) - 1 : new Date().getMonth(),
+    year: this.props.startDate
+      ? this.props.startDate.substr(0, 4)
+      : new Date().getUTCFullYear(),
+    month: this.props.startDate
+      ? this.props.startDate.substr(5) - 1
+      : new Date().getMonth(),
     dateObjectArray: []
   };
 
@@ -43,12 +47,23 @@ class DateProvider extends Component {
       }
     },
     handleDateClicked: dateObjectKey => {
-      const {year,month,periodStart,dateObjectArray} = this.state;
-      const insertDate = `${year}-${month+1}-${dateObjectArray[dateObjectKey].dayNumber}`
-      if(!periodStart){
-        this.setState({periodStart: insertDate});
-      } else if (new Date(periodStart) < new Date(insertDate)){
-        this.setState({periodEnd: `${year}-${month+1}-${dateObjectArray[dateObjectKey].dayNumber}`});
+      const { year, month, periodStart, dateObjectArray } = this.state;
+      const { callbackFunction } = this.props;
+      const insertDate = `${year}-${month + 1}-${
+        dateObjectArray[dateObjectKey].dayNumber
+      }`;
+      if (!periodStart) {
+        this.setState({ periodStart: insertDate });
+      } else if (new Date(periodStart) <= new Date(insertDate)) {
+        const periodEnd = `${year}-${month + 1}-${
+          dateObjectArray[dateObjectKey].dayNumber
+        }`;
+        this.setState({
+          periodEnd
+        });
+        callbackFunction({ periodStart, periodEnd });
+      } else {
+        this.setState({ periodStart: insertDate });
       }
     }
   };
