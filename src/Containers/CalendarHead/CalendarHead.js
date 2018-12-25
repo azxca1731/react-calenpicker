@@ -4,7 +4,7 @@ import style from "./CalendarHead.style";
 
 import Month from "../../Components/Month/Month";
 import MonthArrow from "../../Components/MonthArrow";
-import { DayConnector } from "../DateProvider";
+import { DayConnector } from "../Provider";
 
 class CalendarHead extends React.Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import style from "./CalendarBody.style";
 
 import WeekDay from "../../Components/WeekDay/WeekDay";
 import Week from "../../Components/Week/Week";
-import { DayConnector } from "../DateProvider";
+import { DayConnector } from "../Provider";
 
 class CalendarBody extends React.Component {
   constructor(props) {
