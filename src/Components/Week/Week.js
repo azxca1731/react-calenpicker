@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Week.style";
+import style from "./Week.style";
+
 import Date from "../../Containers/Date";
 
 class Week extends React.Component {
@@ -10,7 +11,7 @@ class Week extends React.Component {
 
   render() {
     return (
-      <tr className="Week">
+      <tr className={style.Week}>
         <Date weekNumber={this.props.weekNumber} day={1} />
         <Date weekNumber={this.props.weekNumber} day={2} />
         <Date weekNumber={this.props.weekNumber} day={3} />

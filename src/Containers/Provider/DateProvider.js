@@ -12,8 +12,13 @@ class DateProvider extends Component {
   }
 
   state = {
-    year: new Date().getUTCFullYear(),
-    month: new Date().getMonth(),
+    startDate: this.props.startDate,
+    year: this.props.startDate
+      ? this.props.startDate.substr(0, 4)
+      : new Date().getUTCFullYear(),
+    month: this.props.startDate
+      ? this.props.startDate.substr(5) - 1
+      : new Date().getMonth(),
     dateObjectArray: []
   };
 
@@ -25,7 +30,7 @@ class DateProvider extends Component {
       if (this.state.month === 11) {
         this.setState({
           month: 0,
-          year: this.state.year + 1
+          year: this.state.year * 1 + 1
         });
       } else {
         this.setState({ month: this.state.month + 1 });
@@ -39,6 +44,26 @@ class DateProvider extends Component {
         });
       } else {
         this.setState({ month: this.state.month - 1 });
+      }
+    },
+    handleDateClicked: dateObjectKey => {
+      const { year, month, periodStart, dateObjectArray } = this.state;
+      const { callbackFunction } = this.props;
+      const insertDate = `${year}-${month + 1}-${
+        dateObjectArray[dateObjectKey].dayNumber
+      }`;
+      if (!periodStart) {
+        this.setState({ periodStart: insertDate });
+      } else if (new Date(periodStart) <= new Date(insertDate)) {
+        const periodEnd = `${year}-${month + 1}-${
+          dateObjectArray[dateObjectKey].dayNumber
+        }`;
+        this.setState({
+          periodEnd
+        });
+        callbackFunction({ periodStart, periodEnd });
+      } else {
+        this.setState({ periodStart: insertDate });
       }
     }
   };
@@ -54,7 +79,10 @@ DateProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  timezone: PropTypes.string,
+  startDate: PropTypes.string,
+  callbackFunction: PropTypes.func
 };
 
 const DayConnector = createUseConsumer(DateConsumer);

@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Calendar.style";
 
 import Template from "../Components/Template";
 import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
-import { DateProvider } from "../Containers/DateProvider";
+import { DateProvider } from "../Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
@@ -42,7 +41,6 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   timezone: "ko",
-  startDate: "",
   callbackFunction: () => {}
 };
 

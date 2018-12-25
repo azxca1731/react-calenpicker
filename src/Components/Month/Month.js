@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Month.style";
+import style from "./Month.style";
 
 class Month extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class Month extends React.Component {
 
   render() {
     const { month } = this.props;
-    return <div className="Month">{month}</div>;
+    return <div className={style.Month}>{month}</div>;
   }
 }
 

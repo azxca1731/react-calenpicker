@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./CalendarBody.style";
+import style from "./CalendarBody.style";
 
 import WeekDay from "../../Components/WeekDay/WeekDay";
 import Week from "../../Components/Week/Week";
-import { DayConnector } from "../DateProvider";
+import { DayConnector } from "../Provider";
 
 class CalendarBody extends React.Component {
   constructor(props) {
@@ -63,8 +63,8 @@ class CalendarBody extends React.Component {
   render() {
     this.props.setDateObjectArray(this.calculateMonth());
     return (
-      <div className="CalendarBody">
-        <table className="CalendarBody__table">
+      <div className={style.CalendarBody}>
+        <table className={style.CalendarBody__table}>
           <WeekDay />
           <tbody>
             <Week weekNumber={0} />
