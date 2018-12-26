@@ -8,7 +8,7 @@ class Date extends React.Component {
     super(props);
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.dateObjectArray === this.props.dateObjectArray) return false;
@@ -25,24 +25,36 @@ class Date extends React.Component {
     } else {
       className = style.Date__sat;
     }
-    if (dateObjectArray.length > 0 && !dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth) {
-      className = className + ' ' + style.Date__past;
+    if (
+      dateObjectArray.length > 0 &&
+      !dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth
+    ) {
+      className = className + " " + style.Date__past;
     }
 
     return className;
   }
 
   render() {
-    const { weekNumber, dateObjectArray, day, dateClicked, onlyThisMonth} = this.props;
+    const {
+      weekNumber,
+      dateObjectArray,
+      day,
+      dateClicked,
+      onlyThisMonth
+    } = this.props;
     return (
-      <td className={style.Date} onClick={()=>dateClicked(weekNumber * 7 + day - 1)}>
-        <span
-          className={this.setClassName()}
-        >
-          {dateObjectArray.length > 0 && (dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth || !onlyThisMonth)
+      <td
+        className={style.Date}
+        onClick={() => dateClicked(weekNumber * 7 + day - 1)}
+      >
+        <div className={this.setClassName()}>
+          {dateObjectArray.length > 0 &&
+          (dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth ||
+            !onlyThisMonth)
             ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
             : ""}
-        </span>
+        </div>
       </td>
     );
   }
@@ -57,12 +69,21 @@ Date.propTypes = {
   day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7]).isRequired,
   dateObjectArray: PropTypes.array.isRequired,
   dateClicked: PropTypes.func,
-  onlyThisMonth: PropTypes.bool
+  onlyThisMonth: PropTypes.bool,
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      date: PropTypes.date
+    })
+  )
 };
 
-export default PropsConnector(({state}) => ({
-  onlyThisMonth: state.onlyThisMonth
-})) (DayConnector(({ state, actions }) => ({
-  dateObjectArray: state.dateObjectArray,
-  dateClicked: actions.handleDateClicked
-}))(Date));
+export default PropsConnector(({ state }) => ({
+  onlyThisMonth: state.onlyThisMonth,
+  objectSetText: state.objectSetText
+}))(
+  DayConnector(({ state, actions }) => ({
+    dateObjectArray: state.dateObjectArray,
+    dateClicked: actions.handleDateClicked
+  }))(Date)
+);

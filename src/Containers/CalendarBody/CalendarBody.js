@@ -27,13 +27,18 @@ class CalendarBody extends React.Component {
       today.getMonth() + 1,
       0
     );
+    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 2, 0);
     const dateObjectArray = [];
     let count = 0;
 
     for (let i = 1; i <= currentMonthFirstDay.getDay(); i++) {
       dateObjectArray.push({
         dayNumber:
-          previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i
+          previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i,
+        dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() +
+          1}-${previousMonthLastDay.getDate() -
+          currentMonthFirstDay.getDay() +
+          i}`
       });
       count++;
     }
@@ -41,6 +46,7 @@ class CalendarBody extends React.Component {
     for (let i = 1; i <= currentMonthLastDay.getDate(); i++) {
       dateObjectArray.push({
         dayNumber: i,
+        dateString: `${this.props.month}-${i}`,
         isInThisMonth: true
       });
       count++;
@@ -48,7 +54,9 @@ class CalendarBody extends React.Component {
 
     for (let i = 1; count < 42; i++) {
       dateObjectArray.push({
-        dayNumber: i
+        dayNumber: i,
+        dateString: `${nextMonth.getFullYear()}-${nextMonth.getMonth() +
+          1}-${i}`
       });
       count++;
     }
