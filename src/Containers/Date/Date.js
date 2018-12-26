@@ -6,9 +6,11 @@ import { DayConnector, PropsConnector } from "../Provider";
 class Date extends React.Component {
   constructor(props) {
     super(props);
+    this.handleDateClick = this.handleDateClick.bind(this);
+    this.setClassName = this.setClassName.bind(this);
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.dateObjectArray === this.props.dateObjectArray) return false;
@@ -25,21 +27,34 @@ class Date extends React.Component {
     } else {
       className = style.Date__sat;
     }
-    if (dateObjectArray.length > 0 && !dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth) {
-      className = className + ' ' + style.Date__past;
+    if (
+      dateObjectArray.length > 0 &&
+      !dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth
+    ) {
+      className = className + " " + style.Date__past;
     }
 
     return className;
   }
 
+  handleDateClick() {
+    const { weekNumber, day, dateClicked, dateObjectArray } = this.props;
+    if (
+      dateObjectArray.length > 0 &&
+      dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth
+    ) {
+      dateClicked(weekNumber * 7 + day - 1);
+    }
+  }
+
   render() {
-    const { weekNumber, dateObjectArray, day, dateClicked, onlyThisMonth} = this.props;
+    const { weekNumber, dateObjectArray, day, onlyThisMonth } = this.props;
     return (
-      <td className={style.Date} onClick={()=>dateClicked(weekNumber * 7 + day - 1)}>
-        <span
-          className={this.setClassName()}
-        >
-          {dateObjectArray.length > 0 && (dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth || !onlyThisMonth)
+      <td className={style.Date} onClick={this.handleDateClick}>
+        <span className={this.setClassName()}>
+          {dateObjectArray.length > 0 &&
+          (dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth ||
+            !onlyThisMonth)
             ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
             : ""}
         </span>
@@ -60,9 +75,11 @@ Date.propTypes = {
   onlyThisMonth: PropTypes.bool
 };
 
-export default PropsConnector(({state}) => ({
+export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth
-})) (DayConnector(({ state, actions }) => ({
-  dateObjectArray: state.dateObjectArray,
-  dateClicked: actions.handleDateClicked
-}))(Date));
+}))(
+  DayConnector(({ state, actions }) => ({
+    dateObjectArray: state.dateObjectArray,
+    dateClicked: actions.handleDateClicked
+  }))(Date)
+);
