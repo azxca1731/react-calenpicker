@@ -11,6 +11,10 @@ class Date extends React.Component {
     this.handleInPeriod = this.handleInPeriod.bind(this);
   }
 
+  state = {
+    today: this.props.getTodayString()
+  };
+
   componentDidMount() {}
 
   // shouldComponentUpdate(nextProps) {
@@ -20,18 +24,22 @@ class Date extends React.Component {
 
   setClassName() {
     let className;
-    const { weekNumber, dateObjectArray, day } = this.props;
+    const { weekNumber, dateObjectArray, day, indicateToday } = this.props;
+    const { today } = this.state;
     if (dateObjectArray.length > 0) {
       const DatePropsDay = dateObjectArray[weekNumber * 7 + day - 1];
       if (day % 6 !== 1) {
-        className = style.Date_day;
+        className = style["Date--day"];
       } else if (day == 1) {
-        className = style.Date__sun;
+        className = style["Date--sun"];
       } else {
-        className = style.Date__sat;
+        className = style["Date--sat"];
       }
       if (!DatePropsDay.isInThisMonth) {
-        className = className + " " + style.Date__past;
+        className += ` ${style["Date--past"]}`;
+      }
+      if (indicateToday && DatePropsDay.dateString == today) {
+        className += ` ${style["Date--today"]}`;
       }
     }
 
@@ -65,18 +73,24 @@ class Date extends React.Component {
       dateObjectArray,
       day,
       onlyThisMonth,
-      objectSetText
+      objectSetText,
+      indicateToday
     } = this.props;
-
+    const { today } = this.state;
     if (dateObjectArray.length > 0) {
-      const pos = objectSetText
-        .map(item => item.date)
-        .indexOf(dateObjectArray[weekNumber * 7 + day - 1].dateString);
-      if (pos !== -1) {
-        dateObjectArray[weekNumber * 7 + day - 1].text =
-          objectSetText[pos].text;
+      if (indicateToday) {
+        if (today == dateObjectArray[weekNumber * 7 + day - 1].dateString)
+          dateObjectArray[weekNumber * 7 + day - 1].text = "오늘";
       } else {
-        dateObjectArray[weekNumber * 7 + day - 1].text = "";
+        const pos = objectSetText
+          .map(item => item.date)
+          .indexOf(dateObjectArray[weekNumber * 7 + day - 1].dateString);
+        if (pos !== -1) {
+          dateObjectArray[weekNumber * 7 + day - 1].text =
+            objectSetText[pos].text;
+        } else {
+          dateObjectArray[weekNumber * 7 + day - 1].text = "";
+        }
       }
     }
     return (
@@ -87,7 +101,7 @@ class Date extends React.Component {
             !onlyThisMonth)
             ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
             : ""}
-          <div className={style.Date__text}>
+          <div className={style["Date--text"]}>
             {dateObjectArray.length > 0
               ? dateObjectArray[weekNumber * 7 + day - 1].text
               : ""}
@@ -114,7 +128,9 @@ Date.propTypes = {
       text: PropTypes.string,
       date: PropTypes.date
     })
-  )
+  ),
+  getTodayString: PropTypes.func,
+  indicateToday: PropTypes.bool
 };
 
 export default PropsConnector(({ state }) => ({
@@ -124,6 +140,8 @@ export default PropsConnector(({ state }) => ({
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
     dateClicked: actions.handleDateClicked,
-    isInPeriod: actions.isInPeriod
+    isInPeriod: actions.isInPeriod,
+    getTodayString: actions.getTodayString,
+    indicateToday: state.indicateToday
   }))(Date)
 );
