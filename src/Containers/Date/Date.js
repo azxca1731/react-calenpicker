@@ -64,7 +64,6 @@ class Date extends React.Component {
       weekNumber,
       dateObjectArray,
       day,
-      dateClicked,
       onlyThisMonth,
       objectSetText
     } = this.props;
@@ -76,8 +75,6 @@ class Date extends React.Component {
       if (pos !== -1) {
         dateObjectArray[weekNumber * 7 + day - 1].text =
           objectSetText[pos].text;
-
-        console.log(dateObjectArray[weekNumber * 7 + day - 1]);
       } else {
         dateObjectArray[weekNumber * 7 + day - 1].text = "";
       }
