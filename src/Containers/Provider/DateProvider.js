@@ -65,6 +65,18 @@ class DateProvider extends Component {
       } else {
         this.setState({ periodStart: insertDate });
       }
+    },
+    isInPeriod: dateString => {
+      const { periodStart, periodEnd } = this.state;
+      if (periodStart && periodEnd) {
+        if (
+          new Date(periodStart) <= new Date(dateString) &&
+          new Date(dateString) <= new Date(periodEnd)
+        ) {
+          return true;
+        }
+      }
+      return false;
     }
   };
 
