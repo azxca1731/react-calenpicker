@@ -2,10 +2,16 @@
   "name": "react-calenpicker",
   "version": "0.0.1",
   "description": "You can make Easily Picker for react-calenpicker!",
-  "author": {
-    "name": "Junghun lee",
-    "email": "azxca1731@gmail.com"
-  },
+  "contributors": [
+    {
+      "name": "Junghun lee",
+      "email": "azxca1731@gmail.com"
+    },
+    {
+      "name": "Junghun Kong",
+      "email": "rhdtl78@gmail.com"
+    }
+  ],
   "scripts": {
     "build": "webpack --config webpack.config.babel.js",
     "build-examples": "webpack --config examples/webpack.config.babel.js --progress",
@@ -54,5 +60,6 @@
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
-  }
+  },
+  "dependencies": {}
 }
