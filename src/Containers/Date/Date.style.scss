@@ -1,6 +1,6 @@
 .Date {
   display: inline-block;
-  padding: 0.5vh 0.3% 2vh;
+  // padding: 0.5vh 0.3% 2vh;
   width: 13.6%;
   text-align: center;
 
@@ -22,5 +22,11 @@
 
   &--periodSelect {
     background-color: beige;
+  }
+
+  &__text {
+    width: 0.6%;
+    height: 2vh;
+    padding-top: 0.5vh;
   }
 }

@@ -36,6 +36,7 @@ class Example extends React.Component {
           <Calendar
             callbackFunction={this.callbackFunction}
             // onlyThisMonth
+            objectSetText={[{ text: "hell", date: "2018-12-30" }]}
           />
         ) : null}
       </div>
