@@ -17,7 +17,8 @@ class PropsProvider extends Component {
     animation: this.props.animation,
     duplicate: this.props.duplicate,
     onlyThisMonth: this.props.onlyThisMonth,
-    couldSelectPrevDate: this.props.couldSelectPrevDate
+    couldSelectPrevDate: this.props.couldSelectPrevDate,
+    objectSetText: this.props.objectSetText
   };
 
   actions = {};
@@ -45,7 +46,13 @@ PropsProvider.propTypes = {
   animation: PropTypes.bool,
   duplicate: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
-  couldSelectPrevDate: PropTypes.bool
+  couldSelectPrevDate: PropTypes.bool,
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      date: PropTypes.date
+    })
+  )
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);

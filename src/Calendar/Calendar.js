@@ -4,12 +4,18 @@ import PropTypes from "prop-types";
 import Template from "../Components/Template";
 import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
-import { DateProvider } from "../Containers/Provider";
+import { DateProvider, PropsProvider } from "../Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
-  const { timezone, startDate, callbackFunction, ...otherProps } = otherOption;
-  const dateProps = { timezone, startDate, callbackFunction };
+  const {
+    timezone,
+    startDate,
+    callbackFunction,
+    indicateToday,
+    ...otherProps
+  } = otherOption;
+  const dateProps = { timezone, startDate, callbackFunction, indicateToday };
 
   return contexts.reduce(
     (prev, context) =>
@@ -30,7 +36,7 @@ class Calendar extends React.Component {
   render() {
     const { props } = this;
     return (
-      <AppProvider contexts={[DateProvider]} {...props}>
+      <AppProvider contexts={[DateProvider, PropsProvider]} {...props}>
         <Template head={<CalendarHead />}>
           <CalendarBody />
         </Template>
@@ -47,7 +53,8 @@ Calendar.defaultProps = {
 Calendar.propTypes = {
   timezone: PropTypes.string,
   startDate: PropTypes.string,
-  callbackFunction: PropTypes.func
+  callbackFunction: PropTypes.func,
+  indicateToday: PropTypes.bool
 };
 
 export default Calendar;

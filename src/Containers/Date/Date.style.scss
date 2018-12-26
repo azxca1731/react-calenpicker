@@ -1,18 +1,60 @@
 .Date {
   display: inline-block;
-  padding: 0.5vh 0.3% 2vh;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
   width: 13.6%;
   text-align: center;
+  position: relative;
 
-  &_day {
+  &--day {
     color: black;
   }
 
-  &__sun {
+  &--sun {
     color: red;
   }
 
-  &__sat {
+  &--sat {
     color: blue;
+  }
+
+  &--past {
+    opacity: 0.3;
+  }
+
+  &--periodSelect {
+    background-color: beige;
+  }
+
+  &--today {
+    color: green;
+  }
+
+  &--text {
+    width: inherit;
+    height: 2vh;
+    font-size: 1.3vh;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  &__periodStart {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: bisque;
+    color: white;
+  }
+
+  &__periodEnd {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: bisque;
+    color: white;
   }
 }

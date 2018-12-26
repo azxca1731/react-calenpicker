@@ -19,7 +19,8 @@ class DateProvider extends Component {
     month: this.props.startDate
       ? this.props.startDate.substr(5) - 1
       : new Date().getMonth(),
-    dateObjectArray: []
+    dateObjectArray: [],
+    indicateToday: this.props.indicateToday
   };
 
   actions = {
@@ -65,6 +66,25 @@ class DateProvider extends Component {
       } else {
         this.setState({ periodStart: insertDate });
       }
+    },
+    isInPeriod: dateString => {
+      const { periodStart, periodEnd } = this.state;
+      if (periodStart && periodEnd) {
+        if (
+          new Date(periodStart) <= new Date(dateString) &&
+          new Date(dateString) <= new Date(periodEnd)
+        ) {
+          return true;
+        }
+      }
+      return false;
+    },
+    getTodayString: () => {
+      const today = new Date();
+      const todayString = `${today.getFullYear()}-${today.getMonth() +
+        1}-${today.getDate()}`;
+
+      return todayString;
     }
   };
 
@@ -82,7 +102,8 @@ DateProvider.propTypes = {
   ]).isRequired,
   timezone: PropTypes.string,
   startDate: PropTypes.string,
-  callbackFunction: PropTypes.func
+  callbackFunction: PropTypes.func,
+  indicateToday: PropTypes.bool
 };
 
 const DayConnector = createUseConsumer(DateConsumer);

@@ -17,7 +17,7 @@ class Example extends React.Component {
   }
 
   callbackFunction(periodObject) {
-    this.setState({ show: false, ...periodObject });
+    this.setState({ show: true, ...periodObject });
   }
 
   render() {
@@ -32,7 +32,14 @@ class Example extends React.Component {
         ) : null}
         <br />
         <button onClick={this.handleCalendar}>캘린더 열기</button>
-        {show ? <Calendar callbackFunction={this.callbackFunction} /> : null}
+        {show ? (
+          <Calendar
+            callbackFunction={this.callbackFunction}
+            // onlyThisMonth
+            objectSetText={[{ text: "hell", date: "2018-12-31" }]}
+            indicateToday
+          />
+        ) : null}
       </div>
     );
   }
