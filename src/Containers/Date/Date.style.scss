@@ -1,6 +1,7 @@
 .Date {
   display: inline-block;
-  // padding: 0.5vh 0.3% 2vh;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
   width: 13.6%;
   text-align: center;
 
@@ -21,8 +22,10 @@
   }
 
   &__text {
-    width: 0.6%;
+    width: inherit;
     height: 2vh;
-    padding-top: 0.5vh;
+    font-size: 1.3vh;
+    justify-content: center;
+    overflow-x: hidden;
   }
 }

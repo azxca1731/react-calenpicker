@@ -38,7 +38,8 @@ class CalendarBody extends React.Component {
         dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() +
           1}-${previousMonthLastDay.getDate() -
           currentMonthFirstDay.getDay() +
-          i}`
+          i}`,
+        text: ""
       });
       count++;
     }
@@ -47,6 +48,7 @@ class CalendarBody extends React.Component {
       dateObjectArray.push({
         dayNumber: i,
         dateString: `${this.props.month}-${i}`,
+        text: "",
         isInThisMonth: true
       });
       count++;
@@ -56,7 +58,8 @@ class CalendarBody extends React.Component {
       dateObjectArray.push({
         dayNumber: i,
         dateString: `${nextMonth.getFullYear()}-${nextMonth.getMonth() +
-          1}-${i}`
+          1}-${i}`,
+        text: ""
       });
       count++;
     }

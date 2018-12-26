@@ -41,8 +41,23 @@ class Date extends React.Component {
       dateObjectArray,
       day,
       dateClicked,
-      onlyThisMonth
+      onlyThisMonth,
+      objectSetText
     } = this.props;
+
+    if (dateObjectArray.length > 0) {
+      const pos = objectSetText
+        .map(item => item.date)
+        .indexOf(dateObjectArray[weekNumber * 7 + day - 1].dateString);
+      if (pos !== -1) {
+        dateObjectArray[weekNumber * 7 + day - 1].text =
+          objectSetText[pos].text;
+
+        console.log(dateObjectArray[weekNumber * 7 + day - 1]);
+      } else {
+        dateObjectArray[weekNumber * 7 + day - 1].text = "";
+      }
+    }
     return (
       <td
         className={style.Date}
@@ -54,6 +69,11 @@ class Date extends React.Component {
             !onlyThisMonth)
             ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
             : ""}
+          <div className={style.Date__text}>
+            {dateObjectArray.length > 0
+              ? dateObjectArray[weekNumber * 7 + day - 1].text
+              : ""}
+          </div>
         </div>
       </td>
     );
