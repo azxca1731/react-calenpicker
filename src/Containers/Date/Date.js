@@ -18,7 +18,15 @@ class Date extends React.Component {
   }
 
   setClassName() {
-    const { weekNumber, dateObjectArray, day } = this.props;
+    const {
+      weekNumber,
+      dateObjectArray,
+      day,
+      periodEnd,
+      periodStart
+    } = this.props;
+    if (!dateObjectArray.length <= 0) return;
+    const DatePropsDay = dateObjectArray[weekNumber * 7 + day - 1];
     let className;
     if (day % 6 !== 1) {
       className = style.Date_day;
@@ -27,11 +35,11 @@ class Date extends React.Component {
     } else {
       className = style.Date__sat;
     }
-    if (
-      dateObjectArray.length > 0 &&
-      !dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth
-    ) {
+    if (!DatePropsDay.isInThisMonth) {
       className = className + " " + style.Date__past;
+    }
+    if (new Date(periodStart) < new Date(periodEnd)) {
+      className = className + " " + style["Date--periodSelect"];
     }
 
     return className;
@@ -79,6 +87,8 @@ export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth
 }))(
   DayConnector(({ state, actions }) => ({
+    periodStart: state.periodStart,
+    periodEnd: state.periodEnd,
     dateObjectArray: state.dateObjectArray,
     dateClicked: actions.handleDateClicked
   }))(Date)

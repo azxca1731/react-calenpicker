@@ -17,7 +17,7 @@ class Example extends React.Component {
   }
 
   callbackFunction(periodObject) {
-    this.setState({ show: false, ...periodObject });
+    this.setState({ show: true, ...periodObject });
   }
 
   render() {
