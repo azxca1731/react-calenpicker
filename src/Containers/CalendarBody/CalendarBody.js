@@ -40,7 +40,8 @@ class CalendarBody extends React.Component {
 
     for (let i = 1; i <= currentMonthLastDay.getDate(); i++) {
       dateObjectArray.push({
-        dayNumber: i
+        dayNumber: i,
+        isInThisMonth: true
       });
       count++;
     }
