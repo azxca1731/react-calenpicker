@@ -32,7 +32,12 @@ class Example extends React.Component {
         ) : null}
         <br />
         <button onClick={this.handleCalendar}>캘린더 열기</button>
-        {show ? <Calendar callbackFunction={this.callbackFunction} /> : null}
+        {show ? (
+          <Calendar
+            callbackFunction={this.callbackFunction}
+            // onlyThisMonth
+          />
+        ) : null}
       </div>
     );
   }
