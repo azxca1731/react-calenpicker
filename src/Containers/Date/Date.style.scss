@@ -6,19 +6,19 @@
   text-align: center;
   position: relative;
 
-  &_day {
+  &--day {
     color: black;
   }
 
-  &__sun {
+  &--sun {
     color: red;
   }
 
-  &__sat {
+  &--sat {
     color: blue;
   }
 
-  &__past {
+  &--past {
     opacity: 0.3;
   }
 
@@ -26,7 +26,11 @@
     background-color: beige;
   }
 
-  &__text {
+  &--today {
+    color: green;
+  }
+
+  &--text {
     width: inherit;
     height: 2vh;
     font-size: 1.3vh;
