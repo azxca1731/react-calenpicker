@@ -9,14 +9,11 @@ class Date extends React.Component {
     this.handleDateClick = this.handleDateClick.bind(this);
     this.setClassName = this.setClassName.bind(this);
     this.handleInPeriod = this.handleInPeriod.bind(this);
+    this.handleStart = this.handleStart.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
   }
 
   componentDidMount() {}
-
-  // shouldComponentUpdate(nextProps) {
-  //   if (nextProps.dateObjectArray === this.props.dateObjectArray) return false;
-  //   return true;
-  // }
 
   setClassName() {
     let className;
@@ -59,6 +56,36 @@ class Date extends React.Component {
     return className;
   }
 
+  handleStart() {
+    const { dateObjectArray, periodStart, weekNumber, day } = this.props;
+    if (
+      dateObjectArray.length > 0 &&
+      periodStart &&
+      dateObjectArray[weekNumber * 7 + day - 1].dateString === periodStart
+    ) {
+      return (
+        <div className={style.Date__periodStart}>
+          {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
+        </div>
+      );
+    }
+  }
+
+  handleEnd() {
+    const { dateObjectArray, periodEnd, weekNumber, day } = this.props;
+    if (
+      dateObjectArray.length > 0 &&
+      periodEnd &&
+      dateObjectArray[weekNumber * 7 + day - 1].dateString === periodEnd
+    ) {
+      return (
+        <div className={style.Date__periodEnd}>
+          {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
+        </div>
+      );
+    }
+  }
+
   render() {
     const {
       weekNumber,
@@ -92,6 +119,8 @@ class Date extends React.Component {
               ? dateObjectArray[weekNumber * 7 + day - 1].text
               : ""}
           </div>
+          {this.handleStart()}
+          {this.handleEnd()}
         </div>
       </td>
     );
@@ -114,7 +143,9 @@ Date.propTypes = {
       text: PropTypes.string,
       date: PropTypes.date
     })
-  )
+  ),
+  periodStart: PropTypes.string,
+  periodEnd: PropTypes.string
 };
 
 export default PropsConnector(({ state }) => ({
@@ -124,6 +155,8 @@ export default PropsConnector(({ state }) => ({
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
     dateClicked: actions.handleDateClicked,
-    isInPeriod: actions.isInPeriod
+    isInPeriod: actions.isInPeriod,
+    periodStart: state.periodStart,
+    periodEnd: state.periodEnd
   }))(Date)
 );

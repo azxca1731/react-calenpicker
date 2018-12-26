@@ -4,6 +4,7 @@
   padding-right: 0.3%;
   width: 13.6%;
   text-align: center;
+  position: relative;
 
   &_day {
     color: black;
@@ -31,5 +32,25 @@
     font-size: 1.3vh;
     justify-content: center;
     overflow-x: hidden;
+  }
+
+  &__periodStart {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: bisque;
+    color: white;
+  }
+
+  &__periodEnd {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: bisque;
+    color: white;
   }
 }
