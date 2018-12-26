@@ -8,8 +8,14 @@ import { DateProvider, PropsProvider } from "../Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
-  const { timezone, startDate, callbackFunction, ...otherProps } = otherOption;
-  const dateProps = { timezone, startDate, callbackFunction };
+  const {
+    timezone,
+    startDate,
+    callbackFunction,
+    indicateToday,
+    ...otherProps
+  } = otherOption;
+  const dateProps = { timezone, startDate, callbackFunction, indicateToday };
 
   return contexts.reduce(
     (prev, context) =>
@@ -47,7 +53,8 @@ Calendar.defaultProps = {
 Calendar.propTypes = {
   timezone: PropTypes.string,
   startDate: PropTypes.string,
-  callbackFunction: PropTypes.func
+  callbackFunction: PropTypes.func,
+  indicateToday: PropTypes.bool
 };
 
 export default Calendar;
