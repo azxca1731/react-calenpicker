@@ -6,7 +6,8 @@ class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      show: false,
+      periods: []
     };
     this.handleCalendar = this.handleCalendar.bind(this);
     this.callbackFunction = this.callbackFunction.bind(this);
@@ -16,21 +17,19 @@ class Example extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  callbackFunction(periodObject) {
-    this.setState({ show: true, ...periodObject });
+  callbackFunction(periods) {
+    this.setState({ show: true, periods });
   }
 
   render() {
-    const { show, periodStart, periodEnd } = this.state;
+    const { show, periods } = this.state;
     return (
       <div>
-        {periodStart && periodEnd ? (
-          <span>
-            시작날짜:{periodStart} 종료날짜
-            {periodEnd}
+        {periods.map(({ periodStart, periodEnd }) => (
+          <span key={`${periodStart}-${periodEnd}`}>
+            시작: {periodStart} 끝: {periodEnd}
           </span>
-        ) : null}
-        <br />
+        ))}
         <button onClick={this.handleCalendar}>캘린더 열기</button>
         {show ? (
           <Calendar
@@ -38,6 +37,7 @@ class Example extends React.Component {
             // onlyThisMonth
             objectSetText={[{ text: "hell", date: "2018-12-31" }]}
             indicateToday
+            multiSelect
           />
         ) : null}
       </div>

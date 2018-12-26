@@ -13,9 +13,16 @@ const AppProvider = props => {
     startDate,
     callbackFunction,
     indicateToday,
+    multiSelect,
     ...otherProps
   } = otherOption;
-  const dateProps = { timezone, startDate, callbackFunction, indicateToday };
+  const dateProps = {
+    timezone,
+    startDate,
+    callbackFunction,
+    indicateToday,
+    multiSelect
+  };
 
   return contexts.reduce(
     (prev, context) =>
@@ -54,7 +61,8 @@ Calendar.propTypes = {
   timezone: PropTypes.string,
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
-  indicateToday: PropTypes.bool
+  indicateToday: PropTypes.bool,
+  multiSelect: PropTypes.bool
 };
 
 export default Calendar;

@@ -20,7 +20,9 @@ class DateProvider extends Component {
       ? this.props.startDate.substr(5) - 1
       : new Date().getMonth(),
     dateObjectArray: [],
-    indicateToday: this.props.indicateToday
+    indicateToday: this.props.indicateToday,
+    multiSelect: this.props.multiSelect,
+    periods: []
   };
 
   actions = {
@@ -48,36 +50,64 @@ class DateProvider extends Component {
       }
     },
     handleDateClicked: dateObjectKey => {
-      const { year, month, periodStart, dateObjectArray } = this.state;
+      const {
+        year,
+        month,
+        periodStart,
+        dateObjectArray,
+        periodEnd,
+        multiSelect
+      } = this.state;
       const { callbackFunction } = this.props;
       const insertDate = `${year}-${month + 1}-${
         dateObjectArray[dateObjectKey].dayNumber
       }`;
       if (!periodStart) {
         this.setState({ periodStart: insertDate });
+      } else if (periodStart && periodEnd) {
+        this.setState({ periodStart: insertDate, periodEnd: null });
       } else if (new Date(periodStart) <= new Date(insertDate)) {
         const periodEnd = `${year}-${month + 1}-${
           dateObjectArray[dateObjectKey].dayNumber
         }`;
+        let periods;
+        if (multiSelect) {
+          periods = [
+            ...this.state.periods.filter(
+              period =>
+                period.periodStart !== periodStart ||
+                period.periodEnd !== periodEnd
+            ),
+            { periodStart, periodEnd }
+          ];
+        } else {
+          periods = [{ periodStart, periodEnd }];
+        }
+
         this.setState({
-          periodEnd
+          periodEnd,
+          periods
         });
-        callbackFunction({ periodStart, periodEnd });
+        callbackFunction(periods);
       } else {
-        this.setState({ periodStart: insertDate });
+        this.setState({ periodStart: insertDate, periodEnd: null });
       }
     },
     isInPeriod: dateString => {
-      const { periodStart, periodEnd } = this.state;
-      if (periodStart && periodEnd) {
-        if (
-          new Date(periodStart) <= new Date(dateString) &&
-          new Date(dateString) <= new Date(periodEnd)
-        ) {
-          return true;
-        }
-      }
-      return false;
+      const { periods } = this.state;
+      return periods
+        .map(({ periodStart, periodEnd }) => {
+          if (periodStart && periodEnd) {
+            if (
+              new Date(periodStart) <= new Date(dateString) &&
+              new Date(dateString) <= new Date(periodEnd)
+            ) {
+              return true;
+            }
+          }
+          return false;
+        })
+        .filter(item => item).length;
     },
     getTodayString: () => {
       const today = new Date();
@@ -103,7 +133,16 @@ DateProvider.propTypes = {
   timezone: PropTypes.string,
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
-  indicateToday: PropTypes.bool
+  indicateToday: PropTypes.bool,
+  multiSelect: PropTypes.bool,
+  periodStart: PropTypes.string,
+  periodEnd: PropTypes.string,
+  periods: PropTypes.arrayOf(
+    PropTypes.shape({
+      periodStart: PropTypes.string,
+      periodEnd: PropTypes.string
+    })
+  )
 };
 
 const DayConnector = createUseConsumer(DateConsumer);

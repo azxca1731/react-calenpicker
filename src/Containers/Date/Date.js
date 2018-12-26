@@ -65,32 +65,54 @@ class Date extends React.Component {
   }
 
   handleStart() {
-    const { dateObjectArray, periodStart, weekNumber, day } = this.props;
-    if (
-      dateObjectArray.length > 0 &&
-      periodStart &&
-      dateObjectArray[weekNumber * 7 + day - 1].dateString === periodStart
-    ) {
-      return (
-        <div className={style.Date__periodStart}>
-          {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
-        </div>
-      );
+    const {
+      dateObjectArray,
+      periodStart,
+      weekNumber,
+      day,
+      periods
+    } = this.props;
+
+    if (dateObjectArray.length > 0) {
+      if (
+        (periodStart &&
+          dateObjectArray[weekNumber * 7 + day - 1].dateString ===
+            periodStart) ||
+        (periods.length > 0 &&
+          periods.filter(
+            ({ periodStart }) =>
+              periodStart ===
+              dateObjectArray[weekNumber * 7 + day - 1].dateString
+          ).length > 0)
+      ) {
+        return (
+          <div className={style.Date__periodStart}>
+            {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
+          </div>
+        );
+      }
     }
   }
 
   handleEnd() {
-    const { dateObjectArray, periodEnd, weekNumber, day } = this.props;
-    if (
-      dateObjectArray.length > 0 &&
-      periodEnd &&
-      dateObjectArray[weekNumber * 7 + day - 1].dateString === periodEnd
-    ) {
-      return (
-        <div className={style.Date__periodEnd}>
-          {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
-        </div>
-      );
+    const { dateObjectArray, periodEnd, weekNumber, day, periods } = this.props;
+
+    if (dateObjectArray.length > 0) {
+      if (
+        (periodEnd &&
+          dateObjectArray[weekNumber * 7 + day - 1].dateString === periodEnd) ||
+        (periods.length > 0 &&
+          periods.filter(
+            ({ periodEnd }) =>
+              periodEnd === dateObjectArray[weekNumber * 7 + day - 1].dateString
+          ).length > 0)
+      ) {
+        return (
+          <div className={style.Date__periodEnd}>
+            {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
+          </div>
+        );
+      }
     }
   }
 
@@ -161,7 +183,14 @@ Date.propTypes = {
   periodStart: PropTypes.string,
   periodEnd: PropTypes.string,
   getTodayString: PropTypes.func,
-  indicateToday: PropTypes.bool
+  indicateToday: PropTypes.bool,
+  multiSelect: PropTypes.bool,
+  periods: PropTypes.arrayOf(
+    PropTypes.shape({
+      periodStart: PropTypes.string,
+      periodEnd: PropTypes.string
+    })
+  )
 };
 
 export default PropsConnector(({ state }) => ({
@@ -175,6 +204,8 @@ export default PropsConnector(({ state }) => ({
     periodStart: state.periodStart,
     periodEnd: state.periodEnd,
     getTodayString: actions.getTodayString,
-    indicateToday: state.indicateToday
+    indicateToday: state.indicateToday,
+    multiSelect: state.multiSelect,
+    periods: state.periods
   }))(Date)
 );
