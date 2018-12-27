@@ -26,7 +26,8 @@ class Date extends React.Component {
       day,
       objectSetText,
       duplicated,
-      duplicatedDateObjectArray
+      duplicatedDateObjectArray,
+      indicateToday
     } = props;
     const dateObjectArray = duplicated
       ? duplicatedDateObjectArray
@@ -36,7 +37,7 @@ class Date extends React.Component {
       const dateString = target.dateString;
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday;
-      if (state.today === dateString) {
+      if (state.today === dateString && indicateToday) {
         text = "오늘";
       } else {
         const filtered = objectSetText.filter(item => {
