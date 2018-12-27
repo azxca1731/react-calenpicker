@@ -15,6 +15,7 @@ class CalendarHead extends React.Component {
     const {
       month: propsMonth,
       duplicated,
+      duplicate,
       showNextMonth,
       showPreviousMonth
     } = this.props;
@@ -23,15 +24,23 @@ class CalendarHead extends React.Component {
     if (duplicated) {
       month = new Date(propsMonth);
       month = new Date(month.getFullYear(), month.getMonth() + 1, 1);
-      month = `${month.getFullYear()}-${month.getMonth() + 1}`;
+      month = `${month.getFullYear()}.${month.getMonth() + 1}`;
     } else {
       month = propsMonth;
     }
     return (
       <div className={style.CalendarHead}>
-        <MonthArrow type="left" onClick={showPreviousMonth} />
+        {duplicate && !duplicated ? (
+          <MonthArrow type="left" onClick={showPreviousMonth} />
+        ) : (
+          <div />
+        )}
         <Month month={month} />
-        <MonthArrow type="right" onClick={showNextMonth} />
+        {duplicate && duplicated ? (
+          <MonthArrow type="right" onClick={showNextMonth} />
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
@@ -41,11 +50,13 @@ CalendarHead.propTypes = {
   month: PropTypes.string.isRequired,
   showNextMonth: PropTypes.func.isRequired,
   showPreviousMonth: PropTypes.func.isRequired,
-  duplicated: PropTypes.bool
+  duplicated: PropTypes.bool,
+  duplicate: PropTypes.bool
 };
 
 export default PropsConnector(({ state }) => ({
-  duplicated: state.duplicated
+  duplicated: state.duplicated,
+  duplicate: state.duplicate
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
