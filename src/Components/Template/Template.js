@@ -25,12 +25,9 @@ Template.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  cssObject: PropTypes.shape({
-    width: PropTypes.string,
-    height: PropTypes.string
-  })
+  cssObject: PropTypes.object
 };
 
 export default CssConnector(({ state }) => ({
-  cssObject: state.templateCssObject
+  cssObject: state.TemplateCssObject
 }))(Template);

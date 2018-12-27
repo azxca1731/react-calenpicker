@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import WeekDay from "../../Components/WeekDay";
+import Week from "../../Components/Week";
+import { DayConnector, PropsConnector, CssConnector } from "../Provider";
 import style from "./CalendarBody.style";
-
-import WeekDay from "../../Components/WeekDay/WeekDay";
-import Week from "../../Components/Week/Week";
-import { DayConnector, PropsConnector } from "../Provider";
 
 class CalendarBody extends React.Component {
   constructor(props) {
@@ -78,11 +77,11 @@ class CalendarBody extends React.Component {
   }
 
   render() {
-    const { setDateObjectArray, duplicated } = this.props;
+    const { setDateObjectArray, duplicated, cssObject } = this.props;
 
     setDateObjectArray(this.calculateMonth(), duplicated);
     return (
-      <div className={style.CalendarBody}>
+      <div className={style.CalendarBody} style={cssObject}>
         <table className={style.CalendarBody__table}>
           <WeekDay />
           <tbody className={style.CalendarBody__tbody}>
@@ -102,7 +101,8 @@ class CalendarBody extends React.Component {
 CalendarBody.propTypes = {
   month: PropTypes.string.isRequired,
   setDateObjectArray: PropTypes.func.isRequired,
-  duplicated: PropTypes.bool
+  duplicated: PropTypes.bool,
+  cssObject: PropTypes.object
 };
 
 export default PropsConnector(({ state }) => ({
@@ -111,5 +111,9 @@ export default PropsConnector(({ state }) => ({
   DayConnector(({ state, actions }) => ({
     month: `${state.year}-${state.month + 1}`,
     setDateObjectArray: actions.setDateObjectArray
-  }))(CalendarBody)
+  }))(
+    CssConnector(({ state }) => ({
+      cssObject: state.CalendarBodyCssObject
+    }))(CalendarBody)
+  )
 );

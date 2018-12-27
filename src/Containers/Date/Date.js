@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import style from "./Date.style";
-import { DayConnector, PropsConnector } from "../Provider";
+import { DayConnector, PropsConnector, CssConnector } from "../Provider";
 
 class Date extends React.Component {
   constructor(props) {
@@ -118,9 +118,14 @@ class Date extends React.Component {
   }
 
   render() {
+    const { cssObject } = this.props;
     const { text, dayNumber } = this.state;
     return (
-      <td className={this.handleInPeriod()} onClick={this.handleDateClick}>
+      <td
+        className={this.handleInPeriod()}
+        onClick={this.handleDateClick}
+        style={cssObject}
+      >
         <div className={this.setClassName()}>
           {dayNumber}
           <div className={style["Date--text"]}>{text}</div>
@@ -161,7 +166,8 @@ Date.propTypes = {
     })
   ),
   duplicated: PropTypes.bool,
-  duplicatedDateObjectArray: PropTypes.array
+  duplicatedDateObjectArray: PropTypes.array,
+  cssObject: PropTypes.object
 };
 
 export default PropsConnector(({ state }) => ({
@@ -180,5 +186,9 @@ export default PropsConnector(({ state }) => ({
     indicateToday: state.indicateToday,
     multiSelect: state.multiSelect,
     periods: state.periods
-  }))(Date)
+  }))(
+    CssConnector(({ state }) => ({
+      cssObject: state.DateCssObject
+    }))(Date)
+  )
 );

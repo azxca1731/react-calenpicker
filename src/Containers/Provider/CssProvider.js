@@ -11,32 +11,51 @@ class CssProvider extends Component {
     super(props);
   }
 
-  state = {};
+  state = {
+    DateCssObject: this.props.DateCssObject,
+    WeekCssObject: this.props.WeekCssObject,
+    TemplateCssObject: this.props.TemplateCssObject,
+    MonthCssObject: this.props.MonthCssObject,
+    MonthArrowCssObject: this.props.MonthArrowCssObject,
+    WeekDayCssObject: this.props.WeekDayCssObject,
+    CalendarBodyCssObject: this.props.CalendarBodyCssObject,
+    CalendarHeadCssObject: this.props.CalendarHeadCssObject
+  };
 
   actions = {};
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
     if (typeof props.sizeOption === "string") {
-      const templateCssObject = {};
+      const sizeCssObject = {};
       switch (props.sizeOption) {
         case "sm":
-          templateCssObject.width = "200px";
-          templateCssObject.height = "35vh";
-          templateCssObject.fontSize = "10px";
+          sizeCssObject.width = "200px";
+          sizeCssObject.height = "35vh";
+          sizeCssObject.fontSize = "10px";
           break;
         case "md":
-          templateCssObject.width = "300px";
-          templateCssObject.height = "50vh";
-          templateCssObject.fontSize = "16px";
+          sizeCssObject.width = "300px";
+          sizeCssObject.height = "50vh";
+          sizeCssObject.fontSize = "16px";
           break;
         case "lg":
-          templateCssObject.width = "400px";
-          templateCssObject.height = "65vh";
+          sizeCssObject.width = "400px";
+          sizeCssObject.height = "65vh";
           break;
       }
-      return { templateCssObject };
+      return {
+        TemplateCssObject: {
+          ...sizeCssObject,
+          ...state.TemplateCssObject
+        }
+      };
     } else if (typeof props.sizeOption === "object") {
-      return { templateCssObject: props.sizeOption };
+      return {
+        TemplateCssObject: {
+          ...props.sizeOption,
+          ...state.TemplateCssObject
+        }
+      };
     }
   }
 
@@ -58,7 +77,15 @@ CssProvider.propTypes = {
       width: PropTypes.string,
       height: PropTypes.string
     })
-  ])
+  ]),
+  DateCssObject: PropTypes.object,
+  WeekCssObject: PropTypes.object,
+  TemplateCssObject: PropTypes.object,
+  MonthCssObject: PropTypes.object,
+  MonthArrowCssObject: PropTypes.object,
+  WeekDayCssObject: PropTypes.object,
+  CalendarBodyCssObject: PropTypes.object,
+  CalendarHeadCssObject: PropTypes.object
 };
 
 const CssConnector = createUseConsumer(CssConsumer);

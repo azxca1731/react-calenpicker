@@ -4,7 +4,7 @@ import style from "./CalendarHead.style";
 
 import Month from "../../Components/Month/Month";
 import MonthArrow from "../../Components/MonthArrow";
-import { DayConnector, PropsConnector } from "../Provider";
+import { DayConnector, PropsConnector, CssConnector } from "../Provider";
 
 class CalendarHead extends React.Component {
   constructor(props) {
@@ -51,7 +51,8 @@ CalendarHead.propTypes = {
   showNextMonth: PropTypes.func.isRequired,
   showPreviousMonth: PropTypes.func.isRequired,
   duplicated: PropTypes.bool,
-  duplicate: PropTypes.bool
+  duplicate: PropTypes.bool,
+  cssObject: PropTypes.object
 };
 
 export default PropsConnector(({ state }) => ({
@@ -62,5 +63,9 @@ export default PropsConnector(({ state }) => ({
     month: `${state.year}.${state.month + 1}`,
     showPreviousMonth: actions.decreaseMonth,
     showNextMonth: actions.increaseMonth
-  }))(CalendarHead)
+  }))(
+    CssConnector(({ state }) => ({
+      cssObject: state.CalendarHeadCssObject
+    }))(CalendarHead)
+  )
 );

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./Week.style";
-
+import { CssConnector } from "../../Containers/Provider";
 import Date from "../../Containers/Date";
+import style from "./Week.style";
 
 class Week extends React.Component {
   constructor(props) {
@@ -10,8 +10,9 @@ class Week extends React.Component {
   }
 
   render() {
+    const { cssObject } = this.props;
     return (
-      <tr className={style.Week}>
+      <tr className={style.Week} style={cssObject}>
         <Date weekNumber={this.props.weekNumber} day={1} />
         <Date weekNumber={this.props.weekNumber} day={2} />
         <Date weekNumber={this.props.weekNumber} day={3} />
@@ -25,7 +26,10 @@ class Week extends React.Component {
 }
 
 Week.propTypes = {
-  weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired
+  weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
+  cssObject: PropTypes.object
 };
 
-export default Week;
+export default CssConnector(({ state }) => ({
+  cssObject: state.WeekCssObject
+}))(Week);
