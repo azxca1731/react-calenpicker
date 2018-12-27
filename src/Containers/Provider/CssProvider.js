@@ -11,7 +11,16 @@ class CssProvider extends Component {
     super(props);
   }
 
-  state = {};
+  state = {
+    DateCssObject: this.props.DateCssObject,
+    WeekCssObject: this.props.WeekCssObject,
+    TemplateCssObject: this.props.TemplateCssObject,
+    MonthCssObject: this.props.MonthCssObject,
+    MonthArrowCssObject: this.props.MonthArrowCssObject,
+    WeekDayCssObject: this.props.WeekDayCssObject,
+    CalendarBodyCssObject: this.props.CalendarBodyCssObject,
+    CalendarHeadCssObject: this.props.CalendarHeadCssObject
+  };
 
   actions = {};
 
@@ -58,7 +67,15 @@ CssProvider.propTypes = {
       width: PropTypes.string,
       height: PropTypes.string
     })
-  ])
+  ]),
+  DateCssObject: PropTypes.object,
+  WeekCssObject: PropTypes.object,
+  TemplateCssObject: PropTypes.object,
+  MonthCssObject: PropTypes.object,
+  MonthArrowCssObject: PropTypes.object,
+  WeekDayCssObject: PropTypes.object,
+  CalendarBodyCssObject: PropTypes.object,
+  CalendarHeadCssObject: PropTypes.object
 };
 
 const CssConnector = createUseConsumer(CssConsumer);
