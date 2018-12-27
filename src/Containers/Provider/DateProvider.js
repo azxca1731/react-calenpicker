@@ -15,19 +15,22 @@ class DateProvider extends Component {
     startDate: this.props.startDate,
     year: this.props.startDate
       ? this.props.startDate.substr(0, 4)
-      : new Date().getUTCFullYear(),
+      : new Date().getFullYear(),
     month: this.props.startDate
       ? this.props.startDate.substr(5) - 1
       : new Date().getMonth(),
     dateObjectArray: [],
+    duplicatedDateObjectArray: [],
     indicateToday: this.props.indicateToday,
     multiSelect: this.props.multiSelect,
     periods: []
   };
 
   actions = {
-    setDateObjectArray: dateObjectArray => {
-      this.setState({ dateObjectArray });
+    setDateObjectArray: (dateObjectArray, duplicated) => {
+      !duplicated
+        ? this.setState({ dateObjectArray })
+        : this.setState({ duplicatedDateObjectArray: dateObjectArray });
     },
     increaseMonth: () => {
       if (this.state.month === 11) {
@@ -49,27 +52,17 @@ class DateProvider extends Component {
         this.setState({ month: this.state.month - 1 });
       }
     },
-    handleDateClicked: dateObjectKey => {
-      const {
-        year,
-        month,
-        periodStart,
-        dateObjectArray,
-        periodEnd,
-        multiSelect
-      } = this.state;
+    handleDateClicked: dateState => {
+      const { periodStart, periodEnd, multiSelect } = this.state;
       const { callbackFunction } = this.props;
-      const insertDate = `${year}-${month + 1}-${
-        dateObjectArray[dateObjectKey].dayNumber
-      }`;
+      const insertDate = `${dateState.dateString}`;
+
       if (!periodStart) {
         this.setState({ periodStart: insertDate });
       } else if (periodStart && periodEnd) {
         this.setState({ periodStart: insertDate, periodEnd: null });
       } else if (new Date(periodStart) <= new Date(insertDate)) {
-        const periodEnd = `${year}-${month + 1}-${
-          dateObjectArray[dateObjectKey].dayNumber
-        }`;
+        const periodEnd = insertDate;
         let periods;
         if (multiSelect) {
           periods = [

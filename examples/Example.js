@@ -38,6 +38,7 @@ class Example extends React.Component {
             objectSetText={[{ text: "hell", date: "2018-12-31" }]}
             indicateToday
             multiSelect
+            duplicate
           />
         ) : null}
       </div>

@@ -4,7 +4,7 @@ import style from "./CalendarBody.style";
 
 import WeekDay from "../../Components/WeekDay/WeekDay";
 import Week from "../../Components/Week/Week";
-import { DayConnector } from "../Provider";
+import { DayConnector, PropsConnector } from "../Provider";
 
 class CalendarBody extends React.Component {
   constructor(props) {
@@ -12,7 +12,12 @@ class CalendarBody extends React.Component {
   }
 
   calculateMonth = () => {
-    const today = new Date(this.props.month);
+    const { duplicated } = this.props;
+    const propMonth = new Date(this.props.month);
+    const month = duplicated
+      ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1)
+      : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
+    const today = month;
     const currentMonthFirstDay = new Date(
       today.getFullYear(),
       today.getMonth()
@@ -47,7 +52,7 @@ class CalendarBody extends React.Component {
     for (let i = 1; i <= currentMonthLastDay.getDate(); i++) {
       dateObjectArray.push({
         dayNumber: i,
-        dateString: `${this.props.month}-${i}`,
+        dateString: `${month.getFullYear()}-${month.getMonth() + 1}-${i}`,
         text: "",
         isInThisMonth: true
       });
@@ -73,7 +78,9 @@ class CalendarBody extends React.Component {
   }
 
   render() {
-    this.props.setDateObjectArray(this.calculateMonth());
+    const { setDateObjectArray, duplicated } = this.props;
+
+    setDateObjectArray(this.calculateMonth(), duplicated);
     return (
       <div className={style.CalendarBody}>
         <table className={style.CalendarBody__table}>
@@ -94,10 +101,15 @@ class CalendarBody extends React.Component {
 
 CalendarBody.propTypes = {
   month: PropTypes.string.isRequired,
-  setDateObjectArray: PropTypes.func.isRequired
+  setDateObjectArray: PropTypes.func.isRequired,
+  duplicated: PropTypes.bool
 };
 
-export default DayConnector(({ state, actions }) => ({
-  month: `${state.year}-${state.month + 1}`,
-  setDateObjectArray: actions.setDateObjectArray
-}))(CalendarBody);
+export default PropsConnector(({ state }) => ({
+  duplicated: state.duplicated
+}))(
+  DayConnector(({ state, actions }) => ({
+    month: `${state.year}-${state.month + 1}`,
+    setDateObjectArray: actions.setDateObjectArray
+  }))(CalendarBody)
+);

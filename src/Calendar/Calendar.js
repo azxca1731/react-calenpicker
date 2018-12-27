@@ -43,10 +43,19 @@ class Calendar extends React.Component {
   render() {
     const { props } = this;
     return (
-      <AppProvider contexts={[DateProvider, PropsProvider]} {...props}>
-        <Template head={<CalendarHead />}>
-          <CalendarBody />
-        </Template>
+      <AppProvider contexts={[DateProvider]} {...props}>
+        <AppProvider contexts={[PropsProvider]} {...props}>
+          <Template head={<CalendarHead />}>
+            <CalendarBody />
+          </Template>
+        </AppProvider>
+        {props.duplicate ? (
+          <AppProvider contexts={[PropsProvider]} {...props} duplicated>
+            <Template head={<CalendarHead />}>
+              <CalendarBody />
+            </Template>
+          </AppProvider>
+        ) : null}
       </AppProvider>
     );
   }
