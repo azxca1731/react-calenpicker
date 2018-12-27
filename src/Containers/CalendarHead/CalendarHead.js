@@ -29,17 +29,25 @@ class CalendarHead extends React.Component {
       month = propsMonth;
     }
     return (
-      <div className={style.CalendarHead}>
-        {duplicate && !duplicated ? (
-          <MonthArrow type="left" onClick={showPreviousMonth} />
+      <div>
+        {!duplicate ? (
+          <div className={style.CalendarHead}>
+            <MonthArrow type="left" onClick={showPreviousMonth} />
+            <Month month={month} />
+            <MonthArrow type="right" onClick={showNextMonth} />
+          </div>
+        ) : !duplicated ? (
+          <div className={style.CalendarHead}>
+            <MonthArrow type="left" onClick={showPreviousMonth} />
+            <Month month={month} />
+            <div />
+          </div>
         ) : (
-          <div />
-        )}
-        <Month month={month} />
-        {duplicate && duplicated ? (
-          <MonthArrow type="right" onClick={showNextMonth} />
-        ) : (
-          <div />
+          <div className={style.CalendarHead}>
+            <div />
+            <Month month={month} />
+            <MonthArrow type="right" onClick={showNextMonth} />
+          </div>
         )}
       </div>
     );

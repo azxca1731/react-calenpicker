@@ -35,9 +35,12 @@ class Example extends React.Component {
           <Calendar
             callbackFunction={this.callbackFunction}
             // onlyThisMonth
-            objectSetText={[{ text: "hell", date: "2018-12-31" }]}
-            // sizeOption="lg"
-            // MonthCssObject={{ color: "white" }}
+            objectSetText={[
+              { text: "hell", date: "2018-12-31" },
+              { text: "휴가", date: "2018-12-26", isHoliday: true }
+            ]}
+            sizeOption="lg"
+            MonthCssObject={{ color: "white" }}
             indicateToday
             multiSelect
             // duplicate

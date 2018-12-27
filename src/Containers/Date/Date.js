@@ -26,7 +26,8 @@ class Date extends React.Component {
       day,
       objectSetText,
       duplicated,
-      duplicatedDateObjectArray
+      duplicatedDateObjectArray,
+      indicateToday
     } = props;
     const dateObjectArray = duplicated
       ? duplicatedDateObjectArray
@@ -35,17 +36,18 @@ class Date extends React.Component {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
       const dateString = target.dateString;
       const isInThisMonth = target.isInThisMonth;
-      let text;
-      if (state.today === dateString) {
+      let text, isHoliday;
+      if (state.today === dateString && indicateToday) {
         text = "오늘";
       } else {
         const filtered = objectSetText.filter(item => {
           return item.date === dateString;
         });
         text = filtered.length > 0 ? filtered[0].text : "";
+        isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
       }
       const dayNumber = target.dayNumber;
-      return { dateString, text, dayNumber, isInThisMonth };
+      return { dateString, text, dayNumber, isInThisMonth, isHoliday };
     }
     return null;
   }
@@ -55,9 +57,9 @@ class Date extends React.Component {
   setClassName() {
     let className;
     const { day, indicateToday } = this.props;
-    const { today, dateString, isInThisMonth } = this.state;
+    const { today, dateString, isInThisMonth, isHoliday } = this.state;
     if (day % 6 !== 1) {
-      className = style["Date--day"];
+      className = isHoliday ? style["Date--sun"] : style["Date--day"];
     } else if (day == 1) {
       className = style["Date--sun"];
     } else {
