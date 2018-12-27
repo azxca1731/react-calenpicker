@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { CssConnector } from "../../Containers/Provider";
 import style from "./MonthArrow.style";
 
 class MonthArrow extends React.Component {
@@ -8,9 +9,9 @@ class MonthArrow extends React.Component {
   }
 
   render() {
-    const { type, onClick } = this.props;
+    const { type, onClick, cssObject } = this.props;
     return (
-      <div className={style.MonthArrow} onClick={onClick}>
+      <div className={style.MonthArrow} onClick={onClick} style={cssObject}>
         {type === "left" ? "❮" : "❯"}
       </div>
     );
@@ -19,7 +20,10 @@ class MonthArrow extends React.Component {
 
 MonthArrow.propTypes = {
   type: PropTypes.oneOf(["left", "right"]).isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  cssObject: PropTypes.object
 };
 
-export default MonthArrow;
+export default CssConnector(({ state }) => ({
+  cssObject: state.MonthArrowCssObject
+}))(MonthArrow);

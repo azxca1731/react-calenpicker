@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { CssConnector } from "../../Containers/Provider";
 import style from "./WeekDay.style";
 
 class WeekDay extends React.Component {
@@ -7,8 +9,9 @@ class WeekDay extends React.Component {
   }
 
   render() {
+    const { cssObject } = this.props;
     return (
-      <thead className={style.WeekDay}>
+      <thead className={style.WeekDay} style={cssObject}>
         <tr className={style.WeekDay__tr}>
           <td className={style.WeekDay__day}>Sun</td>
           <td className={style.WeekDay__day}>Mon</td>
@@ -23,4 +26,10 @@ class WeekDay extends React.Component {
   }
 }
 
-export default WeekDay;
+WeekDay.propTypes = {
+  cssObject: PropTypes.object
+};
+
+export default CssConnector(({ state }) => ({
+  cssObject: state.WeekDayCssObject
+}))(WeekDay);

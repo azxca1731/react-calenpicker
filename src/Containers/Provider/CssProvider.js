@@ -24,28 +24,38 @@ class CssProvider extends Component {
 
   actions = {};
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
     if (typeof props.sizeOption === "string") {
-      const templateCssObject = {};
+      const sizeCssObject = {};
       switch (props.sizeOption) {
         case "sm":
-          templateCssObject.width = "200px";
-          templateCssObject.height = "35vh";
-          templateCssObject.fontSize = "10px";
+          sizeCssObject.width = "200px";
+          sizeCssObject.height = "35vh";
+          sizeCssObject.fontSize = "10px";
           break;
         case "md":
-          templateCssObject.width = "300px";
-          templateCssObject.height = "50vh";
-          templateCssObject.fontSize = "16px";
+          sizeCssObject.width = "300px";
+          sizeCssObject.height = "50vh";
+          sizeCssObject.fontSize = "16px";
           break;
         case "lg":
-          templateCssObject.width = "400px";
-          templateCssObject.height = "65vh";
+          sizeCssObject.width = "400px";
+          sizeCssObject.height = "65vh";
           break;
       }
-      return { templateCssObject };
+      return {
+        TemplateCssObject: {
+          ...sizeCssObject,
+          ...state.TemplateCssObject
+        }
+      };
     } else if (typeof props.sizeOption === "object") {
-      return { templateCssObject: props.sizeOption };
+      return {
+        TemplateCssObject: {
+          ...props.sizeOption,
+          ...state.TemplateCssObject
+        }
+      };
     }
   }
 
