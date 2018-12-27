@@ -19,6 +19,14 @@ const AppProvider = props => {
     indicateToday,
     multiSelect,
     sizeOption,
+    DateCssObject,
+    WeekCssObject,
+    TemplateCssObject,
+    MonthCssObject,
+    MonthArrowCssObject,
+    WeekDayCssObject,
+    CalendarBodyCssObject,
+    CalendarHeadCssObject,
     ...otherProps
   } = otherOption;
   const dateProps = {
@@ -28,7 +36,17 @@ const AppProvider = props => {
     indicateToday,
     multiSelect
   };
-  const cssProps = { sizeOption };
+  const cssProps = {
+    sizeOption,
+    DateCssObject,
+    WeekCssObject,
+    TemplateCssObject,
+    MonthCssObject,
+    MonthArrowCssObject,
+    WeekDayCssObject,
+    CalendarBodyCssObject,
+    CalendarHeadCssObject
+  };
 
   return contexts.reduce((prev, context) => {
     let props;
@@ -97,7 +115,15 @@ Calendar.propTypes = {
       width: PropTypes.string,
       height: PropTypes.string
     })
-  ])
+  ]),
+  DateCssObject: PropTypes.object,
+  WeekCssObject: PropTypes.object,
+  TemplateCssObject: PropTypes.object,
+  MonthCssObject: PropTypes.object,
+  MonthArrowCssObject: PropTypes.object,
+  WeekDayCssObject: PropTypes.object,
+  CalendarBodyCssObject: PropTypes.object,
+  CalendarHeadCssObject: PropTypes.object
 };
 
 export default Calendar;
