@@ -54,7 +54,8 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   timezone: "ko",
-  callbackFunction: () => {}
+  callbackFunction: () => {},
+  objectSetText: []
 };
 
 Calendar.propTypes = {
@@ -62,7 +63,10 @@ Calendar.propTypes = {
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
   indicateToday: PropTypes.bool,
-  multiSelect: PropTypes.bool
+  multiSelect: PropTypes.bool,
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
+  )
 };
 
 export default Calendar;
