@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import Template from "../Components/Template";
 import CalendarHead from "../Containers/CalendarHead";
 import CalendarBody from "../Containers/CalendarBody";
-import { DateProvider, PropsProvider } from "../Containers/Provider";
+import {
+  DateProvider,
+  PropsProvider,
+  CssProvider
+} from "../Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
@@ -14,6 +18,7 @@ const AppProvider = props => {
     callbackFunction,
     indicateToday,
     multiSelect,
+    sizeOption,
     ...otherProps
   } = otherOption;
   const dateProps = {
@@ -23,16 +28,25 @@ const AppProvider = props => {
     indicateToday,
     multiSelect
   };
+  const cssProps = { sizeOption };
 
-  return contexts.reduce(
-    (prev, context) =>
-      React.createElement(
-        context,
-        context.name === "DateProvider" ? dateProps : otherProps,
-        prev
-      ),
-    children
-  );
+  return contexts.reduce((prev, context) => {
+    let props;
+    switch (context) {
+      case DateProvider:
+        props = dateProps;
+        break;
+      case CssProvider:
+        props = cssProps;
+        break;
+      case PropsProvider:
+        props = otherProps;
+        break;
+      default:
+        break;
+    }
+    return React.createElement(context, props, prev);
+  }, children);
 };
 
 class Calendar extends React.Component {
@@ -43,7 +57,10 @@ class Calendar extends React.Component {
   render() {
     const { props } = this;
     return (
-      <AppProvider contexts={[DateProvider, PropsProvider]} {...props}>
+      <AppProvider
+        contexts={[DateProvider, PropsProvider, CssProvider]}
+        {...props}
+      >
         <Template head={<CalendarHead />}>
           <CalendarBody />
         </Template>
@@ -66,7 +83,14 @@ Calendar.propTypes = {
   multiSelect: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(
     PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
-  )
+  ),
+  sizeOption: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      width: PropTypes.string,
+      height: PropTypes.string
+    })
+  ])
 };
 
 export default Calendar;
