@@ -14,147 +14,116 @@ class Date extends React.Component {
   }
 
   state = {
-    today: this.props.getTodayString()
+    today: this.props.getTodayString(),
+    dateString: "",
+    dayNumber: 0,
+    isInThisMonth: false
   };
+
+  static getDerivedStateFromProps(props, state) {
+    const {
+      weekNumber,
+      day,
+      objectSetText,
+      duplicated,
+      duplicatedDateObjectArray
+    } = props;
+    const dateObjectArray = duplicated
+      ? duplicatedDateObjectArray
+      : props.dateObjectArray;
+    if (dateObjectArray.length > 0) {
+      const target = dateObjectArray[weekNumber * 7 + day - 1];
+      const dateString = target.dateString;
+      const isInThisMonth = target.isInThisMonth;
+      let text;
+      if (state.today === dateString) {
+        text = "오늘";
+      } else {
+        const filtered = objectSetText.filter(item => {
+          return item.date === dateString;
+        });
+        text = filtered.length > 0 ? filtered[0].text : "";
+      }
+      const dayNumber = target.dayNumber;
+      return { dateString, text, dayNumber, isInThisMonth };
+    }
+    return null;
+  }
 
   componentDidMount() {}
 
   setClassName() {
     let className;
-    const { weekNumber, dateObjectArray, day, indicateToday } = this.props;
-    const { today } = this.state;
-    if (dateObjectArray.length > 0) {
-      const DatePropsDay = dateObjectArray[weekNumber * 7 + day - 1];
-      if (day % 6 !== 1) {
-        className = style["Date--day"];
-      } else if (day == 1) {
-        className = style["Date--sun"];
-      } else {
-        className = style["Date--sat"];
-      }
-      if (!DatePropsDay.isInThisMonth) {
-        className += ` ${style["Date--past"]}`;
-      }
-      if (indicateToday && DatePropsDay.dateString == today) {
-        className += ` ${style["Date--today"]}`;
-      }
+    const { day, indicateToday } = this.props;
+    const { today, dateString, isInThisMonth } = this.state;
+    if (day % 6 !== 1) {
+      className = style["Date--day"];
+    } else if (day == 1) {
+      className = style["Date--sun"];
+    } else {
+      className = style["Date--sat"];
     }
-
+    if (!isInThisMonth) {
+      className += ` ${style["Date--past"]}`;
+    }
+    if (indicateToday && dateString == today) {
+      className += ` ${style["Date--today"]}`;
+    }
     return className;
   }
 
   handleDateClick() {
-    const { weekNumber, day, dateClicked, dateObjectArray } = this.props;
-    if (
-      dateObjectArray.length > 0 &&
-      dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth
-    ) {
-      dateClicked(weekNumber * 7 + day - 1);
+    const { dateClicked } = this.props;
+    const { isInThisMonth } = this.state;
+    if (isInThisMonth) {
+      dateClicked(this.state);
     }
   }
 
   handleInPeriod() {
     let className = style.Date;
-    const { dateObjectArray, weekNumber, day, isInPeriod } = this.props;
-    if (dateObjectArray.length > 0) {
-      const dateObject = dateObjectArray[weekNumber * 7 + day - 1];
-      if (isInPeriod(dateObject.dateString))
-        className += ` ${style["Date--periodSelect"]}`;
+    const { isInPeriod } = this.props;
+    const { dateString } = this.state;
+    if (isInPeriod(dateString)) {
+      className += ` ${style["Date--periodSelect"]}`;
     }
     return className;
   }
 
   handleStart() {
-    const {
-      dateObjectArray,
-      periodStart,
-      weekNumber,
-      day,
-      periods
-    } = this.props;
+    const { periodStart, periods } = this.props;
 
-    if (dateObjectArray.length > 0) {
-      if (
-        (periodStart &&
-          dateObjectArray[weekNumber * 7 + day - 1].dateString ===
-            periodStart) ||
-        (periods.length > 0 &&
-          periods.filter(
-            ({ periodStart }) =>
-              periodStart ===
-              dateObjectArray[weekNumber * 7 + day - 1].dateString
-          ).length > 0)
-      ) {
-        return (
-          <div className={style.Date__periodStart}>
-            {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
-          </div>
-        );
-      }
+    const { dateString, dayNumber } = this.state;
+
+    if (
+      (periodStart && dateString === periodStart) ||
+      (periods.length > 0 &&
+        periods.filter(({ periodStart }) => periodStart === dateString).length >
+          0)
+    ) {
+      return <div className={style.Date__periodStart}>{dayNumber}</div>;
     }
   }
 
   handleEnd() {
-    const { dateObjectArray, periodEnd, weekNumber, day, periods } = this.props;
-
-    if (dateObjectArray.length > 0) {
-      if (
-        (periodEnd &&
-          dateObjectArray[weekNumber * 7 + day - 1].dateString === periodEnd) ||
-        (periods.length > 0 &&
-          periods.filter(
-            ({ periodEnd }) =>
-              periodEnd === dateObjectArray[weekNumber * 7 + day - 1].dateString
-          ).length > 0)
-      ) {
-        return (
-          <div className={style.Date__periodEnd}>
-            {dateObjectArray[weekNumber * 7 + day - 1].dayNumber}
-          </div>
-        );
-      }
+    const { periodEnd, periods } = this.props;
+    const { dateString, dayNumber } = this.state;
+    if (
+      (periodEnd && dateString === periodEnd) ||
+      (periods.length > 0 &&
+        periods.filter(({ periodEnd }) => periodEnd === dateString).length > 0)
+    ) {
+      return <div className={style.Date__periodEnd}>{dayNumber}</div>;
     }
   }
 
   render() {
-    const {
-      weekNumber,
-      dateObjectArray,
-      day,
-      onlyThisMonth,
-      objectSetText,
-      indicateToday
-    } = this.props;
-    const { today } = this.state;
-    if (dateObjectArray.length > 0) {
-      if (indicateToday) {
-        if (today == dateObjectArray[weekNumber * 7 + day - 1].dateString)
-          dateObjectArray[weekNumber * 7 + day - 1].text = "오늘";
-      } else {
-        const pos = objectSetText
-          .map(item => item.date)
-          .indexOf(dateObjectArray[weekNumber * 7 + day - 1].dateString);
-        if (pos !== -1) {
-          dateObjectArray[weekNumber * 7 + day - 1].text =
-            objectSetText[pos].text;
-        } else {
-          dateObjectArray[weekNumber * 7 + day - 1].text = "";
-        }
-      }
-    }
+    const { text, dayNumber } = this.state;
     return (
       <td className={this.handleInPeriod()} onClick={this.handleDateClick}>
         <div className={this.setClassName()}>
-          {dateObjectArray.length > 0 &&
-          (dateObjectArray[weekNumber * 7 + day - 1].isInThisMonth ||
-            !onlyThisMonth)
-            ? dateObjectArray[weekNumber * 7 + day - 1].dayNumber
-            : ""}
-          <div className={style["Date--text"]}>
-            {dateObjectArray.length > 0
-              ? dateObjectArray[weekNumber * 7 + day - 1].text
-              : ""}
-          </div>
+          {dayNumber}
+          <div className={style["Date--text"]}>{text}</div>
           {this.handleStart()}
           {this.handleEnd()}
         </div>
@@ -190,15 +159,19 @@ Date.propTypes = {
       periodStart: PropTypes.string,
       periodEnd: PropTypes.string
     })
-  )
+  ),
+  duplicated: PropTypes.bool,
+  duplicatedDateObjectArray: PropTypes.array
 };
 
 export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
-  objectSetText: state.objectSetText
+  objectSetText: state.objectSetText,
+  duplicated: state.duplicated
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
+    duplicatedDateObjectArray: state.duplicatedDateObjectArray,
     dateClicked: actions.handleDateClicked,
     isInPeriod: actions.isInPeriod,
     periodStart: state.periodStart,

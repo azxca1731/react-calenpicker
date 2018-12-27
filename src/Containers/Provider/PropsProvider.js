@@ -15,7 +15,7 @@ class PropsProvider extends Component {
     sizeOption: this.props.sizeOption,
     themeColor: this.props.themeColor,
     animation: this.props.animation,
-    duplicate: this.props.duplicate,
+    duplicated: this.props.duplicated,
     onlyThisMonth: this.props.onlyThisMonth,
     couldSelectPrevDate: this.props.couldSelectPrevDate,
     objectSetText: this.props.objectSetText
@@ -44,13 +44,13 @@ PropsProvider.propTypes = {
   ]),
   themeColor: PropTypes.string,
   animation: PropTypes.bool,
-  duplicate: PropTypes.bool,
+  duplicated: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
   couldSelectPrevDate: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
-      date: PropTypes.date
+      date: PropTypes.string
     })
   )
 };
