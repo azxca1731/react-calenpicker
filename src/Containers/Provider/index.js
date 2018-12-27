@@ -1,5 +1,6 @@
 import { DateProvider, DateConsumer, DayConnector } from "./DateProvider";
 import { PropsProvider, PropsConsumer, PropsConnector } from "./PropsProvider";
+import { CssProvider, CssConsumer, CssConnector } from "./CssProvider";
 
 export {
   DateProvider,
@@ -7,5 +8,8 @@ export {
   DayConnector,
   PropsProvider,
   PropsConsumer,
-  PropsConnector
+  PropsConnector,
+  CssProvider,
+  CssConsumer,
+  CssConnector
 };
