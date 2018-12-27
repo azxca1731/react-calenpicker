@@ -85,7 +85,7 @@ Calendar.propTypes = {
     PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
   ),
   sizeOption: PropTypes.oneOfType([
-    PropTypes.string,
+    PropTypes.oneOf(["sm", "md", "lg"]),
     PropTypes.shape({
       width: PropTypes.string,
       height: PropTypes.string

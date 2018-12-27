@@ -78,7 +78,7 @@ class CalendarBody extends React.Component {
       <div className={style.CalendarBody}>
         <table className={style.CalendarBody__table}>
           <WeekDay />
-          <tbody>
+          <tbody className={style.CalendarBody__tbody}>
             <Week weekNumber={0} />
             <Week weekNumber={1} />
             <Week weekNumber={2} />

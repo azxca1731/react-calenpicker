@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { CssConnector } from "../../Containers/Provider";
 import style from "./Template.style";
 
 class Template extends React.Component {
@@ -8,9 +9,9 @@ class Template extends React.Component {
   }
 
   render() {
-    const { head, children } = this.props;
+    const { head, children, cssObject } = this.props;
     return (
-      <div className={style.Template}>
+      <div className={style.Template} style={cssObject}>
         {head}
         {children}
       </div>
@@ -23,7 +24,13 @@ Template.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  cssObject: PropTypes.shape({
+    width: PropTypes.string,
+    height: PropTypes.string
+  })
 };
 
-export default Template;
+export default CssConnector(({ state }) => ({
+  cssObject: state.templateCssObject
+}))(Template);

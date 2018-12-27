@@ -36,6 +36,7 @@ class Example extends React.Component {
             callbackFunction={this.callbackFunction}
             // onlyThisMonth
             objectSetText={[{ text: "hell", date: "2018-12-31" }]}
+            sizeOption="lg"
             indicateToday
             multiSelect
           />

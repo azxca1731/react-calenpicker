@@ -15,6 +15,31 @@ class CssProvider extends Component {
 
   actions = {};
 
+  static getDerivedStateFromProps(props) {
+    if (typeof props.sizeOption === "string") {
+      const templateCssObject = {};
+      switch (props.sizeOption) {
+        case "sm":
+          templateCssObject.width = "200px";
+          templateCssObject.height = "35vh";
+          templateCssObject.fontSize = "10px";
+          break;
+        case "md":
+          templateCssObject.width = "300px";
+          templateCssObject.height = "50vh";
+          templateCssObject.fontSize = "16px";
+          break;
+        case "lg":
+          templateCssObject.width = "400px";
+          templateCssObject.height = "65vh";
+          break;
+      }
+      return { templateCssObject };
+    } else if (typeof props.sizeOption === "object") {
+      return { templateCssObject: props.sizeOption };
+    }
+  }
+
   render() {
     const { state, actions } = this;
     const value = { state, actions };
@@ -26,7 +51,14 @@ CssProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  sizeOption: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      width: PropTypes.string,
+      height: PropTypes.string
+    })
+  ])
 };
 
 const CssConnector = createUseConsumer(CssConsumer);
