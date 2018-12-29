@@ -56,7 +56,7 @@ class Date extends React.Component {
 
   setClassName() {
     let className;
-    const { day, indicateToday } = this.props;
+    const { day, indicateToday, onlyThisMonth } = this.props;
     const { today, dateString, isInThisMonth, isHoliday } = this.state;
     if (day % 6 !== 1) {
       className = isHoliday ? style["Date--sun"] : style["Date--day"];
@@ -70,6 +70,9 @@ class Date extends React.Component {
     }
     if (indicateToday && dateString == today) {
       className += ` ${style["Date--today"]}`;
+    }
+    if (onlyThisMonth && !isInThisMonth) {
+      className = style["Date--notThisMonth"];
     }
     return className;
   }

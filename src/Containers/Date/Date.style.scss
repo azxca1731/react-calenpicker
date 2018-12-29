@@ -23,6 +23,10 @@
     opacity: 0.3;
   }
 
+  &--notThisMonth {
+    display: none;
+  }
+
   &--periodSelect {
     background-color: beige;
   }

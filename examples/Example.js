@@ -34,14 +34,14 @@ class Example extends React.Component {
         {show ? (
           <Calendar
             callbackFunction={this.callbackFunction}
-            // onlyThisMonth
+            onlyThisMonth
             objectSetText={[
               { text: "hell", date: "2018-12-31" },
               { text: "휴가", date: "2018-12-26", isHoliday: true }
             ]}
             sizeOption="lg"
             MonthCssObject={{ color: "white" }}
-            indicateToday
+            // indicateToday
             multiSelect
             // duplicate
           />
