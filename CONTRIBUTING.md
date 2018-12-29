@@ -1,9 +1,22 @@
 # Contributing
 
 이 저장소에 기여할 때 먼저 문제를 통해 원하는 변경 사항을 논의하고,
-이메일 또는 변경하기 전에이 저장소의 소유자와 다른 방법을 사용하십시오. 
+이메일 또는 변경하기 전에이 저장소의 소유자와 다른 방법을 사용하십시오.
 
 우리는 행동 강령을 가지고 있으므로, 프로젝트와의 모든 상호 작용을 따라 주시기 바랍니다.
+
+본 프로젝트는 몇 가지의 설계이념이 있습니다.
+
+1. 설계이념 - atomic design
+   > ex)[양현석님의 리액트 프로젝트의 디렉토리 구조](https://medium.com/@FourwingsY/react-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC-%EA%B5%AC%EC%A1%B0-bb183c0a426e)
+2. css - BEM 방법론
+   > ex)[스키머님의 css 방법론(1) - BEM](https://medium.com/witinweb/css-%EB%B0%A9%EB%B2%95%EB%A1%A0-1-bem-block-element-modifier-1c03034e65a1)
+3. 적재적소의 프로바이더
+   > 프로바이더는 각각 알맞은 정보만 가지고 있어야합니다. 예시로 자신과 상관없는 정보를 가지고 있을수는 없습니다.
+4. 프레젠테이션 컴포넌트와 컨테이너 컴포넌트
+   > 컴포넌트는 크게 두가지로 이루어집니다. 프레젠테이션 컴포넌트는 css 프로바이더 외에 어떠한 프로바이더와 연결되있어서는 안됩니다. 이는 높은 재사용성과 연관됩니다. 만약 정보를 처리하거나 하려면 컨테이너 컴포넌트로 감싸서 사용하시길 바랍니다.
+5. 프로바이더의 역할
+   > 프로바이더는 액션과 상태를 관리합니다. 이 프로바이더를 통해 글로벌하게 상태를 관리 할 수 있습니다. 이 프로바이더에서 나온 상태와 액션은 connector를 이용해 사용해주시면 됩니다.
 
 ## Pull Request Process
 
@@ -27,21 +40,21 @@ orientation.
 Examples of behavior that contributes to creating a positive environment
 include:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+- Showing empathy towards other community members
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
-advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
+- The use of sexualized language or imagery and unwelcome sexual attention or
+  advances
+- Trolling, insulting/derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or electronic
   address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
+- Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
 ### Our Responsibilities

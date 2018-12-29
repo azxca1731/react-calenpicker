@@ -106,6 +106,7 @@ Calendar.propTypes = {
   callbackFunction: PropTypes.func,
   indicateToday: PropTypes.bool,
   multiSelect: PropTypes.bool,
+  onlyThisMonth: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(
     PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
   ),
