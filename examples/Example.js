@@ -40,7 +40,7 @@ class Example extends React.Component {
               { text: "휴가", date: "2018-12-26", isHoliday: true }
             ]}
             sizeOption="lg"
-            MonthCssObject={{ color: "white" }}
+            MonthCssObject={}
             indicateToday
             multiSelect
             // duplicate

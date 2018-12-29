@@ -1,3 +1,68 @@
+.Date--dark {
+  display: inline-block;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+  width: 13.6%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+
+  &--day {
+    color: white;
+  }
+
+  &--sun {
+    color: red;
+  }
+
+  &--sat {
+    color: blue;
+  }
+
+  &--past {
+    opacity: 0.3;
+  }
+
+  &--periodSelect {
+    background-color: #2d3436;
+  }
+
+  &--today {
+    color: green;
+  }
+
+  &--text {
+    width: inherit;
+    height: 100%;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  &__periodStart {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: #b2bec3;
+    border-top-left-radius: 200px 200px;
+    border-bottom-left-radius: 200px 200px;
+    color: white;
+  }
+
+  &__periodEnd {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: #b2bec3;
+    border-top-right-radius: 200px 200px;
+    border-bottom-right-radius: 200px 200px;
+    color: white;
+  }
+}
+
 .Date {
   display: inline-block;
   padding-left: 0.3%;
@@ -45,6 +110,8 @@
     left: 0;
     top: 0%;
     background-color: bisque;
+    border-top-left-radius: 200px 200px;
+    border-bottom-left-radius: 200px 200px;
     color: white;
   }
 
@@ -55,6 +122,8 @@
     left: 0;
     top: 0%;
     background-color: bisque;
+    border-top-right-radius: 200px 200px;
+    border-bottom-right-radius: 200px 200px;
     color: white;
   }
 }
