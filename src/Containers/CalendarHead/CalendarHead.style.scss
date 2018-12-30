@@ -1,3 +1,4 @@
+@import "../../Styles/colors.scss";
 .CalendarHead--dark {
   width: 87%;
   padding: 0px 20px;
@@ -14,9 +15,9 @@
   width: 87%;
   padding: 0px 20px;
   height: 20%;
-  background-color: white;
+  background-color: $background-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #444444;
+  border: 1px solid $border-color;
 }

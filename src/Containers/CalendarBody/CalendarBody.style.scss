@@ -1,3 +1,4 @@
+@import "../../Styles/colors.scss";
 .CalendarBody--dark {
   width: 87%;
   padding: 0px 20px;
@@ -13,16 +14,17 @@
 
   &__tbody {
     width: 100%;
-    height: 100%;
-    display: contents;
+    height: 85%;
+    display: block;
   }
 }
 .CalendarBody {
   width: 87%;
   padding: 0px 20px;
   height: 80%;
-  background-color: white;
-  border: 1px solid #444444;
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  border-top: 0px;
 
   &__table {
     width: 100%;
@@ -31,7 +33,7 @@
 
   &__tbody {
     width: 100%;
-    height: 100%;
-    display: contents;
+    height: 85%;
+    display: block;
   }
 }

@@ -1,3 +1,4 @@
+@import "../../Styles/colors.scss";
 .Date--dark {
   display: inline-block;
   padding-left: 0.3%;
@@ -73,15 +74,15 @@
   position: relative;
 
   &--day {
-    color: black;
+    color: $font-color;
   }
 
   &--sun {
-    color: red;
+    color: $holiday-color;
   }
 
   &--sat {
-    color: blue;
+    color: $saturday-color;
   }
 
   &--past {
@@ -93,11 +94,11 @@
   }
 
   &--periodSelect {
-    background-color: beige;
+    background-color: $secondary-color;
   }
 
   &--today {
-    color: green;
+    color: $today-color;
   }
 
   &--text {
@@ -113,10 +114,10 @@
     position: absolute;
     left: 0;
     top: 0%;
-    background-color: bisque;
+    background-color: $primary-color;
     border-top-left-radius: 200px 200px;
     border-bottom-left-radius: 200px 200px;
-    color: white;
+    color: $selected-font-color;
   }
 
   &__periodEnd {
@@ -125,9 +126,9 @@
     position: absolute;
     left: 0;
     top: 0%;
-    background-color: bisque;
+    background-color: $primary-color;
     border-top-right-radius: 200px 200px;
     border-bottom-right-radius: 200px 200px;
-    color: white;
+    color: $selected-font-color;
   }
 }
