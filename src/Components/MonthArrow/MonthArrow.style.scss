@@ -1,3 +1,4 @@
+@import "../../Styles/colors.scss";
 .MonthArrow--dark {
   padding: 25px;
   cursor: pointer;
@@ -7,4 +8,5 @@
 .MonthArrow {
   padding: 25px;
   cursor: pointer;
+  color: $font-color;
 }
