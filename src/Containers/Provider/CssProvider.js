@@ -30,17 +30,17 @@ class CssProvider extends Component {
       switch (props.sizeOption) {
         case "sm":
           sizeCssObject.width = "200px";
-          sizeCssObject.height = "35vh";
+          sizeCssObject.height = "300px";
           sizeCssObject.fontSize = "10px";
           break;
         case "md":
           sizeCssObject.width = "300px";
-          sizeCssObject.height = "50vh";
+          sizeCssObject.height = "450px";
           sizeCssObject.fontSize = "14px";
           break;
         case "lg":
           sizeCssObject.width = "400px";
-          sizeCssObject.height = "65vh";
+          sizeCssObject.height = "600px";
           break;
       }
       return {
