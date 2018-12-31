@@ -32,7 +32,7 @@ export default () => ({
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.less$/,
         use: [
           {
             loader: "style-loader"
@@ -40,16 +40,13 @@ export default () => ({
           {
             loader: "css-loader",
             options: {
+              sourceMap: true,
               modules: true,
-              localIdentName: "[path][name]__[local]--[hash:base64:5]"
+              localIdentName: "[local]___[hash:base64:5]"
             }
           },
           {
-            loader: "sass-loader",
-            options: {
-              modules: true,
-              localIdentName: "[path][name]__[local]--[hash:base64:5]"
-            }
+            loader: "less-loader"
           }
         ]
       }
@@ -57,7 +54,7 @@ export default () => ({
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".scss"]
+    extensions: [".js", ".jsx", ".less"]
   },
 
   externals: {
