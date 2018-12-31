@@ -1,9 +1,23 @@
+@import "../../Styles/colors.scss";
+.CalendarHead--dark {
+  width: 87%;
+  padding: 0px 20px;
+  height: 20%;
+  background-color: #636e72;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+}
+
 .CalendarHead {
   width: 87%;
   padding: 0px 20px;
   height: 20%;
-  background-color: rgb(174, 251, 226);
+  background-color: $background-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid $border-color;
 }

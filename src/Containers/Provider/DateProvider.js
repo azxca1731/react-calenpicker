@@ -60,7 +60,15 @@ class DateProvider extends Component {
       if (!periodStart) {
         this.setState({ periodStart: insertDate });
       } else if (periodStart && periodEnd) {
-        this.setState({ periodStart: insertDate, periodEnd: null });
+        if (multiSelect) {
+          this.setState({ periodStart: insertDate, periodEnd: null });
+        } else {
+          this.setState({
+            periodStart: insertDate,
+            periodEnd: null,
+            periods: []
+          });
+        }
       } else if (new Date(periodStart) <= new Date(insertDate)) {
         const periodEnd = insertDate;
         let periods;
@@ -83,7 +91,11 @@ class DateProvider extends Component {
         });
         callbackFunction(periods);
       } else {
-        this.setState({ periodStart: insertDate, periodEnd: null });
+        this.setState({
+          periodStart: insertDate,
+          periodEnd: null,
+          periods: []
+        });
       }
     },
     isInPeriod: dateString => {
