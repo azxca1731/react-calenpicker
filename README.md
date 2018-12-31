@@ -41,7 +41,7 @@ export default App;
 
 직접 Props를 넣어보면서 확인해보세요!
 
-<iframe src="https://codesandbox.io/embed/8x4yx51799?codemirror=1&hidenavigation=1" style="width:100%; height:600px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+[![Edit Calenpicker Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/8x4yx51799)
 
 ---
 
