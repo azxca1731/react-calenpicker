@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import WeekDay from "../../Components/WeekDay";
 import Week from "../../Components/Week";
 import { DayConnector, PropsConnector, CssConnector } from "../Provider";
-import style from "./CalendarBody.style";
+import style from "./CalendarBody.style.less";
 
 class CalendarBody extends React.Component {
   constructor(props) {

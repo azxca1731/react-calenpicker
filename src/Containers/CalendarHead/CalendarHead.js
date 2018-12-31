@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./CalendarHead.style";
+import style from "./CalendarHead.style.less";
 
 import Month from "../../Components/Month/Month";
 import MonthArrow from "../../Components/MonthArrow";

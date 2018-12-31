@@ -1,4 +1,4 @@
-@import "../../Styles/colors.scss";
+@import "../../Styles/colors.less";
 .Date--dark {
   display: inline-block;
   padding-left: 0.3%;
@@ -7,38 +7,30 @@
   height: 100%;
   text-align: center;
   position: relative;
-
   &--day {
     color: white;
   }
-
   &--sun {
     color: red;
   }
-
   &--sat {
     color: blue;
   }
-
   &--past {
     opacity: 0.3;
   }
-
   &--periodSelect {
     background-color: #2d3436;
   }
-
   &--today {
     color: green;
   }
-
   &--text {
     width: inherit;
     height: 100%;
     justify-content: center;
     overflow-x: hidden;
   }
-
   &__periodStart {
     width: 100%;
     height: 100%;
@@ -50,7 +42,6 @@
     border-bottom-left-radius: 200px 200px;
     color: white;
   }
-
   &__periodEnd {
     width: 100%;
     height: 100%;
@@ -72,63 +63,53 @@
   height: 100%;
   text-align: center;
   position: relative;
-
   &--day {
-    color: $font-color;
+    color: @font-color;
   }
-
   &--sun {
-    color: $holiday-color;
+    color: @holiday-color;
   }
-
   &--sat {
-    color: $saturday-color;
+    color: @saturday-color;
   }
-
   &--past {
     opacity: 0.3;
   }
-
   &--notThisMonth {
     display: none;
   }
-
   &--periodSelect {
-    background-color: $secondary-color;
+    background-color: @secondary-color;
   }
-
   &--today {
-    color: $today-color;
+    color: @today-color;
   }
-
   &--text {
     width: inherit;
     height: 100%;
     justify-content: center;
     overflow-x: hidden;
   }
-
   &__periodStart {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0%;
-    background-color: $primary-color;
+    background-color: @primary-color;
     border-top-left-radius: 200px 200px;
     border-bottom-left-radius: 200px 200px;
-    color: $selected-font-color;
+    color: @selected-font-color;
   }
-
   &__periodEnd {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0%;
-    background-color: $primary-color;
+    background-color: @primary-color;
     border-top-right-radius: 200px 200px;
     border-bottom-right-radius: 200px 200px;
-    color: $selected-font-color;
+    color: @selected-font-color;
   }
 }
