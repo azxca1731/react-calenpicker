@@ -1,6 +1,6 @@
 {
   "name": "react-calenpicker",
-  "version": "0.0.32",
+  "version": "0.0.4",
   "description": "You can make Easily Picker for react-calenpicker!",
   "contributors": [
     {
@@ -48,7 +48,9 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.9.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0"
   },
   "peerDependencies": {
     "react": ">= 16.3.0",
@@ -58,9 +60,7 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "dependencies": {
-    "node-sass": "^4.11.0",
-    "prop-types": "^15.6.0",
-    "sass-loader": "^7.1.0"
+    "prop-types": "^15.6.0"
   },
   "license": "MIT"
 }
