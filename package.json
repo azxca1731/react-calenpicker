@@ -32,7 +32,6 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "chai": "^4.1.2",
-    "classnames": "^2.2.6",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^1.0.1",
     "enzyme": "^3.3.0",
@@ -40,15 +39,14 @@
     "eslint": "^5.8.0",
     "eslint-plugin-react": "^7.4.0",
     "jest-cli": "^23.6.0",
-    "node-sass": "^4.7.2",
-    "prop-types": "^15.6.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "react": "^16.6.0",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^16.6.0",
     "react-hot-loader": "next",
     "react-test-renderer": "^16.0.0",
     "regenerator-runtime": "^0.12.1",
-    "sass-loader": "^7.0.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.9.1",
     "webpack-cli": "^3.1.2",
@@ -61,6 +59,8 @@
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
   "license": "MIT"
 }

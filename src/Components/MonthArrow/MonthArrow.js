@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CssConnector } from "../../Containers/Provider";
-import style from "./MonthArrow.style";
+import style from "./MonthArrow.style.less";
 
 class MonthArrow extends React.Component {
   constructor(props) {

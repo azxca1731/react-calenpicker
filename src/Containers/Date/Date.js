@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./Date.style";
+import style from "./Date.style.less";
 import { DayConnector, PropsConnector, CssConnector } from "../Provider";
 
 class Date extends React.Component {
