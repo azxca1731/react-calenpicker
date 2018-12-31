@@ -39,7 +39,7 @@ class Example extends React.Component {
               { text: "hell", date: "2018-12-31" },
               { text: "휴가", date: "2018-12-26", isHoliday: true }
             ]}
-            sizeOption="sm"
+            sizeOption="md"
             indicateToday
             // multiSelect
             duplicate
