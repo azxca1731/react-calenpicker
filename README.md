@@ -1,6 +1,6 @@
 # react-calenpicker
 
-<p align="center">
+<p>
   <a href="https://travis-ci.org/azxca1731/react-calenpicker">
     <img src="https://travis-ci.org/azxca1731/react-calenpicker.svg?branch=master"/>
   </a>
