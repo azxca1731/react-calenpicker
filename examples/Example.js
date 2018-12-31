@@ -39,10 +39,10 @@ class Example extends React.Component {
               { text: "hell", date: "2018-12-31" },
               { text: "휴가", date: "2018-12-26", isHoliday: true }
             ]}
-            sizeOption="md"
+            sizeOption="lg"
             indicateToday
             // multiSelect
-            duplicate
+            // duplicate
             theme="dark"
           />
         ) : null}

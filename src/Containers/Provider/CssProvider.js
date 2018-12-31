@@ -36,7 +36,7 @@ class CssProvider extends Component {
         case "md":
           sizeCssObject.width = "300px";
           sizeCssObject.height = "50vh";
-          sizeCssObject.fontSize = "16px";
+          sizeCssObject.fontSize = "14px";
           break;
         case "lg":
           sizeCssObject.width = "400px";

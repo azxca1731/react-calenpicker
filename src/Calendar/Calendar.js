@@ -94,10 +94,10 @@ class Calendar extends React.Component {
 }
 
 Calendar.defaultProps = {
-  timezone: "ko",
   callbackFunction: () => {},
   objectSetText: [],
-  sizeOption: "md"
+  sizeOption: "md",
+  theme: "light"
 };
 
 Calendar.propTypes = {
