@@ -29,7 +29,7 @@ export default () => ({
         ]
       },
       {
-        test: /\.less$/,
+        test: /\.scss$/,
         use: [
           {
             loader: "style-loader"
@@ -43,7 +43,7 @@ export default () => ({
             }
           },
           {
-            loader: "less-loader"
+            loader: "sass-loader"
           }
         ]
       }
@@ -51,7 +51,7 @@ export default () => ({
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".less"]
+    extensions: [".js", ".jsx", ".scss"]
   },
 
   plugins: [

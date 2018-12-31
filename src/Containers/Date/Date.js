@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./Date.style.less";
+import light from "./Date.style.light";
+import dark from "./Date.style.dark";
 import { DayConnector, PropsConnector, CssConnector } from "../Provider";
 
 class Date extends React.Component {
@@ -11,6 +12,7 @@ class Date extends React.Component {
     this.handleInPeriod = this.handleInPeriod.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleEnd = this.handleEnd.bind(this);
+    this.style = props.theme == "light" ? light : dark;
   }
 
   state = {
@@ -59,20 +61,20 @@ class Date extends React.Component {
     const { day, indicateToday, onlyThisMonth } = this.props;
     const { today, dateString, isInThisMonth, isHoliday } = this.state;
     if (day % 6 !== 1) {
-      className = isHoliday ? style["Date--sun"] : style["Date--day"];
+      className = isHoliday ? this.style["Date--sun"] : this.style["Date--day"];
     } else if (day == 1) {
-      className = style["Date--sun"];
+      className = this.style["Date--sun"];
     } else {
-      className = style["Date--sat"];
+      className = this.style["Date--sat"];
     }
     if (!isInThisMonth) {
-      className += ` ${style["Date--past"]}`;
+      className += ` ${this.style["Date--past"]}`;
     }
     if (indicateToday && dateString == today) {
-      className += ` ${style["Date--today"]}`;
+      className += ` ${this.style["Date--today"]}`;
     }
     if (onlyThisMonth && !isInThisMonth) {
-      className = style["Date--notThisMonth"];
+      className = this.style["Date--notThisMonth"];
     }
     return className;
   }
@@ -86,11 +88,11 @@ class Date extends React.Component {
   }
 
   handleInPeriod() {
-    let className = style.Date;
+    let className = this.style.Date;
     const { isInPeriod } = this.props;
     const { dateString } = this.state;
     if (isInPeriod(dateString)) {
-      className += ` ${style["Date--periodSelect"]}`;
+      className += ` ${this.style["Date--periodSelect"]}`;
     }
     return className;
   }
@@ -106,7 +108,7 @@ class Date extends React.Component {
         periods.filter(({ periodStart }) => periodStart === dateString).length >
           0)
     ) {
-      return <div className={style.Date__periodStart}>{dayNumber}</div>;
+      return <div className={this.style.Date__periodStart}>{dayNumber}</div>;
     }
   }
 
@@ -118,7 +120,7 @@ class Date extends React.Component {
       (periods.length > 0 &&
         periods.filter(({ periodEnd }) => periodEnd === dateString).length > 0)
     ) {
-      return <div className={style.Date__periodEnd}>{dayNumber}</div>;
+      return <div className={this.style.Date__periodEnd}>{dayNumber}</div>;
     }
   }
 
@@ -133,7 +135,7 @@ class Date extends React.Component {
       >
         <div className={this.setClassName()}>
           {dayNumber}
-          <div className={style["Date--text"]}>{text}</div>
+          <div className={this.style["Date--text"]}>{text}</div>
           {this.handleStart()}
           {this.handleEnd()}
         </div>
@@ -172,13 +174,15 @@ Date.propTypes = {
   ),
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  theme: PropTypes.string
 };
 
 export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
-  duplicated: state.duplicated
+  duplicated: state.duplicated,
+  theme: state.theme
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,

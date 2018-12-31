@@ -1,0 +1,60 @@
+.Date {
+  display: inline-block;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+  width: 13.6%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  font-weight: bold;
+
+  &--day {
+    color: $font-color;
+  }
+  &--sun {
+    color: $holiday-color;
+  }
+  &--sat {
+    color: $saturday-color;
+  }
+  &--past {
+    opacity: 0.3;
+  }
+  &--notThisMonth {
+    display: none;
+  }
+  &--periodSelect {
+    background-color: $secondary-color;
+  }
+  &--today {
+    color: $today-color;
+  }
+  &--text {
+    width: inherit;
+    height: 100%;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+  &__periodStart {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: $primary-color;
+    border-top-left-radius: 200px 200px;
+    border-bottom-left-radius: 200px 200px;
+    color: $selected-font-color;
+  }
+  &__periodEnd {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    background-color: $primary-color;
+    border-top-right-radius: 200px 200px;
+    border-bottom-right-radius: 200px 200px;
+    color: $selected-font-color;
+  }
+}

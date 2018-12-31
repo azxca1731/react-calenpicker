@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CssConnector } from "../../Containers/Provider";
-import style from "./Template.style.less";
+import style from "./Template.style.scss";
 
 class Template extends React.Component {
   constructor(props) {
