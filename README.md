@@ -1,5 +1,13 @@
 # react-calenpicker
 
+<p align="center">
+  <a href="https://travis-ci.org/azxca1731/react-calenpicker">
+    <img src="https://travis-ci.org/azxca1731/react-calenpicker.svg?branch=master"/>
+  </a>
+  <a href="https://www.npmjs.com/package/react-calenpicker">
+    <img src="https://img.shields.io/npm/v/react-calenpicker.svg"/>
+  </a>
+</p>
 리액트 캘린픽커는 리액트 캘린더 픽커의 줄임말로서 호텔, 항공권 같은 기간을 더 손쉽게 선택하기 위해 만들었습니다. 사용법은 간단합니다. 다음과 같이 입력해주세요
 
 > npm install react-calenpicker
@@ -97,7 +105,9 @@ props는 다음과 같습니다.
 ### Contributors
 
 [김동현](https://github.com/DongDongKim)<br />
+
 [공정훈](https://github.com/rhdtl78)<br />
+
 [이정훈](https://github.com/azxca1731)<br />
 
 ---
