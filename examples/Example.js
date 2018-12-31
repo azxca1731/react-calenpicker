@@ -43,7 +43,7 @@ class Example extends React.Component {
             indicateToday
             // multiSelect
             duplicate
-            theme="light"
+            theme="dark"
           />
         ) : null}
       </div>
