@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { CssConnector } from "../../Containers/Provider";
 import Date from "../../Containers/Date";
-import style from "./Week.style.less";
+import style from "./Week.style.scss";
 
 class Week extends React.Component {
   constructor(props) {

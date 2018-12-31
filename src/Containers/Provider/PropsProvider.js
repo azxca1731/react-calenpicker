@@ -13,7 +13,7 @@ class PropsProvider extends Component {
 
   state = {
     sizeOption: this.props.sizeOption,
-    themeColor: this.props.themeColor,
+    theme: this.props.theme,
     animation: this.props.animation,
     duplicate: this.props.duplicate,
     duplicated: this.props.duplicated,
@@ -54,7 +54,8 @@ PropsProvider.propTypes = {
       text: PropTypes.string,
       date: PropTypes.string
     })
-  )
+  ),
+  theme: PropTypes.string
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./CalendarHead.style.less";
+import dark from "./CalendarHead.style.dark.scss";
+import light from "./CalendarHead.style.light.scss";
 
 import Month from "../../Components/Month/Month";
 import MonthArrow from "../../Components/MonthArrow";
@@ -9,6 +10,7 @@ import { DayConnector, PropsConnector, CssConnector } from "../Provider";
 class CalendarHead extends React.Component {
   constructor(props) {
     super(props);
+    this.style = props.theme == "light" ? light : dark;
   }
 
   render() {
@@ -31,19 +33,19 @@ class CalendarHead extends React.Component {
     return (
       <div>
         {!duplicate ? (
-          <div className={style.CalendarHead}>
+          <div className={this.style.CalendarHead}>
             <MonthArrow type="left" onClick={showPreviousMonth} />
             <Month month={month} />
             <MonthArrow type="right" onClick={showNextMonth} />
           </div>
         ) : !duplicated ? (
-          <div className={style.CalendarHead}>
+          <div className={this.style.CalendarHead}>
             <MonthArrow type="left" onClick={showPreviousMonth} />
             <Month month={month} />
             <div />
           </div>
         ) : (
-          <div className={style.CalendarHead}>
+          <div className={this.style.CalendarHead}>
             <div />
             <Month month={month} />
             <MonthArrow type="right" onClick={showNextMonth} />
@@ -60,12 +62,14 @@ CalendarHead.propTypes = {
   showPreviousMonth: PropTypes.func.isRequired,
   duplicated: PropTypes.bool,
   duplicate: PropTypes.bool,
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  theme: PropTypes.string
 };
 
 export default PropsConnector(({ state }) => ({
   duplicated: state.duplicated,
-  duplicate: state.duplicate
+  duplicate: state.duplicate,
+  theme: state.theme
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
