@@ -5,7 +5,7 @@ coverage
 
 .vscode
 .idea
-
+.prettierrc
 # lock files
 package-lock.json
 

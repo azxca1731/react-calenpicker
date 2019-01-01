@@ -2,11 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import light from "./Date.style.light";
 import dark from "./Date.style.dark";
-import {
-  DayConnector,
-  PropsConnector,
-  CssConnector
-} from "Containers/Provider";
+import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
 
 class Date extends React.Component {
   constructor(props) {
@@ -35,9 +31,7 @@ class Date extends React.Component {
       duplicatedDateObjectArray,
       indicateToday
     } = props;
-    const dateObjectArray = duplicated
-      ? duplicatedDateObjectArray
-      : props.dateObjectArray;
+    const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
       const dateString = target.dateString;
@@ -92,39 +86,66 @@ class Date extends React.Component {
   }
 
   handleInPeriod() {
-    let className = this.style.Date;
     const { isInPeriod } = this.props;
     const { dateString } = this.state;
+    let className = this.style.Date;
     if (isInPeriod(dateString)) {
-      className += ` ${this.style["Date--periodSelect"]}`;
+      className += ` ${this.style["Date__periodSelect"]}`;
     }
     return className;
   }
 
   handleStart() {
     const { periodStart, periods } = this.props;
-
     const { dateString, dayNumber } = this.state;
 
-    if (
-      (periodStart && dateString === periodStart) ||
-      (periods.length > 0 &&
-        periods.filter(({ periodStart }) => periodStart === dateString).length >
-          0)
-    ) {
-      return <div className={this.style.Date__periodStart}>{dayNumber}</div>;
+    for (let i = 0; i < periods.length; i++) {
+      const { periodStart: ps, periodEnd: pe } = periods[i];
+      if (ps == pe) {
+        if (ps == dateString) return;
+      } else if (ps == dateString)
+        return (
+          <div className={this.style.Date__periodStart}>
+            <div>{dayNumber}</div>
+            <div>시작</div>
+          </div>
+        );
+    }
+
+    if (periods.length >= 0 && periodStart == dateString) {
+      return (
+        <div className={this.style.Date__periodStart}>
+          <div>{dayNumber}</div>
+          <div>시작</div>
+        </div>
+      );
     }
   }
 
   handleEnd() {
     const { periodEnd, periods } = this.props;
     const { dateString, dayNumber } = this.state;
-    if (
-      (periodEnd && dateString === periodEnd) ||
-      (periods.length > 0 &&
-        periods.filter(({ periodEnd }) => periodEnd === dateString).length > 0)
-    ) {
-      return <div className={this.style.Date__periodEnd}>{dayNumber}</div>;
+
+    for (let i = 0; i < periods.length; i++) {
+      const { periodStart: ps, periodEnd: pe } = periods[i];
+      if (ps === pe) {
+        if (pe == dateString) return <div className={this.style["Date--text"]}>선택</div>;
+      } else if (pe == dateString)
+        return (
+          <div className={this.style.Date__periodEnd}>
+            <div>{dayNumber}</div>
+            <div>끝</div>
+          </div>
+        );
+    }
+
+    if (periods.length == 0 && periodEnd == dateString) {
+      return (
+        <div className={this.style.Date__periodEnd}>
+          <div>{dayNumber}</div>
+          <div>끝</div>
+        </div>
+      );
     }
   }
 
@@ -132,11 +153,7 @@ class Date extends React.Component {
     const { cssObject } = this.props;
     const { text, dayNumber } = this.state;
     return (
-      <td
-        className={this.handleInPeriod()}
-        onClick={this.handleDateClick}
-        style={cssObject}
-      >
+      <td onClick={this.handleDateClick} style={cssObject} className={this.handleInPeriod()}>
         <div className={this.setClassName()}>
           {dayNumber}
           <div className={this.style["Date--text"]}>{text}</div>

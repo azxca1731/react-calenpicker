@@ -23,9 +23,6 @@
   &--notThisMonth {
     display: none;
   }
-  &--periodSelect {
-    background-color: $secondary-color;
-  }
   &--today {
     color: $today-color;
   }
@@ -36,26 +33,30 @@
     overflow-x: hidden;
     font-size: 80%;
   }
-  &__periodStart {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0%;
-    background-color: $primary-color;
-    border-top-left-radius: 200px 200px;
-    border-bottom-left-radius: 200px 200px;
-    color: $selected-font-color;
+  &__periodSelect {
+    background-color: $secondary-color;
+    z-index: 100;
   }
-  &__periodEnd {
+
+  @mixin periodPoint {
+    z-index: 101;
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
-    top: 0%;
-    background-color: $primary-color;
-    border-top-right-radius: 200px 200px;
-    border-bottom-right-radius: 200px 200px;
-    color: $selected-font-color;
+    top: 0;
+  }
+
+  &__periodStart {
+    @include periodPoint();
+    z-index: 102;
+    background: url(../../Styles/assets/start-period.png) no-repeat;
+    background-size: 100% 100%;
+  }
+
+  &__periodEnd {
+    @include periodPoint();
+    background: url(../../Styles/assets/end-period.png) no-repeat;
+    background-size: 100% 100%;
   }
 }
