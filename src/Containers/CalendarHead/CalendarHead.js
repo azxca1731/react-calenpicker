@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import dark from "./CalendarHead.style.dark.scss";
-import light from "./CalendarHead.style.light.scss";
+import style from "./CalendarHead.style";
 
-import Month from "Components/Month/Month";
-import MonthArrow from "Components/MonthArrow";
+import MonthContainer from "Containers/MonthContainer";
+import MonthArrowContainer from "Containers/MonthArrowContainer";
 import {
   DayConnector,
   PropsConnector,
@@ -14,7 +13,6 @@ import {
 class CalendarHead extends React.Component {
   constructor(props) {
     super(props);
-    this.style = props.theme == "light" ? light : dark;
   }
 
   render() {
@@ -37,22 +35,22 @@ class CalendarHead extends React.Component {
     return (
       <div>
         {!duplicate ? (
-          <div className={this.style.CalendarHead}>
-            <MonthArrow type="left" onClick={showPreviousMonth} />
-            <Month month={month} />
-            <MonthArrow type="right" onClick={showNextMonth} />
+          <div className={style.CalendarHead}>
+            <MonthArrowContainer type="left" onClick={showPreviousMonth} />
+            <MonthContainer month={month} />
+            <MonthArrowContainer type="right" onClick={showNextMonth} />
           </div>
         ) : !duplicated ? (
-          <div className={this.style.CalendarHead}>
-            <MonthArrow type="left" onClick={showPreviousMonth} />
-            <Month month={month} />
+          <div className={style.CalendarHead}>
+            <MonthArrowContainer type="left" onClick={showPreviousMonth} />
+            <MonthContainer month={month} />
             <div />
           </div>
         ) : (
-          <div className={this.style.CalendarHead}>
+          <div className={style.CalendarHead}>
             <div />
-            <Month month={month} />
-            <MonthArrow type="right" onClick={showNextMonth} />
+            <MonthContainer month={month} />
+            <MonthArrowContainer type="right" onClick={showNextMonth} />
           </div>
         )}
       </div>
