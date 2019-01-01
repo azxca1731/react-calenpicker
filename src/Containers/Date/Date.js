@@ -23,18 +23,11 @@ class Date extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      weekNumber,
-      day,
-      objectSetText,
-      duplicated,
-      duplicatedDateObjectArray,
-      indicateToday
-    } = props;
+    const { weekNumber, day, objectSetText, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
     const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString = target.dateString;
+      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday;
       if (state.today === dateString && indicateToday) {
