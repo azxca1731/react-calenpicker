@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Template from "Components/Template";
+import TemplateContainer from "Containers/TemplateContainer";
 import CalendarHead from "Containers/CalendarHead";
 import CalendarBody from "Containers/CalendarBody";
 import { DateProvider, PropsProvider, CssProvider } from "Containers/Provider";
@@ -73,15 +73,15 @@ class Calendar extends React.Component {
     return (
       <AppProvider contexts={[DateProvider, CssProvider]} {...props}>
         <AppProvider contexts={[PropsProvider]} {...props}>
-          <Template head={<CalendarHead />}>
+          <TemplateContainer head={<CalendarHead />}>
             <CalendarBody />
-          </Template>
+          </TemplateContainer>
         </AppProvider>
         {props.duplicate ? (
           <AppProvider contexts={[PropsProvider]} {...props} duplicated>
-            <Template head={<CalendarHead />}>
+            <TemplateContainer head={<CalendarHead />}>
               <CalendarBody />
-            </Template>
+            </TemplateContainer>
           </AppProvider>
         ) : null}
       </AppProvider>

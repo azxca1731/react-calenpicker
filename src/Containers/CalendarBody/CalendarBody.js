@@ -1,19 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import WeekDay from "Components/WeekDay";
+import WeekDayContainer from "Containers/WeekDayContainer";
 import Week from "Components/Week";
 import {
   DayConnector,
   PropsConnector,
   CssConnector
 } from "Containers/Provider";
-import dark from "./CalendarBody.style.dark.scss";
-import light from "./CalendarBody.style.light.scss";
+import style from "./CalendarBody.style.scss";
 
 class CalendarBody extends React.Component {
   constructor(props) {
     super(props);
-    this.style = props.theme == "light" ? light : dark;
   }
 
   calculateMonth = () => {
@@ -87,10 +85,10 @@ class CalendarBody extends React.Component {
 
     setDateObjectArray(this.calculateMonth(), duplicated);
     return (
-      <div className={this.style.CalendarBody} style={cssObject}>
-        <table className={this.style.CalendarBody__table}>
-          <WeekDay />
-          <tbody className={this.style.CalendarBody__tbody}>
+      <div className={style.CalendarBody} style={cssObject}>
+        <table className={style.CalendarBody__table}>
+          <WeekDayContainer />
+          <tbody className={style.CalendarBody__tbody}>
             <Week weekNumber={0} />
             <Week weekNumber={1} />
             <Week weekNumber={2} />
