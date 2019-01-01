@@ -6,7 +6,7 @@ const MonthArrowDark = props => {
   const { type, onClick, cssObject } = props;
   return (
     <div className={style.MonthArrow} onClick={onClick} style={cssObject}>
-      {type === "left" ? "❮" : "❯"}
+      {type === "left" ? "❮" : type === "right" ? "❯" : " "}
     </div>
   );
 };

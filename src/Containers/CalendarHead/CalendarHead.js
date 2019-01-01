@@ -44,11 +44,11 @@ class CalendarHead extends React.Component {
           <div className={style.CalendarHead}>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
-            <div />
+            <MonthArrowContainer type="none" onClick={() => {}} />
           </div>
         ) : (
           <div className={style.CalendarHead}>
-            <div />
+            <MonthArrowContainer type="none" onClick={() => {}} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </div>
