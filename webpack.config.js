@@ -1,8 +1,8 @@
-import path from "path";
-import CleanWebpackPlugin from "clean-webpack-plugin";
+const path = require("path");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const packageJson = require("./package.json");
 
-export default () => ({
+module.exports = {
   mode: "production",
   entry: {
     index: path.join(__dirname, "src/index.js")
@@ -26,8 +26,7 @@ export default () => ({
           {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
-              plugins: ["@babel/plugin-proposal-class-properties"]
+              presets: ["@babel/preset-env", "@babel/preset-react"]
             }
           }
         ]
@@ -57,9 +56,9 @@ export default () => ({
   resolve: {
     extensions: [".js", ".jsx", ".scss"],
     alias: {
-      Components: "./src/Components",
-      Containers: "./src/Containers",
-      Styles: "./src/Styles"
+      Components: path.join(__dirname, "src/Components"),
+      Containers: path.join(__dirname, "src/Containers"),
+      Styles: path.join(__dirname, "src/Styles")
     }
   },
 
@@ -75,4 +74,4 @@ export default () => ({
       minChunks: 2
     }
   }
-});
+};

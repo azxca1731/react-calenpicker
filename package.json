@@ -13,7 +13,8 @@
     }
   ],
   "scripts": {
-    "build": "webpack --config webpack.config.babel.js",
+    "start": "webpack --watch --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
     "clean": "rm -rf dist coverage",
     "coverage": "jest --coverage",
     "lint": "eslint ./src",
