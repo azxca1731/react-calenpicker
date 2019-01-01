@@ -8,6 +8,11 @@
     <img src="https://img.shields.io/npm/v/react-calenpicker.svg"/>
   </a>
 </p>
+
+<p>
+  <img src="./examples/default_ex.gif"/>  
+  <img src="./examples/dup_mul_text_dark_ex.gif"/>
+</p>
 리액트 캘린픽커는 리액트 캘린더 픽커의 줄임말로서 호텔, 항공권 같은 기간을 더 손쉽게 선택하기 위해 만들었습니다. 사용법은 간단합니다. 다음과 같이 입력해주세요
 
 > npm install react-calenpicker

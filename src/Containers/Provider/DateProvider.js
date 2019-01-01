@@ -13,12 +13,8 @@ class DateProvider extends Component {
 
   state = {
     startDate: this.props.startDate,
-    year: this.props.startDate
-      ? this.props.startDate.substr(0, 4)
-      : new Date().getFullYear(),
-    month: this.props.startDate
-      ? this.props.startDate.substr(5) - 1
-      : new Date().getMonth(),
+    year: this.props.startDate ? this.props.startDate.substr(0, 4) : new Date().getFullYear(),
+    month: this.props.startDate ? this.props.startDate.substr(5) - 1 : new Date().getMonth(),
     dateObjectArray: [],
     duplicatedDateObjectArray: [],
     indicateToday: this.props.indicateToday,
@@ -65,8 +61,8 @@ class DateProvider extends Component {
         } else {
           this.setState({
             periodStart: insertDate,
-            periodEnd: null,
-            periods: []
+            periodEnd: null
+            // periods: []
           });
         }
       } else if (new Date(periodStart) <= new Date(insertDate)) {
@@ -75,9 +71,7 @@ class DateProvider extends Component {
         if (multiSelect) {
           periods = [
             ...this.state.periods.filter(
-              period =>
-                period.periodStart !== periodStart ||
-                period.periodEnd !== periodEnd
+              period => period.periodStart !== periodStart || period.periodEnd !== periodEnd
             ),
             { periodStart, periodEnd }
           ];
@@ -94,7 +88,7 @@ class DateProvider extends Component {
         this.setState({
           periodStart: insertDate,
           periodEnd: null,
-          periods: []
+          periods: multiSelect ? [...this.state.periods] : []
         });
       }
     },
@@ -116,8 +110,7 @@ class DateProvider extends Component {
     },
     getTodayString: () => {
       const today = new Date();
-      const todayString = `${today.getFullYear()}-${today.getMonth() +
-        1}-${today.getDate()}`;
+      const todayString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
       return todayString;
     }
@@ -131,10 +124,7 @@ class DateProvider extends Component {
 }
 
 DateProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   timezone: PropTypes.string,
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
