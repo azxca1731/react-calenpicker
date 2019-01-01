@@ -13,13 +13,12 @@
     }
   ],
   "scripts": {
-    "build": "webpack --config webpack.config.babel.js",
-    "build-examples": "webpack --config examples/webpack.config.babel.js --progress",
+    "start": "webpack --watch --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
     "clean": "rm -rf dist coverage",
     "coverage": "jest --coverage",
     "lint": "eslint ./src",
     "prepublish": "npm run clean && npm run test && npm run build",
-    "start": "webpack-dev-server --config examples/webpack.config.live.babel.js",
     "test": "npm run lint && npm run coverage"
   },
   "devDependencies": {
@@ -31,7 +30,6 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
-    "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^1.0.1",
     "enzyme": "^3.3.0",
@@ -42,13 +40,10 @@
     "react": "^16.6.0",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^16.6.0",
-    "react-hot-loader": "next",
     "react-test-renderer": "^16.0.0",
-    "regenerator-runtime": "^0.12.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.9.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.4",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0"
   },

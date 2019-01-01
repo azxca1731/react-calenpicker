@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import light from "./Date.style.light";
 import dark from "./Date.style.dark";
-import { DayConnector, PropsConnector, CssConnector } from "../Provider";
+import {
+  DayConnector,
+  PropsConnector,
+  CssConnector
+} from "Containers/Provider";
 
 class Date extends React.Component {
   constructor(props) {

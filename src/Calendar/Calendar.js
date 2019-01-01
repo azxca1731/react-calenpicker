@@ -1,14 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Template from "../Components/Template";
-import CalendarHead from "../Containers/CalendarHead";
-import CalendarBody from "../Containers/CalendarBody";
-import {
-  DateProvider,
-  PropsProvider,
-  CssProvider
-} from "../Containers/Provider";
+import Template from "Components/Template";
+import CalendarHead from "Containers/CalendarHead";
+import CalendarBody from "Containers/CalendarBody";
+import { DateProvider, PropsProvider, CssProvider } from "Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;

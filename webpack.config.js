@@ -1,8 +1,8 @@
-import path from "path";
-import CleanWebpackPlugin from "clean-webpack-plugin";
+const path = require("path");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const packageJson = require("./package.json");
 
-export default () => ({
+module.exports = {
   mode: "production",
   entry: {
     index: path.join(__dirname, "src/index.js")
@@ -54,7 +54,12 @@ export default () => ({
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".scss"]
+    extensions: [".js", ".jsx", ".scss"],
+    alias: {
+      Components: path.join(__dirname, "src/Components"),
+      Containers: path.join(__dirname, "src/Containers"),
+      Styles: path.join(__dirname, "src/Styles")
+    }
   },
 
   externals: {
@@ -69,4 +74,4 @@ export default () => ({
       minChunks: 2
     }
   }
-});
+};

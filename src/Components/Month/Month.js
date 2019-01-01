@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { CssConnector, PropsConnector } from "../../Containers/Provider";
+import { CssConnector, PropsConnector } from "Containers/Provider";
 import dark from "./Month.style.dark";
 import light from "./Month.style.light";
 
