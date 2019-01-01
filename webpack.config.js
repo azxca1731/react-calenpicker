@@ -55,7 +55,12 @@ export default () => ({
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".scss"]
+    extensions: [".js", ".jsx", ".scss"],
+    alias: {
+      Components: "./src/Components",
+      Containers: "./src/Containers",
+      Styles: "./src/Styles"
+    }
   },
 
   externals: {

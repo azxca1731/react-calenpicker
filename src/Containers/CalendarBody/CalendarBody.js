@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import WeekDay from "../../Components/WeekDay";
-import Week from "../../Components/Week";
-import { DayConnector, PropsConnector, CssConnector } from "../Provider";
+import WeekDay from "Components/WeekDay";
+import Week from "Components/Week";
+import {
+  DayConnector,
+  PropsConnector,
+  CssConnector
+} from "Containers/Provider";
 import dark from "./CalendarBody.style.dark.scss";
 import light from "./CalendarBody.style.light.scss";
 

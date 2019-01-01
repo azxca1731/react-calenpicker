@@ -3,9 +3,13 @@ import PropTypes from "prop-types";
 import dark from "./CalendarHead.style.dark.scss";
 import light from "./CalendarHead.style.light.scss";
 
-import Month from "../../Components/Month/Month";
-import MonthArrow from "../../Components/MonthArrow";
-import { DayConnector, PropsConnector, CssConnector } from "../Provider";
+import Month from "Components/Month/Month";
+import MonthArrow from "Components/MonthArrow";
+import {
+  DayConnector,
+  PropsConnector,
+  CssConnector
+} from "Containers/Provider";
 
 class CalendarHead extends React.Component {
   constructor(props) {
