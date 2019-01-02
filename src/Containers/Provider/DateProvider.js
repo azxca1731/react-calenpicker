@@ -24,9 +24,7 @@ class DateProvider extends Component {
 
   actions = {
     setDateObjectArray: (dateObjectArray, duplicated) => {
-      !duplicated
-        ? this.setState({ dateObjectArray })
-        : this.setState({ duplicatedDateObjectArray: dateObjectArray });
+      !duplicated ? this.setState({ dateObjectArray }) : this.setState({ duplicatedDateObjectArray: dateObjectArray });
     },
     increaseMonth: () => {
       if (this.state.month === 11) {
@@ -49,46 +47,24 @@ class DateProvider extends Component {
       }
     },
     handleDateClicked: dateState => {
-      const { periodStart, periodEnd, multiSelect } = this.state;
+      const { periodStart, multiSelect, periods } = this.state;
       const { callbackFunction } = this.props;
       const insertDate = `${dateState.dateString}`;
 
       if (!periodStart) {
-        this.setState({ periodStart: insertDate });
-      } else if (periodStart && periodEnd) {
-        if (multiSelect) {
-          this.setState({ periodStart: insertDate, periodEnd: null });
-        } else {
-          this.setState({
-            periodStart: insertDate,
-            periodEnd: null
-            // periods: []
-          });
-        }
-      } else if (new Date(periodStart) <= new Date(insertDate)) {
-        const periodEnd = insertDate;
-        let periods;
-        if (multiSelect) {
-          periods = [
-            ...this.state.periods.filter(
-              period => period.periodStart !== periodStart || period.periodEnd !== periodEnd
-            ),
-            { periodStart, periodEnd }
-          ];
-        } else {
-          periods = [{ periodStart, periodEnd }];
-        }
-
-        this.setState({
-          periodEnd,
-          periods
-        });
-        callbackFunction(periods);
-      } else {
         this.setState({
           periodStart: insertDate,
-          periodEnd: null,
-          periods: multiSelect ? [...this.state.periods] : []
+          periods: multiSelect ? [...periods] : []
+        });
+      } else if (new Date(periodStart) <= new Date(insertDate)) {
+        this.setState({
+          periodStart: null,
+          periods: multiSelect ? [...periods, { periodStart, periodEnd: insertDate }] : [{ periodStart, periodEnd: insertDate }]
+        });
+        callbackFunction(periods);
+      } else if (new Date(periodStart) > new Date(insertDate)) {
+        this.setState({
+          periodStart: insertDate
         });
       }
     },
@@ -97,10 +73,7 @@ class DateProvider extends Component {
       return periods
         .map(({ periodStart, periodEnd }) => {
           if (periodStart && periodEnd) {
-            if (
-              new Date(periodStart) <= new Date(dateString) &&
-              new Date(dateString) <= new Date(periodEnd)
-            ) {
+            if (new Date(periodStart) <= new Date(dateString) && new Date(dateString) <= new Date(periodEnd)) {
               return true;
             }
           }
