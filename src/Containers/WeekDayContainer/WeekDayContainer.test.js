@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import WeekDay from "index";
+import WeekDayContainer from "index";
 
-describe("WeekDay", () => {
+describe("WeekDayContainer", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<WeekDay />);
+    const wrapper = shallow(<WeekDayContainer />);
     expect(wrapper).toHaveLength(1);
   });
 });

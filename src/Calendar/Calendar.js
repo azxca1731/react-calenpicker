@@ -1,5 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { ThemeProvider } from "styled-components";
+
+import light from "../Styles/theme/light";
+import dark from "../Styles/theme/dark";
 
 import TemplateContainer from "Containers/TemplateContainer";
 import CalendarHead from "Containers/CalendarHead";
@@ -70,21 +74,25 @@ class Calendar extends React.Component {
 
   render() {
     const { props } = this;
+    const theme =
+      this.props.theme && this.props.theme === "light" ? light : dark;
     return (
-      <AppProvider contexts={[DateProvider, CssProvider]} {...props}>
-        <AppProvider contexts={[PropsProvider]} {...props}>
-          <TemplateContainer head={<CalendarHead />}>
-            <CalendarBody />
-          </TemplateContainer>
-        </AppProvider>
-        {props.duplicate ? (
-          <AppProvider contexts={[PropsProvider]} {...props} duplicated>
+      <ThemeProvider theme={theme}>
+        <AppProvider contexts={[DateProvider, CssProvider]} {...props}>
+          <AppProvider contexts={[PropsProvider]} {...props}>
             <TemplateContainer head={<CalendarHead />}>
               <CalendarBody />
             </TemplateContainer>
           </AppProvider>
-        ) : null}
-      </AppProvider>
+          {props.duplicate ? (
+            <AppProvider contexts={[PropsProvider]} {...props} duplicated>
+              <TemplateContainer head={<CalendarHead />}>
+                <CalendarBody />
+              </TemplateContainer>
+            </AppProvider>
+          ) : null}
+        </AppProvider>
+      </ThemeProvider>
     );
   }
 }

@@ -1,28 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { CssConnector, PropsConnector } from "Containers/Provider";
-import MonthDark from "Components/Month/MonthDark";
-import MonthLight from "Components/Month/MonthLight";
+import { CssConnector } from "Containers/Provider";
+import Month from "Components/Month";
 
-const MonthContainer = props => {
-  if (props.theme == "light") {
-    return <MonthLight style={props.cssObject} month={props.month} />;
-  } else {
-    return <MonthDark style={props.cssObject} month={props.month} />;
-  }
-};
+const MonthContainer = props => (
+  <Month cssObject={props.cssObject} month={props.month} />
+);
 
 MonthContainer.propTypes = {
   month: PropTypes.string.isRequired,
-  cssObject: PropTypes.object,
-  theme: PropTypes.string
+  cssObject: PropTypes.object
 };
 
-export default PropsConnector(({ state }) => ({
-  theme: state.theme
-}))(
-  CssConnector(({ state }) => ({
-    cssObject: state.MonthCssObject
-  }))(MonthContainer)
-);
+export default CssConnector(({ state }) => ({
+  cssObject: state.MonthCssObject
+}))(MonthContainer);

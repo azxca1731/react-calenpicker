@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import WeekDayDark from "index";
+import Month from "index";
 
-describe("WeekDayDark", () => {
+describe("Month", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<WeekDayDark />);
+    const wrapper = shallow(<Month />);
     expect(wrapper).toHaveLength(1);
   });
 });

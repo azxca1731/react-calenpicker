@@ -1,26 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./MonthArrowLight.style";
+import styled from "styled-components";
 
-const MonthArrowLight = props => {
+const MonthArrowDiv = styled.div`
+  padding: 25px;
+  cursor: pointer;
+  color: ${props => props.theme.fontColor};
+  font-size: 130%;
+`;
+
+const MonthArrow = props => {
   const { type, onClick, cssObject } = props;
   return (
-    <div className={style.MonthArrow} onClick={onClick} style={cssObject}>
+    <MonthArrowDiv onClick={onClick} style={cssObject}>
       {type === "left" ? "❮" : type === "right" ? "❯" : " "}
-    </div>
+    </MonthArrowDiv>
   );
 };
 
-MonthArrowLight.defaultProps = {
+MonthArrow.defaultProps = {
   type: "left",
   onClick: () => {},
   cssObject: {}
 };
 
-MonthArrowLight.propTypes = {
+MonthArrow.propTypes = {
   type: PropTypes.oneOf(["left", "right"]).isRequired,
   onClick: PropTypes.func.isRequired,
   cssObject: PropTypes.object
 };
 
-export default MonthArrowLight;
+export default MonthArrow;

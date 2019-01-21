@@ -1,15 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./TemplateLight.style.scss";
+import styled from "styled-components";
+
+const TemplateDiv = styled.div`
+  width: 300px;
+  float: left;
+  background-color: ${props => props.theme.backgroundColor};
+  border: 1px solid ${props => props.theme.borderColor};
+`;
+
+const Devider = styled.div`
+  width: 100%;
+  border-bottom: 1px solid ${props => props.theme.borderColor};
+`;
 
 const TemplateLight = props => {
   const { head, children, cssObject } = props;
   return (
-    <div className={style.Template} style={cssObject}>
+    <TemplateDiv style={cssObject}>
       {head}
-      <div className={style.Template__devider} />
+      <Devider />
       {children}
-    </div>
+    </TemplateDiv>
   );
 };
 

@@ -1,29 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+
 import { CssConnector } from "Containers/Provider";
 import Date from "Containers/Date";
-import style from "./Week.style.scss";
 
-class Week extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const WeekTr = styled.tr`
+  width: 100%;
+  height: 16.6%;
+  display: inline-flex;
+`;
 
-  render() {
-    const { cssObject } = this.props;
-    return (
-      <tr className={style.Week} style={cssObject}>
-        <Date weekNumber={this.props.weekNumber} day={1} />
-        <Date weekNumber={this.props.weekNumber} day={2} />
-        <Date weekNumber={this.props.weekNumber} day={3} />
-        <Date weekNumber={this.props.weekNumber} day={4} />
-        <Date weekNumber={this.props.weekNumber} day={5} />
-        <Date weekNumber={this.props.weekNumber} day={6} />
-        <Date weekNumber={this.props.weekNumber} day={7} />
-      </tr>
-    );
-  }
-}
+const Week = props => (
+  <WeekTr style={props.cssObject}>
+    <Date weekNumber={props.weekNumber} day={1} />
+    <Date weekNumber={props.weekNumber} day={2} />
+    <Date weekNumber={props.weekNumber} day={3} />
+    <Date weekNumber={props.weekNumber} day={4} />
+    <Date weekNumber={props.weekNumber} day={5} />
+    <Date weekNumber={props.weekNumber} day={6} />
+    <Date weekNumber={props.weekNumber} day={7} />
+  </WeekTr>
+);
 
 Week.propTypes = {
   weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,

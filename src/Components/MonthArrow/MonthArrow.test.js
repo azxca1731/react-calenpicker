@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import MonthArrowLight from "index";
+import MonthArrow from "index";
 
-describe("MonthArrowLight", () => {
+describe("MonthArrow", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<MonthArrowLight />);
+    const wrapper = shallow(<MonthArrow />);
     expect(wrapper).toHaveLength(1);
   });
 });
