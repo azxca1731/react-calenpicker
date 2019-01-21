@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import light from "./Date.style.light";
 import dark from "./Date.style.dark";
-import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
+import {
+  DayConnector,
+  PropsConnector,
+  CssConnector
+} from "Containers/Provider";
 
 class Date extends React.Component {
   constructor(props) {
@@ -23,11 +27,24 @@ class Date extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { weekNumber, day, objectSetText, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
-    const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
+    const {
+      weekNumber,
+      day,
+      objectSetText,
+      duplicated,
+      duplicatedDateObjectArray,
+      indicateToday,
+      onlyThisMonth
+    } = props;
+    const dateObjectArray = duplicated
+      ? duplicatedDateObjectArray
+      : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
+      const dateString =
+        (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth
+          ? target.dateString
+          : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday;
       if (state.today === dateString && indicateToday) {
@@ -122,7 +139,8 @@ class Date extends React.Component {
     for (let i = 0; i < periods.length; i++) {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps === pe) {
-        if (pe == dateString) return <div className={this.style["Date--text"]}>선택</div>;
+        if (pe == dateString)
+          return <div className={this.style["Date--text"]}>선택</div>;
       } else if (pe == dateString)
         return (
           <div className={this.style.Date__periodEnd}>
@@ -146,7 +164,11 @@ class Date extends React.Component {
     const { cssObject } = this.props;
     const { text, dayNumber } = this.state;
     return (
-      <td onClick={this.handleDateClick} style={cssObject} className={this.handleInPeriod()}>
+      <td
+        onClick={this.handleDateClick}
+        style={cssObject}
+        className={this.handleInPeriod()}
+      >
         <div className={this.setClassName()}>
           {dayNumber}
           <div className={this.style["Date--text"]}>{text}</div>

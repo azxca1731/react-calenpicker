@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./CalendarHead.style";
+import styled from "styled-components";
 
 import MonthContainer from "Containers/MonthContainer";
 import MonthArrowContainer from "Containers/MonthArrowContainer";
@@ -9,6 +9,15 @@ import {
   PropsConnector,
   CssConnector
 } from "Containers/Provider";
+
+const CalendarHeadDiv = styled.div`
+  width: 87%;
+  padding: 0px 20px;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 class CalendarHead extends React.Component {
   constructor(props) {
@@ -35,23 +44,23 @@ class CalendarHead extends React.Component {
     return (
       <div>
         {!duplicate ? (
-          <div className={style.CalendarHead}>
+          <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="right" onClick={showNextMonth} />
-          </div>
+          </CalendarHeadDiv>
         ) : !duplicated ? (
-          <div className={style.CalendarHead}>
+          <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="none" onClick={() => {}} />
-          </div>
+          </CalendarHeadDiv>
         ) : (
-          <div className={style.CalendarHead}>
+          <CalendarHeadDiv>
             <MonthArrowContainer type="none" onClick={() => {}} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="right" onClick={showNextMonth} />
-          </div>
+          </CalendarHeadDiv>
         )}
       </div>
     );

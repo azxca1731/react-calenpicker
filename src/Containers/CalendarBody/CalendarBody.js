@@ -7,7 +7,25 @@ import {
   PropsConnector,
   CssConnector
 } from "Containers/Provider";
-import style from "./CalendarBody.style.scss";
+import styled from "styled-components";
+
+const CalendarBodyDiv = styled.div`
+  width: 87%;
+  padding: 0px 20px;
+  height: 80%;
+  border-top: 0px;
+`;
+
+const CalendarBodyTable = styled.table`
+  width: 100%;
+  height: 100%;
+`;
+
+const CalendarBodyTbody = styled.tbody`
+  width: 100%;
+  height: 85%;
+  display: block;
+`;
 
 class CalendarBody extends React.Component {
   constructor(props) {
@@ -85,19 +103,19 @@ class CalendarBody extends React.Component {
 
     setDateObjectArray(this.calculateMonth(), duplicated);
     return (
-      <div className={style.CalendarBody} style={cssObject}>
-        <table className={style.CalendarBody__table}>
+      <CalendarBodyDiv style={cssObject}>
+        <CalendarBodyTable>
           <WeekDayContainer />
-          <tbody className={style.CalendarBody__tbody}>
+          <CalendarBodyTbody>
             <Week weekNumber={0} />
             <Week weekNumber={1} />
             <Week weekNumber={2} />
             <Week weekNumber={3} />
             <Week weekNumber={4} />
             <Week weekNumber={5} />
-          </tbody>
-        </table>
-      </div>
+          </CalendarBodyTbody>
+        </CalendarBodyTable>
+      </CalendarBodyDiv>
     );
   }
 }
