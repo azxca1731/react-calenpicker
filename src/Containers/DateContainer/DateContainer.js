@@ -2,13 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import light from "./Date.style.light";
 import dark from "./Date.style.dark";
-import {
-  DayConnector,
-  PropsConnector,
-  CssConnector
-} from "Containers/Provider";
+import Date from "Components/Date";
+import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
 
-class Date extends React.Component {
+class DateContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateClick = this.handleDateClick.bind(this);
@@ -27,24 +24,11 @@ class Date extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      weekNumber,
-      day,
-      objectSetText,
-      duplicated,
-      duplicatedDateObjectArray,
-      indicateToday,
-      onlyThisMonth
-    } = props;
-    const dateObjectArray = duplicated
-      ? duplicatedDateObjectArray
-      : props.dateObjectArray;
+    const { weekNumber, day, objectSetText, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
+    const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString =
-        (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth
-          ? target.dateString
-          : "";
+      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday;
       if (state.today === dateString && indicateToday) {
@@ -139,8 +123,7 @@ class Date extends React.Component {
     for (let i = 0; i < periods.length; i++) {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps === pe) {
-        if (pe == dateString)
-          return <div className={this.style["Date--text"]}>선택</div>;
+        if (pe == dateString) return <div className={this.style["Date--text"]}>선택</div>;
       } else if (pe == dateString)
         return (
           <div className={this.style.Date__periodEnd}>
@@ -163,28 +146,16 @@ class Date extends React.Component {
   render() {
     const { cssObject } = this.props;
     const { text, dayNumber } = this.state;
-    return (
-      <td
-        onClick={this.handleDateClick}
-        style={cssObject}
-        className={this.handleInPeriod()}
-      >
-        <div className={this.setClassName()}>
-          {dayNumber}
-          <div className={this.style["Date--text"]}>{text}</div>
-          {this.handleStart()}
-          {this.handleEnd()}
-        </div>
-      </td>
-    );
+    const handlers = { handleDateClick: this.handleDateClick, handleStart: this.handleStart, handleEnd: this.handleEnd };
+    return <Date cssObject={cssObject} text={text} dayNumber={dayNumber} Periods={this.handleInPeriod()} classNames={this.setClassName()} handlers={handlers} style={this.style} />;
   }
 }
 
-Date.defaultProps = {
+DateContainer.defaultProps = {
   day: "1"
 };
 
-Date.propTypes = {
+DateContainer.propTypes = {
   weekNumber: PropTypes.number.isRequired,
   day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7]).isRequired,
   dateObjectArray: PropTypes.array.isRequired,
@@ -234,6 +205,6 @@ export default PropsConnector(({ state }) => ({
   }))(
     CssConnector(({ state }) => ({
       cssObject: state.DateCssObject
-    }))(Date)
+    }))(DateContainer)
   )
 );
