@@ -105,6 +105,7 @@ Calendar.defaultProps = {
 };
 
 Calendar.propTypes = {
+  theme: PropTypes.string,
   timezone: PropTypes.string,
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
