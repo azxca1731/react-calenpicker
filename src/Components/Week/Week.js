@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { CssConnector } from "Containers/Provider";
 import DateContainer from "Containers/DateContainer";
 
 const WeekTr = styled.tr`
@@ -28,6 +27,4 @@ Week.propTypes = {
   cssObject: PropTypes.object
 };
 
-export default CssConnector(({ state }) => ({
-  cssObject: state.WeekCssObject
-}))(Week);
+export default Week;

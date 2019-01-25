@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import WeekDayContainer from "Containers/WeekDayContainer";
-import Week from "Components/Week";
-import {
-  DayConnector,
-  PropsConnector,
-  CssConnector
-} from "Containers/Provider";
+import WeekContainer from "Containers/WeekContainer";
+import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
 import styled from "styled-components";
 
 const CalendarBodyDiv = styled.div`
@@ -35,36 +31,19 @@ class CalendarBody extends React.Component {
   calculateMonth = () => {
     const { duplicated } = this.props;
     const propMonth = new Date(this.props.month);
-    const month = duplicated
-      ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1)
-      : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
+    const month = duplicated ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1) : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
     const today = month;
-    const currentMonthFirstDay = new Date(
-      today.getFullYear(),
-      today.getMonth()
-    );
-    const previousMonthLastDay = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      0
-    );
-    const currentMonthLastDay = new Date(
-      today.getFullYear(),
-      today.getMonth() + 1,
-      0
-    );
+    const currentMonthFirstDay = new Date(today.getFullYear(), today.getMonth());
+    const previousMonthLastDay = new Date(today.getFullYear(), today.getMonth(), 0);
+    const currentMonthLastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const nextMonth = new Date(today.getFullYear(), today.getMonth() + 2, 0);
     const dateObjectArray = [];
     let count = 0;
 
     for (let i = 1; i <= currentMonthFirstDay.getDay(); i++) {
       dateObjectArray.push({
-        dayNumber:
-          previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i,
-        dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() +
-          1}-${previousMonthLastDay.getDate() -
-          currentMonthFirstDay.getDay() +
-          i}`,
+        dayNumber: previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i,
+        dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() + 1}-${previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i}`,
         text: ""
       });
       count++;
@@ -83,8 +62,7 @@ class CalendarBody extends React.Component {
     for (let i = 1; count < 42; i++) {
       dateObjectArray.push({
         dayNumber: i,
-        dateString: `${nextMonth.getFullYear()}-${nextMonth.getMonth() +
-          1}-${i}`,
+        dateString: `${nextMonth.getFullYear()}-${nextMonth.getMonth() + 1}-${i}`,
         text: ""
       });
       count++;
@@ -107,12 +85,12 @@ class CalendarBody extends React.Component {
         <CalendarBodyTable>
           <WeekDayContainer />
           <CalendarBodyTbody>
-            <Week weekNumber={0} />
-            <Week weekNumber={1} />
-            <Week weekNumber={2} />
-            <Week weekNumber={3} />
-            <Week weekNumber={4} />
-            <Week weekNumber={5} />
+            <WeekContainer weekNumber={0} />
+            <WeekContainer weekNumber={1} />
+            <WeekContainer weekNumber={2} />
+            <WeekContainer weekNumber={3} />
+            <WeekContainer weekNumber={4} />
+            <WeekContainer weekNumber={5} />
           </CalendarBodyTbody>
         </CalendarBodyTable>
       </CalendarBodyDiv>
