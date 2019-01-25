@@ -4,9 +4,7 @@ import PropTypes from "prop-types";
 import { CssConnector } from "Containers/Provider";
 import Month from "Components/Month";
 
-const MonthContainer = props => (
-  <Month cssObject={props.cssObject} month={props.month} />
-);
+const MonthContainer = props => <Month {...props} />;
 
 MonthContainer.propTypes = {
   month: PropTypes.string.isRequired,
