@@ -149,8 +149,13 @@ class DateContainer extends React.Component {
   render() {
     const { cssObject } = this.props;
     const { text, dayNumber } = this.state;
-    const handlers = { handleDateClick: this.handleDateClick, handleStart: this.handleStart, handleEnd: this.handleEnd };
-    return <Date cssObject={cssObject} text={text} dayNumber={dayNumber} Periods={this.handleInPeriod()} classNames={this.setClassName()} handlers={handlers} style={this.style} />;
+    const handlers = { handleDateClick: this.handleDateClick };
+    return (
+      <Date cssObject={cssObject} text={text} dayNumber={dayNumber} Periods={this.handleInPeriod()} classNames={this.setClassName()} handlers={handlers} style={this.style}>
+        {this.handleStart()}
+        {this.handleEnd()}
+      </Date>
+    );
   }
 }
 
