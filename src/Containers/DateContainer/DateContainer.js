@@ -34,9 +34,12 @@ class DateContainer extends React.Component {
       if (state.today === dateString && indicateToday) {
         text = "오늘";
       } else {
-        const filtered = objectSetText.filter(item => {
-          return item.date === dateString;
-        });
+        const filtered =
+          objectSetText.length > 0
+            ? objectSetText.filter(item => {
+              return item.date === dateString;
+            })
+            : [];
         text = filtered.length > 0 ? filtered[0].text : "";
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
       }

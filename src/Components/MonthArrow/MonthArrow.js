@@ -25,7 +25,7 @@ MonthArrow.defaultProps = {
 };
 
 MonthArrow.propTypes = {
-  type: PropTypes.oneOf(["left", "right"]).isRequired,
+  type: PropTypes.oneOf(["left", "right", "none"]).isRequired,
   onClick: PropTypes.func.isRequired,
   cssObject: PropTypes.object
 };

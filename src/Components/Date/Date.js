@@ -22,8 +22,8 @@ Date.propTypes = {
   classNames: PropTypes.string,
   Periods: PropTypes.string,
   cssObject: PropTypes.object,
-  dayNumber: PropTypes.string,
-  text: PropTypes.text,
+  dayNumber: PropTypes.number,
+  text: PropTypes.string,
   style: PropTypes.any
 };
 

@@ -32,10 +32,7 @@ class PropsProvider extends Component {
 }
 
 PropsProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   sizeOption: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({

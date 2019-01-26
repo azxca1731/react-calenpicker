@@ -7,7 +7,7 @@ import MontArrow from "Components/MonthArrow";
 const MonthArrowContainer = props => <MontArrow {...props} />;
 
 MonthArrowContainer.propTypes = {
-  type: PropTypes.oneOf(["left", "right"]).isRequired,
+  type: PropTypes.oneOf(["left", "right", "none"]).isRequired,
   onClick: PropTypes.func.isRequired,
   cssObject: PropTypes.object,
   theme: PropTypes.string

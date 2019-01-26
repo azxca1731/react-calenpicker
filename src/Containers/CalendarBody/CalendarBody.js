@@ -81,7 +81,6 @@ class CalendarBody extends React.Component {
   render() {
     const { cssObject } = this.props;
 
-    // setDateObjectArray(this.calculateMonth(), duplicated);
     return (
       <CalendarBodyDiv style={cssObject}>
         <CalendarBodyTable>
