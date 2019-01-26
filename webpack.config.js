@@ -24,29 +24,7 @@ module.exports = {
         include: path.join(__dirname, "src"),
         use: [
           {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"]
-            }
-          }
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader",
-            options: {
-              sourceMap: true,
-              modules: true,
-              localIdentName: "[local]___[hash:base64:5]"
-            }
-          },
-          {
-            loader: "sass-loader"
+            loader: "babel-loader"
           }
         ]
       },
