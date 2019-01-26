@@ -45,11 +45,11 @@
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 102;
   }
 
   &__periodStart {
     @include periodPoint();
-    z-index: 102;
     background: url(../../Styles/assets/start-period.png) no-repeat;
     background-size: 100% 100%;
   }

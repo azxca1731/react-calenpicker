@@ -2,18 +2,51 @@ import React from "react";
 import PropTypes from "prop-types";
 import light from "./Date.style.light";
 import dark from "./Date.style.dark";
-import Date from "Components/Date";
+import Date, { DateText } from "Components/Date";
+import styled from "styled-components";
+import startImg from "../../Styles/assets/start-period.png";
+import endImg from "../../Styles/assets/end-period.png";
 import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
+
+const PeriodIndicatorDIV = styled.div`
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+`;
+
+const StartDIV = styled(PeriodIndicatorDIV)`
+  background: url(${startImg}) no-repeat;
+  background-size: 100% 100%;
+`;
+
+const EndDIV = styled(PeriodIndicatorDIV)`
+  background: url(${endImg}) no-repeat;
+  background-size: 100% 100%;
+`;
+
+const StartIndicator = props => (
+  <StartDIV>
+    <div>{props.dayNumber}</div>
+    <div>시작</div>
+  </StartDIV>
+);
+
+const EndIndicator = props => (
+  <EndDIV>
+    <div>{props.dayNumber}</div>
+    <div>시작</div>
+  </EndDIV>
+);
 
 class DateContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateClick = this.handleDateClick.bind(this);
-    this.setClassName = this.setClassName.bind(this);
-    this.handleInPeriod = this.handleInPeriod.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleEnd = this.handleEnd.bind(this);
-    this.style = props.theme == "light" ? light : dark;
   }
 
   state = {
@@ -60,28 +93,6 @@ class DateContainer extends React.Component {
 
   componentDidMount() {}
 
-  setClassName() {
-    let className;
-    const { day, indicateToday, onlyThisMonth } = this.props;
-    const { today, dateString, isInThisMonth, isHoliday } = this.state;
-    if (day % 6 !== 1) {
-      className = isHoliday ? this.style["Date--sun"] : this.style["Date--day"];
-    } else if (day == 1) {
-      className = this.style["Date--sun"];
-    } else {
-      className = this.style["Date--sat"];
-    }
-    if (!isInThisMonth) {
-      className += ` ${this.style["Date--past"]}`;
-    }
-    if (indicateToday && dateString == today) {
-      className += ` ${this.style["Date--today"]}`;
-    }
-    if (onlyThisMonth && !isInThisMonth) {
-      className = this.style["Date--notThisMonth"];
-    }
-    return className;
-  }
 
   handleDateClick() {
     const { dateClicked, isInPeriod } = this.props;
@@ -100,15 +111,6 @@ class DateContainer extends React.Component {
     }
   }
 
-  handleInPeriod() {
-    const { isInPeriod } = this.props;
-    const { dateString } = this.state;
-    let className = this.style.Date;
-    if (isInPeriod(dateString)) {
-      className += ` ${this.style["Date__periodSelect"]}`;
-    }
-    return className;
-  }
 
   handleStart() {
     const { periodStart, periods } = this.props;
@@ -118,22 +120,11 @@ class DateContainer extends React.Component {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps == pe) {
         if (ps == dateString) return;
-      } else if (ps == dateString)
-        return (
-          <div className={this.style.Date__periodStart}>
-            <div>{dayNumber}</div>
-            <div>시작</div>
-          </div>
-        );
+      } else if (ps == dateString) return <StartIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length >= 0 && periodStart == dateString) {
-      return (
-        <div className={this.style.Date__periodStart}>
-          <div>{dayNumber}</div>
-          <div>시작</div>
-        </div>
-      );
+      return <StartIndicator dayNumber={dayNumber} />;
     }
   }
 
@@ -144,23 +135,12 @@ class DateContainer extends React.Component {
     for (let i = 0; i < periods.length; i++) {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps === pe) {
-        if (pe == dateString) return <div className={this.style["Date--text"]}>선택</div>;
-      } else if (pe == dateString)
-        return (
-          <div className={this.style.Date__periodEnd}>
-            <div>{dayNumber}</div>
-            <div>끝</div>
-          </div>
-        );
+        if (pe == dateString) return <DateText>선택</DateText>;
+      } else if (pe == dateString) return <EndIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length == 0 && periodEnd == dateString) {
-      return (
-        <div className={this.style.Date__periodEnd}>
-          <div>{dayNumber}</div>
-          <div>끝</div>
-        </div>
-      );
+      return <EndIndicator dayNumber={dayNumber} />;
     }
   }
 
@@ -178,9 +158,7 @@ class DateContainer extends React.Component {
         isHoliday={isHoliday}
         isInPeriod={isInPeriod}
         isSaturday={isSaturday}
-        classNames={this.setClassName()}
         handlers={handlers}
-        style={this.style}
       >
         {this.handleStart()}
         {this.handleEnd()}
@@ -188,6 +166,13 @@ class DateContainer extends React.Component {
     );
   }
 }
+
+StartIndicator.propTypes = {
+  dayNumber: PropTypes.number
+};
+EndIndicator.propTypes = {
+  dayNumber: PropTypes.number
+};
 
 DateContainer.defaultProps = {
   day: "1"
@@ -220,14 +205,12 @@ DateContainer.propTypes = {
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
   cssObject: PropTypes.object,
-  theme: PropTypes.string
 };
 
 export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
   duplicated: state.duplicated,
-  theme: state.theme
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
