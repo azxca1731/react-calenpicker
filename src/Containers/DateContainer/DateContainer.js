@@ -1,12 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Date, { DateText } from "Components/Date";
 import styled from "styled-components";
-import startImg from "../../Styles/assets/start-period.png";
-import endImg from "../../Styles/assets/end-period.png";
-import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
 
-const PeriodIndicatorDIV = styled.div`
+import {
+  DayConnector,
+  PropsConnector,
+  CssConnector
+} from "Containers/Provider";
+import Date, { DateText } from "Components/Date";
+
+import startImg from "Styles/assets/start-period.png";
+import endImg from "Styles/assets/end-period.png";
+
+const PeriodIndicatorDiv = styled.div`
   z-index: 101;
   width: 100%;
   height: 100%;
@@ -15,28 +21,28 @@ const PeriodIndicatorDIV = styled.div`
   top: 0;
 `;
 
-const StartDIV = styled(PeriodIndicatorDIV)`
+const StartDiv = styled(PeriodIndicatorDiv)`
   background: url(${startImg}) no-repeat;
   background-size: 100% 100%;
 `;
 
-const EndDIV = styled(PeriodIndicatorDIV)`
+const EndDiv = styled(PeriodIndicatorDiv)`
   background: url(${endImg}) no-repeat;
   background-size: 100% 100%;
 `;
 
 const StartIndicator = props => (
-  <StartDIV>
+  <StartDiv>
     <div>{props.dayNumber}</div>
     <div>시작</div>
-  </StartDIV>
+  </StartDiv>
 );
 
 const EndIndicator = props => (
-  <EndDIV>
+  <EndDiv>
     <div>{props.dayNumber}</div>
     <div>끝</div>
-  </EndDIV>
+  </EndDiv>
 );
 
 class DateContainer extends React.Component {
@@ -59,11 +65,24 @@ class DateContainer extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { weekNumber, day, objectSetText, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
-    const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
+    const {
+      weekNumber,
+      day,
+      objectSetText,
+      duplicated,
+      duplicatedDateObjectArray,
+      indicateToday,
+      onlyThisMonth
+    } = props;
+    const dateObjectArray = duplicated
+      ? duplicatedDateObjectArray
+      : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
+      const dateString =
+        (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth
+          ? target.dateString
+          : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday, isToday;
       if (state.today === dateString && indicateToday) {
@@ -84,7 +103,16 @@ class DateContainer extends React.Component {
       const isInPeriod = props.isInPeriod(dateString);
       isHoliday = day == 1 ? true : isHoliday;
       const isSaturday = day == 7 ? true : false;
-      return { dateString, text, dayNumber, isInThisMonth, isHoliday, isInPeriod, isToday, isSaturday };
+      return {
+        dateString,
+        text,
+        dayNumber,
+        isInThisMonth,
+        isHoliday,
+        isInPeriod,
+        isToday,
+        isSaturday
+      };
     }
     return null;
   }
@@ -119,7 +147,8 @@ class DateContainer extends React.Component {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps == pe) {
         if (ps == dateString) return;
-      } else if (ps == dateString) return <StartIndicator dayNumber={dayNumber} />;
+      } else if (ps == dateString)
+        return <StartIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length >= 0 && periodStart == dateString) {
@@ -135,7 +164,8 @@ class DateContainer extends React.Component {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps === pe) {
         if (pe == dateString) return <DateText>선택</DateText>;
-      } else if (pe == dateString) return <EndIndicator dayNumber={dayNumber} />;
+      } else if (pe == dateString)
+        return <EndIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length == 0 && periodEnd == dateString) {
@@ -145,7 +175,15 @@ class DateContainer extends React.Component {
 
   render() {
     const { cssObject } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday } = this.state;
+    const {
+      text,
+      dayNumber,
+      isInPeriod,
+      isHoliday,
+      isInThisMonth,
+      isToday,
+      isSaturday
+    } = this.state;
     const handlers = { handleDateClick: this.handleDateClick };
     return (
       <Date
