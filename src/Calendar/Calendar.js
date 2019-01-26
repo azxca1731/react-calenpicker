@@ -74,25 +74,26 @@ class Calendar extends React.Component {
 
   render() {
     const { props } = this;
-    const theme =
-      this.props.theme && this.props.theme === "light" ? light : dark;
+    const theme = this.props.theme && this.props.theme === "light" ? light : dark;
     return (
-      <ThemeProvider theme={theme}>
-        <AppProvider contexts={[DateProvider, CssProvider]} {...props}>
-          <AppProvider contexts={[PropsProvider]} {...props}>
-            <TemplateContainer head={<CalendarHead />}>
-              <CalendarBody />
-            </TemplateContainer>
-          </AppProvider>
-          {props.duplicate ? (
-            <AppProvider contexts={[PropsProvider]} {...props} duplicated>
+      <div>
+        <ThemeProvider theme={theme}>
+          <AppProvider contexts={[DateProvider, CssProvider]} {...props}>
+            <AppProvider contexts={[PropsProvider]} {...props}>
               <TemplateContainer head={<CalendarHead />}>
                 <CalendarBody />
               </TemplateContainer>
             </AppProvider>
-          ) : null}
-        </AppProvider>
-      </ThemeProvider>
+            {props.duplicate ? (
+              <AppProvider contexts={[PropsProvider]} {...props} duplicated>
+                <TemplateContainer head={<CalendarHead />}>
+                  <CalendarBody />
+                </TemplateContainer>
+              </AppProvider>
+            ) : null}
+          </AppProvider>
+        </ThemeProvider>
+      </div>
     );
   }
 }
@@ -112,9 +113,7 @@ Calendar.propTypes = {
   indicateToday: PropTypes.bool,
   multiSelect: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
-  objectSetText: PropTypes.arrayOf(
-    PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
-  ),
+  objectSetText: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })),
   sizeOption: PropTypes.oneOfType([
     PropTypes.oneOf(["sm", "md", "lg"]),
     PropTypes.shape({
