@@ -70,7 +70,7 @@ class DateProvider extends Component {
     },
     isInPeriod: dateString => {
       const { periods } = this.state;
-      return periods
+      const result = periods
         .map(({ periodStart, periodEnd }) => {
           if (periodStart && periodEnd) {
             if (new Date(periodStart) <= new Date(dateString) && new Date(dateString) <= new Date(periodEnd)) {
@@ -79,7 +79,8 @@ class DateProvider extends Component {
           }
           return false;
         })
-        .filter(item => item).length;
+        .filter(item => item == true);
+      return result[0];
     },
     getTodayString: () => {
       const today = new Date();

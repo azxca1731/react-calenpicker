@@ -20,7 +20,11 @@ class DateContainer extends React.Component {
     today: this.props.getTodayString(),
     dateString: "",
     dayNumber: 0,
-    isInThisMonth: false
+    isInThisMonth: false,
+    isInPeriod: false,
+    isHoliday: false,
+    isToday: false,
+    isSaturday: false
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -30,9 +34,10 @@ class DateContainer extends React.Component {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
       const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
-      let text, isHoliday;
+      let text, isHoliday, isToday;
       if (state.today === dateString && indicateToday) {
         text = "오늘";
+        isToday = true;
       } else {
         const filtered =
           objectSetText.length > 0
@@ -42,9 +47,13 @@ class DateContainer extends React.Component {
             : [];
         text = filtered.length > 0 ? filtered[0].text : "";
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
+        isToday = false;
       }
       const dayNumber = target.dayNumber;
-      return { dateString, text, dayNumber, isInThisMonth, isHoliday };
+      const isInPeriod = props.isInPeriod(dateString);
+      isHoliday = day == 1 ? true : isHoliday;
+      const isSaturday = day == 7 ? true : false;
+      return { dateString, text, dayNumber, isInThisMonth, isHoliday, isInPeriod, isToday, isSaturday };
     }
     return null;
   }
@@ -75,10 +84,19 @@ class DateContainer extends React.Component {
   }
 
   handleDateClick() {
-    const { dateClicked } = this.props;
-    const { isInThisMonth } = this.state;
+    const { dateClicked, isInPeriod } = this.props;
+    const { isInThisMonth, dateString } = this.state;
     if (isInThisMonth) {
       dateClicked(this.state);
+    }
+    if (isInPeriod(dateString)) {
+      this.setState({
+        isInPeriod: true
+      });
+    } else {
+      this.setState({
+        isInPeriod: false
+      });
     }
   }
 
@@ -148,10 +166,22 @@ class DateContainer extends React.Component {
 
   render() {
     const { cssObject } = this.props;
-    const { text, dayNumber } = this.state;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday } = this.state;
     const handlers = { handleDateClick: this.handleDateClick };
     return (
-      <Date cssObject={cssObject} text={text} dayNumber={dayNumber} Periods={this.handleInPeriod()} classNames={this.setClassName()} handlers={handlers} style={this.style}>
+      <Date
+        cssObject={cssObject}
+        text={text}
+        dayNumber={dayNumber}
+        isInThisMonth={isInThisMonth}
+        isToday={isToday}
+        isHoliday={isHoliday}
+        isInPeriod={isInPeriod}
+        isSaturday={isSaturday}
+        classNames={this.setClassName()}
+        handlers={handlers}
+        style={this.style}
+      >
         {this.handleStart()}
         {this.handleEnd()}
       </Date>
