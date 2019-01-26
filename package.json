@@ -13,7 +13,7 @@
     }
   ],
   "scripts": {
-    "start": "webpack --watch --config webpack.config.js",
+    "start": "webpack --watch --config webpack.config.js --mode=development",
     "build": "webpack --config webpack.config.js",
     "clean": "rm -rf dist coverage",
     "coverage": "jest --coverage",

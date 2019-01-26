@@ -26,6 +26,8 @@ const CalendarBodyTbody = styled.tbody`
 class CalendarBody extends React.Component {
   constructor(props) {
     super(props);
+    const { setDateObjectArray, duplicated } = props;
+    setDateObjectArray(this.calculateMonth(), duplicated);
   }
 
   calculateMonth = () => {
@@ -77,9 +79,9 @@ class CalendarBody extends React.Component {
   }
 
   render() {
-    const { setDateObjectArray, duplicated, cssObject } = this.props;
+    const { cssObject } = this.props;
 
-    setDateObjectArray(this.calculateMonth(), duplicated);
+    // setDateObjectArray(this.calculateMonth(), duplicated);
     return (
       <CalendarBodyDiv style={cssObject}>
         <CalendarBodyTable>
