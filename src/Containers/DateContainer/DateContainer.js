@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import light from "./Date.style.light";
-import dark from "./Date.style.dark";
 import Date, { DateText } from "Components/Date";
 import styled from "styled-components";
 import startImg from "../../Styles/assets/start-period.png";
@@ -37,7 +35,7 @@ const StartIndicator = props => (
 const EndIndicator = props => (
   <EndDIV>
     <div>{props.dayNumber}</div>
-    <div>시작</div>
+    <div>끝</div>
   </EndDIV>
 );
 
@@ -93,7 +91,6 @@ class DateContainer extends React.Component {
 
   componentDidMount() {}
 
-
   handleDateClick() {
     const { dateClicked, isInPeriod } = this.props;
     const { isInThisMonth, dateString } = this.state;
@@ -101,16 +98,18 @@ class DateContainer extends React.Component {
       dateClicked(this.state);
     }
     if (isInPeriod(dateString)) {
-      this.setState({
-        isInPeriod: true
-      });
+      if (!isInPeriod) {
+        this.setState({
+          isInPeriod: true
+        });
+      }
     } else {
-      this.setState({
-        isInPeriod: false
-      });
+      if (isInPeriod)
+        this.setState({
+          isInPeriod: false
+        });
     }
   }
-
 
   handleStart() {
     const { periodStart, periods } = this.props;
@@ -204,13 +203,13 @@ DateContainer.propTypes = {
   ),
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
-  cssObject: PropTypes.object,
+  cssObject: PropTypes.object
 };
 
 export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
-  duplicated: state.duplicated,
+  duplicated: state.duplicated
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
