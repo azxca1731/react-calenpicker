@@ -1,29 +1,67 @@
 import React from "react";
 import PropTypes from "prop-types";
-import light from "./Date.style.light";
-import dark from "./Date.style.dark";
+import styled from "styled-components";
+
 import {
   DayConnector,
   PropsConnector,
   CssConnector
 } from "Containers/Provider";
+import Date, { DateText } from "Components/Date";
 
-class Date extends React.Component {
+import startImg from "Styles/assets/start-period.png";
+import endImg from "Styles/assets/end-period.png";
+
+const PeriodIndicatorDiv = styled.div`
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+`;
+
+const StartDiv = styled(PeriodIndicatorDiv)`
+  background: url(${startImg}) no-repeat;
+  background-size: 100% 100%;
+`;
+
+const EndDiv = styled(PeriodIndicatorDiv)`
+  background: url(${endImg}) no-repeat;
+  background-size: 100% 100%;
+`;
+
+const StartIndicator = props => (
+  <StartDiv>
+    <div>{props.dayNumber}</div>
+    <div>시작</div>
+  </StartDiv>
+);
+
+const EndIndicator = props => (
+  <EndDiv>
+    <div>{props.dayNumber}</div>
+    <div>끝</div>
+  </EndDiv>
+);
+
+class DateContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateClick = this.handleDateClick.bind(this);
-    this.setClassName = this.setClassName.bind(this);
-    this.handleInPeriod = this.handleInPeriod.bind(this);
     this.handleStart = this.handleStart.bind(this);
     this.handleEnd = this.handleEnd.bind(this);
-    this.style = props.theme == "light" ? light : dark;
   }
 
   state = {
     today: this.props.getTodayString(),
     dateString: "",
     dayNumber: 0,
-    isInThisMonth: false
+    isInThisMonth: false,
+    isInPeriod: false,
+    isHoliday: false,
+    isToday: false,
+    isSaturday: false
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -46,63 +84,59 @@ class Date extends React.Component {
           ? target.dateString
           : "";
       const isInThisMonth = target.isInThisMonth;
-      let text, isHoliday;
+      let text, isHoliday, isToday;
       if (state.today === dateString && indicateToday) {
         text = "오늘";
+        isToday = true;
       } else {
-        const filtered = objectSetText.filter(item => {
-          return item.date === dateString;
-        });
+        const filtered =
+          objectSetText.length > 0
+            ? objectSetText.filter(item => {
+              return item.date === dateString;
+            })
+            : [];
         text = filtered.length > 0 ? filtered[0].text : "";
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
+        isToday = false;
       }
       const dayNumber = target.dayNumber;
-      return { dateString, text, dayNumber, isInThisMonth, isHoliday };
+      const isInPeriod = props.isInPeriod(dateString);
+      isHoliday = day == 1 ? true : isHoliday;
+      const isSaturday = day == 7 ? true : false;
+      return {
+        dateString,
+        text,
+        dayNumber,
+        isInThisMonth,
+        isHoliday,
+        isInPeriod,
+        isToday,
+        isSaturday
+      };
     }
     return null;
   }
 
   componentDidMount() {}
 
-  setClassName() {
-    let className;
-    const { day, indicateToday, onlyThisMonth } = this.props;
-    const { today, dateString, isInThisMonth, isHoliday } = this.state;
-    if (day % 6 !== 1) {
-      className = isHoliday ? this.style["Date--sun"] : this.style["Date--day"];
-    } else if (day == 1) {
-      className = this.style["Date--sun"];
-    } else {
-      className = this.style["Date--sat"];
-    }
-    if (!isInThisMonth) {
-      className += ` ${this.style["Date--past"]}`;
-    }
-    if (indicateToday && dateString == today) {
-      className += ` ${this.style["Date--today"]}`;
-    }
-    if (onlyThisMonth && !isInThisMonth) {
-      className = this.style["Date--notThisMonth"];
-    }
-    return className;
-  }
-
   handleDateClick() {
-    const { dateClicked } = this.props;
-    const { isInThisMonth } = this.state;
+    const { dateClicked, isInPeriod } = this.props;
+    const { isInThisMonth, dateString } = this.state;
     if (isInThisMonth) {
       dateClicked(this.state);
     }
-  }
-
-  handleInPeriod() {
-    const { isInPeriod } = this.props;
-    const { dateString } = this.state;
-    let className = this.style.Date;
     if (isInPeriod(dateString)) {
-      className += ` ${this.style["Date__periodSelect"]}`;
+      if (!isInPeriod) {
+        this.setState({
+          isInPeriod: true
+        });
+      }
+    } else {
+      if (isInPeriod)
+        this.setState({
+          isInPeriod: false
+        });
     }
-    return className;
   }
 
   handleStart() {
@@ -114,21 +148,11 @@ class Date extends React.Component {
       if (ps == pe) {
         if (ps == dateString) return;
       } else if (ps == dateString)
-        return (
-          <div className={this.style.Date__periodStart}>
-            <div>{dayNumber}</div>
-            <div>시작</div>
-          </div>
-        );
+        return <StartIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length >= 0 && periodStart == dateString) {
-      return (
-        <div className={this.style.Date__periodStart}>
-          <div>{dayNumber}</div>
-          <div>시작</div>
-        </div>
-      );
+      return <StartIndicator dayNumber={dayNumber} />;
     }
   }
 
@@ -139,52 +163,59 @@ class Date extends React.Component {
     for (let i = 0; i < periods.length; i++) {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps === pe) {
-        if (pe == dateString)
-          return <div className={this.style["Date--text"]}>선택</div>;
+        if (pe == dateString) return <DateText>선택</DateText>;
       } else if (pe == dateString)
-        return (
-          <div className={this.style.Date__periodEnd}>
-            <div>{dayNumber}</div>
-            <div>끝</div>
-          </div>
-        );
+        return <EndIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length == 0 && periodEnd == dateString) {
-      return (
-        <div className={this.style.Date__periodEnd}>
-          <div>{dayNumber}</div>
-          <div>끝</div>
-        </div>
-      );
+      return <EndIndicator dayNumber={dayNumber} />;
     }
   }
 
   render() {
     const { cssObject } = this.props;
-    const { text, dayNumber } = this.state;
+    const {
+      text,
+      dayNumber,
+      isInPeriod,
+      isHoliday,
+      isInThisMonth,
+      isToday,
+      isSaturday
+    } = this.state;
+    const handlers = { handleDateClick: this.handleDateClick };
     return (
-      <td
-        onClick={this.handleDateClick}
-        style={cssObject}
-        className={this.handleInPeriod()}
+      <Date
+        cssObject={cssObject}
+        text={text}
+        dayNumber={dayNumber}
+        isInThisMonth={isInThisMonth}
+        isToday={isToday}
+        isHoliday={isHoliday}
+        isInPeriod={isInPeriod}
+        isSaturday={isSaturday}
+        handlers={handlers}
       >
-        <div className={this.setClassName()}>
-          {dayNumber}
-          <div className={this.style["Date--text"]}>{text}</div>
-          {this.handleStart()}
-          {this.handleEnd()}
-        </div>
-      </td>
+        {this.handleStart()}
+        {this.handleEnd()}
+      </Date>
     );
   }
 }
 
-Date.defaultProps = {
+StartIndicator.propTypes = {
+  dayNumber: PropTypes.number
+};
+EndIndicator.propTypes = {
+  dayNumber: PropTypes.number
+};
+
+DateContainer.defaultProps = {
   day: "1"
 };
 
-Date.propTypes = {
+DateContainer.propTypes = {
   weekNumber: PropTypes.number.isRequired,
   day: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7]).isRequired,
   dateObjectArray: PropTypes.array.isRequired,
@@ -210,15 +241,13 @@ Date.propTypes = {
   ),
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
-  cssObject: PropTypes.object,
-  theme: PropTypes.string
+  cssObject: PropTypes.object
 };
 
 export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
-  duplicated: state.duplicated,
-  theme: state.theme
+  duplicated: state.duplicated
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
@@ -234,6 +263,6 @@ export default PropsConnector(({ state }) => ({
   }))(
     CssConnector(({ state }) => ({
       cssObject: state.DateCssObject
-    }))(Date)
+    }))(DateContainer)
   )
 );

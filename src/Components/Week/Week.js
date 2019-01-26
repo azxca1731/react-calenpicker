@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { CssConnector } from "Containers/Provider";
-import Date from "Containers/Date";
+import DateContainer from "Containers/DateContainer";
 
 const WeekTr = styled.tr`
   width: 100%;
@@ -13,13 +12,13 @@ const WeekTr = styled.tr`
 
 const Week = props => (
   <WeekTr style={props.cssObject}>
-    <Date weekNumber={props.weekNumber} day={1} />
-    <Date weekNumber={props.weekNumber} day={2} />
-    <Date weekNumber={props.weekNumber} day={3} />
-    <Date weekNumber={props.weekNumber} day={4} />
-    <Date weekNumber={props.weekNumber} day={5} />
-    <Date weekNumber={props.weekNumber} day={6} />
-    <Date weekNumber={props.weekNumber} day={7} />
+    <DateContainer weekNumber={props.weekNumber} day={1} />
+    <DateContainer weekNumber={props.weekNumber} day={2} />
+    <DateContainer weekNumber={props.weekNumber} day={3} />
+    <DateContainer weekNumber={props.weekNumber} day={4} />
+    <DateContainer weekNumber={props.weekNumber} day={5} />
+    <DateContainer weekNumber={props.weekNumber} day={6} />
+    <DateContainer weekNumber={props.weekNumber} day={7} />
   </WeekTr>
 );
 
@@ -28,6 +27,4 @@ Week.propTypes = {
   cssObject: PropTypes.object
 };
 
-export default CssConnector(({ state }) => ({
-  cssObject: state.WeekCssObject
-}))(Week);
+export default Week;

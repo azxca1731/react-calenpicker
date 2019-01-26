@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Date from "index";
+import DateContainer from "index";
 
 describe("Date", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<Date />);
+    const wrapper = shallow(<DateContainer />);
     expect(wrapper).toHaveLength(1);
   });
 });
