@@ -14,7 +14,7 @@ const Month = props => {
 
 Month.defaultProps = {
   cssObject: {},
-  month: ""
+  month: "2018-10"
 };
 
 Month.propTypes = {

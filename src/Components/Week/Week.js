@@ -22,6 +22,11 @@ const Week = props => (
   </WeekTr>
 );
 
+Week.defaultProps = {
+  weekNumber: 0,
+  cssObject: {}
+};
+
 Week.propTypes = {
   weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
   cssObject: PropTypes.object
