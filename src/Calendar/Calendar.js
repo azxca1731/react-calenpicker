@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
 
-import light from "../Styles/theme/light";
-import dark from "../Styles/theme/dark";
+import light from "Styles/theme/light";
+import dark from "Styles/theme/dark";
 
 import TemplateContainer from "Containers/TemplateContainer";
 import CalendarHead from "Containers/CalendarHead";
