@@ -11,7 +11,7 @@ const DateTd = styled.td`
   text-align: center;
   position: relative;
   font-weight: bold;
-  background-color: ${props => (props.isInPeriod ? props.theme.secondaryColor : props.theme.selectedFontColor)};
+  background-color: ${props => (props.isInPeriod ? props.theme.secondaryColor : props.theme.backgroundColor)};
 `;
 
 const DateDiv = styled.div`
