@@ -11,10 +11,7 @@ const DateTd = styled.td`
   text-align: center;
   position: relative;
   font-weight: bold;
-  background-color: ${props =>
-    props.isInPeriod
-      ? props.theme.secondaryColor
-      : props.theme.selectedFontColor};
+  background-color: ${props => (props.isInPeriod ? props.theme.secondaryColor : props.theme.selectedFontColor)};
 `;
 
 const DateDiv = styled.div`
@@ -38,33 +35,25 @@ export const DateTextDIV = styled.div`
 
 const Date = props => {
   const { handleDateClick } = props.handlers;
-  const {
-    isInPeriod,
-    dayNumber,
-    isHoliday,
-    isInThisMonth,
-    isToday,
-    isSaturday
-  } = props;
+  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, children } = props;
   return (
-    <DateTd
-      onClick={handleDateClick}
-      style={props.cssObject}
-      isInPeriod={isInPeriod}
-    >
-      <DateDiv
-        isHoliday={isHoliday}
-        isToday={isToday}
-        isInThisMonth={isInThisMonth}
-        isSaturday={isSaturday}
-        dayNumber={dayNumber}
-      >
-        {props.dayNumber}
-        <DateTextDIV>{props.text}</DateTextDIV>
-        {props.children}
+    <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
+      <DateDiv isHoliday={isHoliday} isToday={isToday} isInThisMonth={isInThisMonth} isSaturday={isSaturday} dayNumber={dayNumber}>
+        {dayNumber}
+        <DateTextDIV>{text}</DateTextDIV>
+        {children}
       </DateDiv>
     </DateTd>
   );
+};
+Date.defaultProps = {
+  handlers: {
+    handleDateClick: () => {},
+    handleStart: () => {},
+    handleEnd: () => {}
+  },
+  cssObject: {},
+  dayNumber: "1"
 };
 
 Date.propTypes = {
@@ -73,7 +62,6 @@ Date.propTypes = {
     handleStart: PropTypes.func,
     handleEnd: PropTypes.func
   }),
-  classNames: PropTypes.string,
   cssObject: PropTypes.object,
   dayNumber: PropTypes.number,
   text: PropTypes.string,
