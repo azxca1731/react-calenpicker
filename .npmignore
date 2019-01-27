@@ -6,6 +6,9 @@ yarn-error.log
 coverage
 .nyc_output
 
+# Github Template
+.github
+
 # Dependency directories
 node_modules
 
@@ -24,7 +27,7 @@ CHANGELOG.md
 .eslintrc
 .babelrc
 .gitignore
-
+.prettierrc
 
 # lock files
 package-lock.json
