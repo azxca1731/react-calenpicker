@@ -4,4 +4,4 @@ import { storiesOf } from "@storybook/react";
 
 import MonthArrow from "Components/MonthArrow";
 
-storiesOf("MonthArrow", module).add("MonthArrow 기본형", () => <MonthArrow />);
+storiesOf("Components", module).add("MonthArrow", () => <MonthArrow />);
