@@ -8,6 +8,7 @@ const WeekTr = styled.tr`
   width: 100%;
   height: 16.6%;
   display: inline-flex;
+  background-color: ${props => props.theme.backgroundColor};
 `;
 
 const Week = props => (

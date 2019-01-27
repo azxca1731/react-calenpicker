@@ -7,6 +7,7 @@ const MonthArrowDiv = styled.div`
   cursor: pointer;
   color: ${props => props.theme.fontColor};
   font-size: 130%;
+  background-color: ${props => props.theme.backgroundColor};
 `;
 
 const MonthArrow = props => {

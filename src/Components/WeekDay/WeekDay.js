@@ -7,6 +7,7 @@ const WeekDayThead = styled.thead`
   height: 10%;
   width: 100%;
   color: ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.backgroundColor};
 `;
 const WeekDayTr = styled.tr`
   display: block;
