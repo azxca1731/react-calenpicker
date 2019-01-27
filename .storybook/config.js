@@ -1,6 +1,7 @@
 import { configure, addDecorator } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
 import { withBackgrounds } from "@storybook/addon-backgrounds";
+
 import React from "react";
 
 addDecorator(withBackgrounds([{ name: "white", value: "#ffffff", default: true }, { name: "grey", value: "#C0C0C0" }, { name: "black", value: "#000000" }]));
