@@ -25,7 +25,7 @@ const DateDiv = styled.div`
   opacity: ${props => (props.isInThisMonth ? 1 : 0.3)};
 `;
 
-export const DateTextDIV = styled.div`
+export const DateTextDiv = styled.div`
   width: inherit;
   height: 100%;
   justify-content: center;
@@ -40,7 +40,7 @@ const Date = props => {
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
       <DateDiv isHoliday={isHoliday} isToday={isToday} isInThisMonth={isInThisMonth} isSaturday={isSaturday} dayNumber={dayNumber}>
         {dayNumber}
-        <DateTextDIV>{text}</DateTextDIV>
+        <DateTextDiv>{text}</DateTextDiv>
         {children}
       </DateDiv>
     </DateTd>
