@@ -14,7 +14,7 @@ const Devider = styled.div`
   border-bottom: 1px solid ${props => props.theme.borderColor};
 `;
 
-const TemplateLight = props => {
+const Template = props => {
   const { head, children, cssObject } = props;
   return (
     <TemplateDiv style={cssObject}>
@@ -25,16 +25,15 @@ const TemplateLight = props => {
   );
 };
 
-TemplateLight.defaultProps = {
+Template.defaultProps = {
+  head: React.createElement("div"),
+  children: React.createElement("div"),
   cssObject: {}
 };
 
-TemplateLight.propTypes = {
+Template.propTypes = {
   head: PropTypes.element.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   cssObject: PropTypes.object
 };
-export default TemplateLight;
+export default Template;
