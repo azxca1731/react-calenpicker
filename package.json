@@ -19,7 +19,9 @@
     "coverage": "jest --coverage",
     "lint": "eslint ./src",
     "prepublish": "npm run clean && npm run test && npm run build",
-    "test": "npm run lint && npm run coverage"
+    "test": "npm run lint && npm run coverage",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -43,7 +45,11 @@
     "react-test-renderer": "^16.0.0",
     "webpack": "^4.9.1",
     "webpack-cli": "^3.1.2",
-    "url-loader": "^1.1.2"
+    "url-loader": "^1.1.2",
+    "@storybook/react": "^4.1.11",
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addon-links": "^4.1.11",
+    "@storybook/addons": "^4.1.11"
   },
   "peerDependencies": {
     "react": ">= 16.3.0",
