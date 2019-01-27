@@ -1075,14 +1075,6 @@
     prop-types "^15.6.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-centered@^4.1.11":
-  version "4.1.11"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-centered/-/addon-centered-4.1.11.tgz#68a952882b16c97d183c68fb6559f0c4fac29dc3"
-  integrity sha512-gxvcjlZjuQyULxG5zYqA8HP9jlkHMmk5XpMsWpewNh+DIQIO49L81pPWFeZButyWUkSXCgN2nzCOOKq7gM/H0A==
-  dependencies:
-    core-js "^2.5.7"
-    global "^4.3.2"
-
 "@storybook/addon-knobs@^4.1.11":
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-4.1.11.tgz#fd6c90d62a5bf5f94899746a95b02f1ef127cd81"
