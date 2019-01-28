@@ -1,3 +1,3 @@
-import Date, { DateTextDIV } from "./Date";
-export const DateText = DateTextDIV;
+import Date, { DateTextDiv } from "./Date";
+export const DateText = DateTextDiv;
 export default Date;
