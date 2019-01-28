@@ -53,6 +53,14 @@ export default App;
 
 ---
 
+### Storybook
+
+캘린더 예시가 궁금하시나요? 혹은 리액트 캘린픽커의 컴포넌트에 대해 더 자세히 알고 싶으신가요?
+
+[![Storybook](https://github.com/storybooks/press/blob/master/badges/storybook.svg)](https://react-calenpicker-storybook.netlify.com/)
+
+---
+
 ### Props 소개
 
 Props는 다음과 같습니다.
