@@ -5,6 +5,7 @@ import styled from "styled-components";
 const MonthDiv = styled.div`
   color: ${props => props.theme.fontColor};
   font-size: 150%;
+  background-color: ${props => props.theme.backgroundColor};
 `;
 
 const Month = props => {
@@ -14,7 +15,7 @@ const Month = props => {
 
 Month.defaultProps = {
   cssObject: {},
-  month: ""
+  month: "2018-10"
 };
 
 Month.propTypes = {

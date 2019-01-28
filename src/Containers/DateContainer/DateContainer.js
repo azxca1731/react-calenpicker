@@ -2,11 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import {
-  DayConnector,
-  PropsConnector,
-  CssConnector
-} from "Containers/Provider";
+import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
 import Date, { DateText } from "Components/Date";
 
 import startImg from "Styles/assets/start-period.png";
@@ -65,24 +61,11 @@ class DateContainer extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      weekNumber,
-      day,
-      objectSetText,
-      duplicated,
-      duplicatedDateObjectArray,
-      indicateToday,
-      onlyThisMonth
-    } = props;
-    const dateObjectArray = duplicated
-      ? duplicatedDateObjectArray
-      : props.dateObjectArray;
+    const { weekNumber, day, objectSetText, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
+    const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString =
-        (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth
-          ? target.dateString
-          : "";
+      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday, isToday;
       if (state.today === dateString && indicateToday) {
@@ -99,7 +82,7 @@ class DateContainer extends React.Component {
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
         isToday = false;
       }
-      const dayNumber = target.dayNumber;
+      const dayNumber = onlyThisMonth && !isInThisMonth ? null : target.dayNumber;
       const isInPeriod = props.isInPeriod(dateString);
       isHoliday = day == 1 ? true : isHoliday;
       const isSaturday = day == 7 ? true : false;
@@ -147,8 +130,7 @@ class DateContainer extends React.Component {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps == pe) {
         if (ps == dateString) return;
-      } else if (ps == dateString)
-        return <StartIndicator dayNumber={dayNumber} />;
+      } else if (ps == dateString) return <StartIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length >= 0 && periodStart == dateString) {
@@ -164,8 +146,7 @@ class DateContainer extends React.Component {
       const { periodStart: ps, periodEnd: pe } = periods[i];
       if (ps === pe) {
         if (pe == dateString) return <DateText>선택</DateText>;
-      } else if (pe == dateString)
-        return <EndIndicator dayNumber={dayNumber} />;
+      } else if (pe == dateString) return <EndIndicator dayNumber={dayNumber} />;
     }
 
     if (periods.length == 0 && periodEnd == dateString) {
@@ -175,15 +156,7 @@ class DateContainer extends React.Component {
 
   render() {
     const { cssObject } = this.props;
-    const {
-      text,
-      dayNumber,
-      isInPeriod,
-      isHoliday,
-      isInThisMonth,
-      isToday,
-      isSaturday
-    } = this.state;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday } = this.state;
     const handlers = { handleDateClick: this.handleDateClick };
     return (
       <Date
@@ -207,6 +180,7 @@ class DateContainer extends React.Component {
 StartIndicator.propTypes = {
   dayNumber: PropTypes.number
 };
+
 EndIndicator.propTypes = {
   dayNumber: PropTypes.number
 };

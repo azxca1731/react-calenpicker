@@ -8,6 +8,7 @@ const WeekTr = styled.tr`
   width: 100%;
   height: 16.6%;
   display: inline-flex;
+  background-color: ${props => props.theme.backgroundColor};
 `;
 
 const Week = props => (
@@ -21,6 +22,11 @@ const Week = props => (
     <DateContainer weekNumber={props.weekNumber} day={7} />
   </WeekTr>
 );
+
+Week.defaultProps = {
+  weekNumber: 0,
+  cssObject: {}
+};
 
 Week.propTypes = {
   weekNumber: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
