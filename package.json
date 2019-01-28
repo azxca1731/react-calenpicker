@@ -1,6 +1,6 @@
 {
   "name": "react-calenpicker",
-  "version": "0.0.52",
+  "version": "0.0.53",
   "description": "You can make Easily Picker for react-calenpicker!",
   "contributors": [
     {
@@ -10,6 +10,10 @@
     {
       "name": "Junghun Kong",
       "email": "rhdtl78@gmail.com"
+    },
+    {
+      "name": "DongHyun Kim",
+      "email": "dongdong9335@gmail.com"
     }
   ],
   "scripts": {
