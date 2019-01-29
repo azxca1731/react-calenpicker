@@ -66,11 +66,25 @@ class CssProvider extends Component {
   }
 }
 
+CssProvider.defaultProps = {
+  DateCssObject: {},
+  WeekCssObject: {},
+  TemplateCssObject: {
+    width: "300px",
+    height: "450px",
+    fontSize: "14px"
+  },
+  MonthCssObject: {},
+  MonthArrowCssObject: {},
+  WeekDayCssObject: {},
+  CalendarBodyCssObject: {},
+  CalendarHeadCssObject: {},
+  sizeOption: "md",
+  children: null
+};
+
 CssProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   sizeOption: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
