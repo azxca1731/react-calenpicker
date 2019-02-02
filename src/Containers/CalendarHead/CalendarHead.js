@@ -13,18 +13,32 @@ const CalendarHeadDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 `;
 
 const CalendarDateInputModal = styled.div`
   position: absolute;
   z-index: 1000;
-  width: 200px;
-  height: 200px;
+  width: calc(100%);
   color: #000000;
-  border: 1px solid #efefef;
+  border: 1px solid #000000;
   background-color: #ffffff;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  left: 0px;
+`;
+
+const CalendarDateInputModalHead = styled.div`
+  padding: 20px;
+  border-bottom: 1px solid #000000;
+`;
+
+const CalendarDateInputModalFooter = styled.div`
+  padding: 20px;
+  border-top: 1px solid #000000;
+`;
+
+const CalendarDateInputModalBody = styled.div`
+  padding: 20px;
 `;
 
 class CalendarHead extends React.Component {
@@ -60,22 +74,44 @@ class CalendarHead extends React.Component {
     const { isHoliday, date, text } = this.state;
     return (
       <CalendarDateInputModal>
-        <input value={date} onChange={this.handleInputDateChange} />
-        <input value={text} onChange={this.handleInputTextChange} />
-        <input type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
-        <button
-          onClick={() => {
-            addCalendarText({ text, date, isHoliday });
-            this.setState({
-              text: "",
-              date: "",
-              isHoliday: false,
-              modalshow: false
-            });
-          }}
-        >
-          추가
-        </button>
+        <CalendarDateInputModalHead>날짜 추가</CalendarDateInputModalHead>
+        <CalendarDateInputModalBody>
+          <label htmlFor="date">날짜: </label>
+          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+          <br />
+          <label htmlFor="text">이름: </label>
+          <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+          <br />
+          <label htmlFor="isHoliday">휴일 여부: </label>
+          <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+        </CalendarDateInputModalBody>
+        <CalendarDateInputModalFooter>
+          <button
+            onClick={() => {
+              addCalendarText({ text, date, isHoliday });
+              this.setState({
+                text: "",
+                date: "",
+                isHoliday: true,
+                modalshow: false
+              });
+            }}
+          >
+            추가
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                text: "",
+                date: "",
+                isHoliday: true,
+                modalshow: false
+              });
+            }}
+          >
+            닫기
+          </button>
+        </CalendarDateInputModalFooter>
       </CalendarDateInputModal>
     );
   };
