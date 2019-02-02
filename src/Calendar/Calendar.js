@@ -113,6 +113,7 @@ Calendar.propTypes = {
   indicateToday: PropTypes.bool,
   multiSelect: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
+  addText: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })),
   sizeOption: PropTypes.oneOfType([
     PropTypes.oneOf(["sm", "md", "lg"]),
