@@ -41,6 +41,16 @@ const CalendarDateInputModalBody = styled.div`
   padding: 20px;
 `;
 
+const AddButton = styled.div`
+  border-radius: 50%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0px 4px;
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+`;
+
 class CalendarHead extends React.Component {
   constructor(props) {
     super(props);
@@ -70,7 +80,7 @@ class CalendarHead extends React.Component {
     });
   };
 
-  handleModal = addCalendarText => {
+  renderModal = addCalendarText => {
     const { isHoliday, date, text } = this.state;
     return (
       <CalendarDateInputModal>
@@ -116,6 +126,10 @@ class CalendarHead extends React.Component {
     );
   };
 
+  renderAddTextButton = () => {
+    return <AddButton onClick={() => this.setState({ modalshow: true })}>+</AddButton>;
+  };
+
   render() {
     const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText } = this.props;
 
@@ -133,8 +147,8 @@ class CalendarHead extends React.Component {
           <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
-            {addText ? <div onClick={() => this.setState({ modalshow: true })}>+</div> : null}
-            {this.state.modalshow ? this.handleModal(addCalendarText) : null}
+            {addText ? this.renderAddTextButton() : null}
+            {this.state.modalshow ? this.renderModal(addCalendarText) : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
