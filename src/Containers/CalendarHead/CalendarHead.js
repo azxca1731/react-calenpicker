@@ -117,7 +117,7 @@ class CalendarHead extends React.Component {
   };
 
   render() {
-    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText } = this.props;
 
     let month;
     if (duplicated) {
@@ -133,7 +133,7 @@ class CalendarHead extends React.Component {
           <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
-            <div onClick={() => this.setState({ modalshow: true })}>+</div>
+            {addText ? <div onClick={() => this.setState({ modalshow: true })}>+</div> : null}
             {this.state.modalshow ? this.handleModal(addCalendarText) : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
@@ -163,14 +163,16 @@ CalendarHead.propTypes = {
   duplicate: PropTypes.bool,
   cssObject: PropTypes.object,
   theme: PropTypes.string,
-  addCalendarText: PropTypes.func
+  addCalendarText: PropTypes.func,
+  addText: PropTypes.bool
 };
 
 export default PropsConnector(({ state, actions }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
   theme: state.theme,
-  addCalendarText: actions.addCalendarText
+  addCalendarText: actions.addCalendarText,
+  addText: state.addText
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
