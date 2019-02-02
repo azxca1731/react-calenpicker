@@ -20,21 +20,21 @@ const CalendarDateInputModal = styled.div`
   position: absolute;
   z-index: 1000;
   width: calc(100%);
-  color: #000000;
-  border: 1px solid #000000;
-  background-color: #ffffff;
+  color: ${props => props.theme.fontColor};
+  border: 1px solid ${props => props.theme.fontColor};
+  background-color: ${props => props.theme.backgroundColor};
   top: 0px;
   left: 0px;
 `;
 
 const CalendarDateInputModalHead = styled.div`
   padding: 20px;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid ${props => props.theme.fontColor};
 `;
 
 const CalendarDateInputModalFooter = styled.div`
   padding: 20px;
-  border-top: 1px solid #000000;
+  border-top: 1px solid ${props => props.theme.fontColor};
 `;
 
 const CalendarDateInputModalBody = styled.div`
@@ -43,8 +43,8 @@ const CalendarDateInputModalBody = styled.div`
 
 const AddButton = styled.div`
   border-radius: 50%;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: ${props => props.theme.fontColor};
+  color: ${props => props.theme.backgroundColor};
   padding: 0px 4px;
   cursor: pointer;
   position: relative;
