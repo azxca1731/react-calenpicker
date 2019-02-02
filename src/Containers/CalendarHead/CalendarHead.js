@@ -4,11 +4,7 @@ import styled from "styled-components";
 
 import MonthContainer from "Containers/MonthContainer";
 import MonthArrowContainer from "Containers/MonthArrowContainer";
-import {
-  DayConnector,
-  PropsConnector,
-  CssConnector
-} from "Containers/Provider";
+import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
 
 const CalendarHeadDiv = styled.div`
   width: 87%;
@@ -25,13 +21,7 @@ class CalendarHead extends React.Component {
   }
 
   render() {
-    const {
-      month: propsMonth,
-      duplicated,
-      duplicate,
-      showNextMonth,
-      showPreviousMonth
-    } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText } = this.props;
 
     let month;
     if (duplicated) {
@@ -47,6 +37,7 @@ class CalendarHead extends React.Component {
           <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
+            <div onClick={() => addCalendarText({ text: "설날", date: "2019-2-5", isHoliday: true })}>+</div>
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
@@ -74,13 +65,15 @@ CalendarHead.propTypes = {
   duplicated: PropTypes.bool,
   duplicate: PropTypes.bool,
   cssObject: PropTypes.object,
-  theme: PropTypes.string
+  theme: PropTypes.string,
+  addCalendarText: PropTypes.func
 };
 
-export default PropsConnector(({ state }) => ({
+export default PropsConnector(({ state, actions }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
-  theme: state.theme
+  theme: state.theme,
+  addCalendarText: actions.addCalendarText
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
