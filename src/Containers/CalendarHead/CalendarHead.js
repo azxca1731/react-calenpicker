@@ -15,10 +15,70 @@ const CalendarHeadDiv = styled.div`
   align-items: center;
 `;
 
+const CalendarDateInputModal = styled.div`
+  position: absolute;
+  z-index: 1000;
+  width: 200px;
+  height: 200px;
+  color: #000000;
+  border: 1px solid #efefef;
+  background-color: #ffffff;
+  top: 20px;
+  left: 20px;
+`;
+
 class CalendarHead extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      date: "",
+      text: "",
+      isHoliday: true,
+      modalshow: false
+    };
   }
+
+  handleInputDateChange = event => {
+    this.setState({
+      date: event.target.value
+    });
+  };
+
+  handleInputTextChange = event => {
+    this.setState({
+      text: event.target.value
+    });
+  };
+
+  handleInputIsHoliday = event => {
+    this.setState({
+      isHoliday: event.target.checked
+    });
+  };
+
+  handleModal = addCalendarText => {
+    const { isHoliday, date, text } = this.state;
+    return (
+      <CalendarDateInputModal>
+        <input value={date} onChange={this.handleInputDateChange} />
+        <input value={text} onChange={this.handleInputTextChange} />
+        <input type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+        <button
+          onClick={() => {
+            addCalendarText({ text, date, isHoliday });
+            this.setState({
+              text: "",
+              date: "",
+              isHoliday: false,
+              modalshow: false
+            });
+          }}
+        >
+          추가
+        </button>
+      </CalendarDateInputModal>
+    );
+  };
 
   render() {
     const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText } = this.props;
@@ -37,7 +97,8 @@ class CalendarHead extends React.Component {
           <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
-            <div onClick={() => addCalendarText({ text: "설날", date: "2019-2-5", isHoliday: true })}>+</div>
+            <div onClick={() => this.setState({ modalshow: true })}>+</div>
+            {this.state.modalshow ? this.handleModal(addCalendarText) : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
