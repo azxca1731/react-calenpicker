@@ -45,15 +45,15 @@ class CssProvider extends Component {
       }
       return {
         TemplateCssObject: {
-          ...sizeCssObject,
-          ...state.TemplateCssObject
+          ...state.TemplateCssObject,
+          ...sizeCssObject
         }
       };
     } else if (typeof props.sizeOption === "object") {
       return {
         TemplateCssObject: {
-          ...props.sizeOption,
-          ...state.TemplateCssObject
+          ...state.TemplateCssObject,
+          ...props.sizeOption
         }
       };
     }
