@@ -7,6 +7,8 @@ const light = {
   fontColor: "#000000",
   todayColor: "#00bc07",
   borderColor: "#444444",
-  selectedFontColor: "#ffffff"
+  selectedFontColor: "#ffffff",
+  acceptColor: "#008CBA",
+  cancelColor: "#f44336"
 };
 export default light;

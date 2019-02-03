@@ -19,7 +19,7 @@ const CalendarHeadDiv = styled.div`
 const CalendarDateInputModal = styled.div`
   position: absolute;
   z-index: 1000;
-  width: calc(100%);
+  width: calc(100% - 3px);
   color: ${props => props.theme.fontColor};
   border: 1px solid ${props => props.theme.fontColor};
   background-color: ${props => props.theme.backgroundColor};
@@ -35,10 +35,27 @@ const CalendarDateInputModalHead = styled.div`
 const CalendarDateInputModalFooter = styled.div`
   padding: 20px;
   border-top: 1px solid ${props => props.theme.fontColor};
+  text-align: center;
 `;
 
 const CalendarDateInputModalBody = styled.div`
-  padding: 20px;
+  padding: 40px 20px;
+  text-align: center;
+`;
+
+const CalendarDateInputModalButton = styled.button`
+  background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.theme.cancelColor)};
+  color: ${props => props.theme.backgroundColor};
+  border: 2px solid ${props => props.theme.fontColor};
+  margin: 0px 5px;
+  padding: 0.5em 1em;
+  opacity: 0.7;
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const AddButton = styled.div`
@@ -89,14 +106,18 @@ class CalendarHead extends React.Component {
           <label htmlFor="date">날짜: </label>
           <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
           <br />
+          <br />
           <label htmlFor="text">이름: </label>
           <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
           <br />
+          <br />
           <label htmlFor="isHoliday">휴일 여부: </label>
           <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+          <br />
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter>
-          <button
+          <CalendarDateInputModalButton
+            isAccept
             onClick={() => {
               addCalendarText({ text, date, isHoliday });
               this.setState({
@@ -108,8 +129,8 @@ class CalendarHead extends React.Component {
             }}
           >
             추가
-          </button>
-          <button
+          </CalendarDateInputModalButton>
+          <CalendarDateInputModalButton
             onClick={() => {
               this.setState({
                 text: "",
@@ -120,7 +141,7 @@ class CalendarHead extends React.Component {
             }}
           >
             닫기
-          </button>
+          </CalendarDateInputModalButton>
         </CalendarDateInputModalFooter>
       </CalendarDateInputModal>
     );
