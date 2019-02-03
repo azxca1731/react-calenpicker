@@ -7,6 +7,8 @@ const dark = {
   fontColor: "#ffffff",
   todayColor: "#00bc07",
   borderColor: "#444444",
-  selectedFontColor: "#000000"
+  selectedFontColor: "#000000",
+  acceptColor: "#008CBA",
+  cancelColor: "#f44336"
 };
 export default dark;
