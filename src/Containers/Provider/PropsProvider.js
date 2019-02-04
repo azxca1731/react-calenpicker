@@ -13,12 +13,9 @@ class PropsProvider extends Component {
 
   state = {
     sizeOption: this.props.sizeOption,
-    theme: this.props.theme,
-    animation: this.props.animation,
     duplicate: this.props.duplicate,
     duplicated: this.props.duplicated,
     onlyThisMonth: this.props.onlyThisMonth,
-    couldSelectPrevDate: this.props.couldSelectPrevDate,
     objectSetText: this.props.objectSetText,
     addText: this.props.addText
   };
@@ -47,12 +44,9 @@ PropsProvider.propTypes = {
       height: PropTypes.number
     })
   ]),
-  themeColor: PropTypes.string,
-  animation: PropTypes.bool,
   duplicate: PropTypes.bool,
   duplicated: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
-  couldSelectPrevDate: PropTypes.bool,
   addText: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(
     PropTypes.shape({
@@ -61,7 +55,7 @@ PropsProvider.propTypes = {
       isHoliday: PropTypes.bool
     })
   ),
-  theme: PropTypes.string
+  canMouseWheel: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
