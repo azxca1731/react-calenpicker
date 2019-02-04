@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import { CssConnector, PropsConnector, DayConnector } from "Containers/Provider";
 import Template from "Components/Template";
+
+const TemplateContainerDiv = styled.div`
+  display: inline;
+`;
 
 class TemplateContainer extends React.Component {
   constructor(props) {
@@ -32,9 +37,9 @@ class TemplateContainer extends React.Component {
 
   render() {
     return (
-      <div ref={this.element}>
+      <TemplateContainerDiv ref={this.element}>
         <Template {...this.props} />
-      </div>
+      </TemplateContainerDiv>
     );
   }
 }
