@@ -78,6 +78,7 @@ Props는 다음과 같습니다.
 | `theme`            | 테마를 선택 할 수 있습니다                                                                                                                             | `light`,`dark`                                         | `<Calendar theme="dark" />`                                                                                                    | `light`  |
 | `addText`          | 달력에서 바로 이벤트를 추가 할 수 있습니다.                                                                                                            | Bool                                                   | `<Calendar addText />`                                                                                                         | False    |
 | `canMouseWheel`    | 마우스 휠로 달을 바꿀 수 있습니다                                                                                                                      | Bool                                                   | `<Calendar canMouseWheel />`                                                                                                   | False    |
+| `customTheme`      | 커스텀 테마를 적용 가능합니다.                                                                                                                         | Object                                                 | `<Calendar customTheme={{ backgroundColor: "#efefef", secondaryColor: "#fe88a0", fontColor: "#74c9c6" }} />`                   | Null     |
 
 ---
 
