@@ -115,7 +115,14 @@ Calendar.defaultProps = {
   callbackFunction: () => {},
   objectSetText: [],
   sizeOption: "md",
-  theme: "light"
+  theme: "light",
+  addText: false,
+  canMouseWheel: false,
+  customTheme: null,
+  onlyThisMonth: false,
+  duplicate: false,
+  multiSelect: false,
+  indicateToday: false
 };
 
 Calendar.propTypes = {
