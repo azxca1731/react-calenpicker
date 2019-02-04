@@ -13,7 +13,6 @@ import { DateProvider, PropsProvider, CssProvider } from "Containers/Provider";
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
   const {
-    timezone,
     startDate,
     callbackFunction,
     indicateToday,
@@ -30,7 +29,6 @@ const AppProvider = props => {
     ...otherProps
   } = otherOption;
   const dateProps = {
-    timezone,
     startDate,
     callbackFunction,
     indicateToday,
@@ -72,9 +70,24 @@ class Calendar extends React.Component {
     super(props);
   }
 
+  handleTheme = () => {
+    const { customTheme, theme } = this.props;
+    if (customTheme) {
+      if (theme === "light") {
+        return { ...light, ...customTheme };
+      } else {
+        return { ...dark, ...customTheme };
+      }
+    } else if (theme === "light") {
+      return light;
+    } else {
+      return dark;
+    }
+  };
+
   render() {
     const { props } = this;
-    const theme = this.props.theme && this.props.theme === "light" ? light : dark;
+    const theme = this.handleTheme();
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -107,6 +120,7 @@ Calendar.defaultProps = {
 
 Calendar.propTypes = {
   theme: PropTypes.string,
+  customTheme: PropTypes.object,
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
   indicateToday: PropTypes.bool,
