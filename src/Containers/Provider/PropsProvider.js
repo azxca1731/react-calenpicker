@@ -17,7 +17,8 @@ class PropsProvider extends Component {
     duplicated: this.props.duplicated,
     onlyThisMonth: this.props.onlyThisMonth,
     objectSetText: this.props.objectSetText,
-    addText: this.props.addText
+    addText: this.props.addText,
+    canMouseWheel: this.props.canMouseWheel
   };
 
   actions = {
