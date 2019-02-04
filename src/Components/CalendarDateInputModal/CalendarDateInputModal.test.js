@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import MonthArrowContainer from "index";
+import CalendarDateInputModal from "index";
 
-describe("MonthArrowContainer", () => {
+describe("CalendarDateInputModal", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<MonthArrowContainer />);
+    const wrapper = shallow(<CalendarDateInputModal />);
     expect(wrapper).toHaveLength(1);
   });
 });

@@ -19,10 +19,17 @@ class PropsProvider extends Component {
     duplicated: this.props.duplicated,
     onlyThisMonth: this.props.onlyThisMonth,
     couldSelectPrevDate: this.props.couldSelectPrevDate,
-    objectSetText: this.props.objectSetText
+    objectSetText: this.props.objectSetText,
+    addText: this.props.addText
   };
 
-  actions = {};
+  actions = {
+    addCalendarText: newDateObject => {
+      this.setState({
+        objectSetText: [...this.state.objectSetText, newDateObject]
+      });
+    }
+  };
 
   render() {
     const { state, actions } = this;
@@ -46,10 +53,12 @@ PropsProvider.propTypes = {
   duplicated: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
   couldSelectPrevDate: PropTypes.bool,
+  addText: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
-      date: PropTypes.string
+      date: PropTypes.string,
+      isHoliday: PropTypes.bool
     })
   ),
   theme: PropTypes.string
