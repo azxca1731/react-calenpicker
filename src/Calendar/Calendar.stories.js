@@ -12,5 +12,6 @@ storiesOf("Calendar", module)
   .add("텍스트 커스터마이징", () => <Calendar objectSetText={[{ text: "연말", date: "2018-12-31" }, { text: "휴가", date: "2018-12-26", isHoliday: true }]} />)
   .add("캘린더 중복선택가능", () => <Calendar multiSelect />)
   .add("캘린더 날짜추가", () => <Calendar addText />)
+  .add("캘린더 마우스 휠로 이동", () => <Calendar canMouseWheel />)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />)
   .add("연속캘린더 듀플리케이트 날짜추가", () => <Calendar addText duplicate />);
