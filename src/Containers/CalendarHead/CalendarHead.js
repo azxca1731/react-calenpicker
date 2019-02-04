@@ -93,7 +93,6 @@ CalendarHead.propTypes = {
   duplicated: PropTypes.bool,
   duplicate: PropTypes.bool,
   cssObject: PropTypes.object,
-  theme: PropTypes.string,
   addCalendarText: PropTypes.func,
   addText: PropTypes.bool
 };
@@ -101,7 +100,6 @@ CalendarHead.propTypes = {
 export default PropsConnector(({ state, actions }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
-  theme: state.theme,
   addCalendarText: actions.addCalendarText,
   addText: state.addText
 }))(
