@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import MonthContainer from "index";
+import MonthContainer from "./index";
 
 describe("MonthContainer", () => {
   it("renders without crashing", () => {
