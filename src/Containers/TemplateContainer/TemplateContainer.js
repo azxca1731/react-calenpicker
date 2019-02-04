@@ -4,18 +4,25 @@ import PropTypes from "prop-types";
 import { CssConnector, PropsConnector, DayConnector } from "Containers/Provider";
 import Template from "Components/Template";
 
-const TemplateContainer = props => <Template {...props} />;
+class TemplateContainer extends React.Component {
+  render() {
+    return <Template {...this.props} />;
+  }
+}
 
 TemplateContainer.propTypes = {
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  decreaseMonth: PropTypes.func,
+  increaseMonth: PropTypes.func,
+  canMouseWheel: PropTypes.bool
 };
 
 export default PropsConnector(({ state }) => ({
   canMouseWheel: state.canMouseWheel
 }))(
   DayConnector(({ actions }) => ({
-    showPreviousMonth: actions.decreaseMonth,
-    showNextMonth: actions.increaseMonth
+    decreaseMonth: actions.decreaseMonth,
+    increaseMonth: actions.increaseMonth
   }))(
     CssConnector(({ state }) => ({
       cssObject: state.TemplateCssObject
