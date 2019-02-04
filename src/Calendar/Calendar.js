@@ -107,7 +107,6 @@ Calendar.defaultProps = {
 
 Calendar.propTypes = {
   theme: PropTypes.string,
-  timezone: PropTypes.string,
   startDate: PropTypes.string,
   callbackFunction: PropTypes.func,
   indicateToday: PropTypes.bool,
@@ -129,7 +128,8 @@ Calendar.propTypes = {
   MonthArrowCssObject: PropTypes.object,
   WeekDayCssObject: PropTypes.object,
   CalendarBodyCssObject: PropTypes.object,
-  CalendarHeadCssObject: PropTypes.object
+  CalendarHeadCssObject: PropTypes.object,
+  canMouseWheel: PropTypes.bool
 };
 
 export default Calendar;
