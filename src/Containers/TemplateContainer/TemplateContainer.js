@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { CssConnector } from "Containers/Provider";
+import { CssConnector, PropsConnector } from "Containers/Provider";
 import Template from "Components/Template";
 
 const TemplateContainer = props => <Template {...props} />;
 
 TemplateContainer.propTypes = {
-  theme: PropTypes.string
+  cssObject: PropTypes.object
 };
 
 export default CssConnector(({ state }) => ({

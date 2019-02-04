@@ -9,8 +9,7 @@ const MonthArrowContainer = props => <MontArrow {...props} />;
 MonthArrowContainer.propTypes = {
   type: PropTypes.oneOf(["left", "right", "none"]).isRequired,
   onClick: PropTypes.func.isRequired,
-  cssObject: PropTypes.object,
-  theme: PropTypes.string
+  cssObject: PropTypes.object
 };
 
 export default CssConnector(({ state }) => ({

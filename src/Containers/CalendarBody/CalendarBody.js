@@ -39,9 +39,7 @@ class CalendarBody extends React.Component {
   calculateMonth = () => {
     const { duplicated } = this.props;
     const propMonth = new Date(this.props.month);
-    const month = duplicated
-      ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1)
-      : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
+    const month = duplicated ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1) : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
     const today = month;
     const currentMonthFirstDay = new Date(today.getFullYear(), today.getMonth());
     const previousMonthLastDay = new Date(today.getFullYear(), today.getMonth(), 0);
@@ -53,9 +51,7 @@ class CalendarBody extends React.Component {
     for (let i = 1; i <= currentMonthFirstDay.getDay(); i++) {
       dateObjectArray.push({
         dayNumber: previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i,
-        dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() + 1}-${previousMonthLastDay.getDate() -
-          currentMonthFirstDay.getDay() +
-          i}`,
+        dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() + 1}-${previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i}`,
         text: ""
       });
       count++;
@@ -113,13 +109,11 @@ CalendarBody.propTypes = {
   month: PropTypes.string.isRequired,
   setDateObjectArray: PropTypes.func.isRequired,
   duplicated: PropTypes.bool,
-  cssObject: PropTypes.object,
-  theme: PropTypes.string
+  cssObject: PropTypes.object
 };
 
 export default PropsConnector(({ state }) => ({
-  duplicated: state.duplicated,
-  theme: state.theme
+  duplicated: state.duplicated
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}-${state.month + 1}`,
