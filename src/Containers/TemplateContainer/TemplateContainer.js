@@ -5,8 +5,37 @@ import { CssConnector, PropsConnector, DayConnector } from "Containers/Provider"
 import Template from "Components/Template";
 
 class TemplateContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.element = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.props.canMouseWheel) {
+      this.element.current.addEventListener("wheel", this.handleMouseEvent);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.canMouseWheel) {
+      this.element.current.removeEventListener("wheel", this.handleMouseEvent);
+    }
+  }
+
+  handleMouseEvent = event => {
+    if (event && event.deltaY > 0) {
+      this.props.increaseMonth();
+    } else if (event && event.deltaY < 0) {
+      this.props.decreaseMonth();
+    }
+  };
+
   render() {
-    return <Template {...this.props} />;
+    return (
+      <div ref={this.element}>
+        <Template {...this.props} />
+      </div>
+    );
   }
 }
 
