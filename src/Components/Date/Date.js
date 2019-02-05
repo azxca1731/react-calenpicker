@@ -35,22 +35,19 @@ export const DateTextDiv = styled.div`
 
 const Date = props => {
   const { handleDateClick } = props.handlers;
-  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, children } = props;
+  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text } = props;
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
       <DateDiv isHoliday={isHoliday} isToday={isToday} isInThisMonth={isInThisMonth} isSaturday={isSaturday} dayNumber={dayNumber}>
         {dayNumber}
         <DateTextDiv>{text}</DateTextDiv>
-        {children}
       </DateDiv>
     </DateTd>
   );
 };
 Date.defaultProps = {
   handlers: {
-    handleDateClick: () => {},
-    handleStart: () => {},
-    handleEnd: () => {}
+    handleDateClick: () => {}
   },
   cssObject: {},
   dayNumber: "1"
@@ -66,7 +63,6 @@ Date.propTypes = {
   dayNumber: PropTypes.number,
   text: PropTypes.string,
   style: PropTypes.any,
-  children: PropTypes.node,
   isInPeriod: PropTypes.bool,
   isInThisMonth: PropTypes.bool,
   isHoliday: PropTypes.bool,
