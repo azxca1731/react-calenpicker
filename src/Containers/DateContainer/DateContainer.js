@@ -46,10 +46,11 @@ class DateContainer extends React.Component {
 
       let indicatorType = "date";
       const selected = DateContainer._filterSelectedPeriod(props, state, dateString);
-      console.log(selected);
-      if (DateContainer._isPeriodDate(props, state, "start")) indicatorType = "start";
-      else if (DateContainer._isPeriodDate(props, state, "end")) indicatorType = "end";
-      if (selected.length > 0) indicatorType = "select";
+      if (DateContainer._isPeriodDate(props, state, "start", dateString)) indicatorType = "start";
+      else if (DateContainer._isPeriodDate(props, state, "end", dateString)) indicatorType = "end";
+      if (selected.length > 0) {
+        indicatorType = "select";
+      }
 
       return {
         dateString,
@@ -91,21 +92,20 @@ class DateContainer extends React.Component {
    * @param {object} props - 프로퍼티
    * @param {object} state - state
    * @param {string} type - 시작의 경우 'start' 끝의 경우 'end'
+   * @param {string} dateString - 해당 Date의 날짜 string
    * @returns {boolean} boolean
    */
-  static _isPeriodDate(props, state, type) {
-    const { dateString } = state;
+  static _isPeriodDate(props, state, type, dateString) {
     const { periods, periodStart, periodEnd } = props;
-    if (periods.length > 0) {
-      return (
-        periods.filter(period => {
-          const { periodStart: ps, periodEnd: pe } = period;
-          return (type == "start" && ps == dateString) || (type == "end" && pe == dateString);
-        }).length > 0
-      );
-    } else {
-      return (type == "start" && periodStart === dateString) || (type === "end" && periodEnd === dateString);
-    }
+    let result;
+    result = (type == "start" && periodStart === dateString) || (type === "end" && periodEnd === dateString);
+    result =
+      result ||
+      periods.filter(period => {
+        const { periodStart: ps, periodEnd: pe } = period;
+        return (type == "start" && ps == dateString) || (type == "end" && pe == dateString);
+      }).length > 0;
+    return result;
   }
 
   handleDateClick() {

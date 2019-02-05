@@ -35,7 +35,9 @@ export const DateTextDiv = styled.div`
   font-size: 80%;
 `;
 
-const DateDayNumberDiv = styled.div``;
+const DateDayNumberDiv = styled.div`
+  margin-bottom: 20%;
+`;
 
 const EndPointDiv = styled.div`
   height: 100%;
@@ -45,15 +47,15 @@ const EndPointDiv = styled.div`
 
 const StartIndicator = props => (
   <EndPointDiv img={startImg}>
-    <div>{props.dayNumber}</div>
-    <div>시작</div>
+    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+    <DateTextDiv>시작</DateTextDiv>
   </EndPointDiv>
 );
 
 const EndIndicator = props => (
   <EndPointDiv img={endImg}>
-    <div>{props.dayNumber}</div>
-    <div>끝</div>
+    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+    <DateTextDiv>끝</DateTextDiv>
   </EndPointDiv>
 );
 
