@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import startImg from "Styles/assets/start-period.png";
+import endImg from "Styles/assets/end-period.png";
 
 const DateTd = styled.td`
   display: inline-block;
@@ -33,15 +35,58 @@ export const DateTextDiv = styled.div`
   font-size: 80%;
 `;
 
+const DateDayNumberDiv = styled.div``;
+
+const EndPointDiv = styled.div`
+  height: 100%;
+  background: url(${props => props.img}) no-repeat;
+  background-size: 100% 100%;
+`;
+
+const StartIndicator = props => (
+  <EndPointDiv img={startImg}>
+    <div>{props.dayNumber}</div>
+    <div>시작</div>
+  </EndPointDiv>
+);
+
+const EndIndicator = props => (
+  <EndPointDiv img={endImg}>
+    <div>{props.dayNumber}</div>
+    <div>끝</div>
+  </EndPointDiv>
+);
+
+const DateIndicator = props => (
+  <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
+    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+    <DateTextDiv>{props.text}</DateTextDiv>
+  </DateDiv>
+);
+
+const SelectIndicator = props => (
+  <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
+    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+    <DateTextDiv>선택</DateTextDiv>
+  </DateDiv>
+);
+
 const Date = props => {
   const { handleDateClick } = props.handlers;
-  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text } = props;
+  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType } = props;
+  let contents;
+  if (indicatorType == "date") {
+    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text });
+  } else if (indicatorType == "start") {
+    contents = StartIndicator({ dayNumber });
+  } else if (indicatorType == "end") {
+    contents = EndIndicator({ dayNumber });
+  } else {
+    contents = SelectIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber });
+  }
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
-      <DateDiv isHoliday={isHoliday} isToday={isToday} isInThisMonth={isInThisMonth} isSaturday={isSaturday} dayNumber={dayNumber}>
-        {dayNumber}
-        <DateTextDiv>{text}</DateTextDiv>
-      </DateDiv>
+      {contents}
     </DateTd>
   );
 };
@@ -51,6 +96,31 @@ Date.defaultProps = {
   },
   cssObject: {},
   dayNumber: "1"
+};
+
+StartIndicator.propTypes = {
+  dayNumber: PropTypes.number
+};
+
+EndIndicator.propTypes = {
+  dayNumber: PropTypes.number
+};
+
+DateIndicator.propTypes = {
+  isHoliday: PropTypes.bool,
+  isToday: PropTypes.bool,
+  isInThisMonth: PropTypes.bool,
+  isSaturday: PropTypes.bool,
+  dayNumber: PropTypes.number,
+  text: PropTypes.string
+};
+
+SelectIndicator.propTypes = {
+  isHoliday: PropTypes.bool,
+  isToday: PropTypes.bool,
+  isInThisMonth: PropTypes.bool,
+  isSaturday: PropTypes.bool,
+  dayNumber: PropTypes.number
 };
 
 Date.propTypes = {
@@ -67,7 +137,8 @@ Date.propTypes = {
   isInThisMonth: PropTypes.bool,
   isHoliday: PropTypes.bool,
   isToday: PropTypes.bool,
-  isSaturday: PropTypes.bool
+  isSaturday: PropTypes.bool,
+  indicatorType: PropTypes.oneOf(["date", "start", "end", "select"])
 };
 
 export default Date;
