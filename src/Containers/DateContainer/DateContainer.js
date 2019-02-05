@@ -1,52 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
 import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
-import Date, { DateText } from "Components/Date";
-
-import startImg from "Styles/assets/start-period.png";
-import endImg from "Styles/assets/end-period.png";
-
-const PeriodIndicatorDiv = styled.div`
-  z-index: 101;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
-
-const StartDiv = styled(PeriodIndicatorDiv)`
-  background: url(${startImg}) no-repeat;
-  background-size: 100% 100%;
-`;
-
-const EndDiv = styled(PeriodIndicatorDiv)`
-  background: url(${endImg}) no-repeat;
-  background-size: 100% 100%;
-`;
-
-const StartIndicator = props => (
-  <StartDiv>
-    <div>{props.dayNumber}</div>
-    <div>시작</div>
-  </StartDiv>
-);
-
-const EndIndicator = props => (
-  <EndDiv>
-    <div>{props.dayNumber}</div>
-    <div>끝</div>
-  </EndDiv>
-);
+import Date from "Components/Date";
 
 class DateContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateClick = this.handleDateClick.bind(this);
-    this.handleStart = this.handleStart.bind(this);
-    this.handleEnd = this.handleEnd.bind(this);
   }
 
   state = {
@@ -57,7 +18,8 @@ class DateContainer extends React.Component {
     isInPeriod: false,
     isHoliday: false,
     isToday: false,
-    isSaturday: false
+    isSaturday: false,
+    indicatorType: "date"
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -81,6 +43,15 @@ class DateContainer extends React.Component {
       const isInPeriod = props.isInPeriod(dateString);
       isHoliday = day == 1 ? true : isHoliday;
       const isSaturday = day == 7 ? true : false;
+
+      let indicatorType = "date";
+      const selected = DateContainer._filterSelectedPeriod(props, state, dateString);
+      if (DateContainer._isPeriodDate(props, state, "start", dateString)) indicatorType = "start";
+      else if (DateContainer._isPeriodDate(props, state, "end", dateString)) indicatorType = "end";
+      if (selected.length > 0) {
+        indicatorType = "select";
+      }
+
       return {
         dateString,
         text,
@@ -89,13 +60,53 @@ class DateContainer extends React.Component {
         isHoliday,
         isInPeriod,
         isToday,
-        isSaturday
+        isSaturday,
+        indicatorType
       };
     }
     return null;
   }
 
-  componentDidMount() {}
+  /**
+   * @function _filterSelectedPeriod
+   * @param {object} props - 프로퍼티들
+   * @param {object} state - state
+   * @param {string} dateString - 특정 날짜를 찾기 위해 사용
+   * @returns {array} - period를 반환, 예상 길이는 1개, multiSelect시 dateString이 없다면 다수. 검색 결과가 없다면 []
+   */
+  static _filterSelectedPeriod(props, state, dateString = "") {
+    const { periods, periodStart, periodEnd } = props;
+    if (periods && periods.length > 0) {
+      return periods.filter(period => {
+        const { periodStart: ps, periodEnd: pe } = period;
+        if (dateString) return ps === pe && ps === dateString;
+        else return ps === pe;
+      });
+    } else {
+      if (periodStart && periodEnd && periodStart == periodEnd) return [{ periodStart, periodEnd }];
+      return [];
+    }
+  }
+  /**
+   * @function _isPeriodDate - 기간 배열에서 주어진 type이 맞다면 true 아니면 false
+   * @param {object} props - 프로퍼티
+   * @param {object} state - state
+   * @param {string} type - 시작의 경우 'start' 끝의 경우 'end'
+   * @param {string} dateString - 해당 Date의 날짜 string
+   * @returns {boolean} boolean
+   */
+  static _isPeriodDate(props, state, type, dateString) {
+    const { periods, periodStart, periodEnd } = props;
+    let result;
+    result = (type == "start" && periodStart === dateString) || (type === "end" && periodEnd === dateString);
+    result =
+      result ||
+      periods.filter(period => {
+        const { periodStart: ps, periodEnd: pe } = period;
+        return (type == "start" && ps == dateString) || (type == "end" && pe == dateString);
+      }).length > 0;
+    return result;
+  }
 
   handleDateClick() {
     const { dateClicked, isInPeriod } = this.props;
@@ -117,42 +128,9 @@ class DateContainer extends React.Component {
     }
   }
 
-  handleStart() {
-    const { periodStart, periods } = this.props;
-    const { dateString, dayNumber } = this.state;
-
-    for (let i = 0; i < periods.length; i++) {
-      const { periodStart: ps, periodEnd: pe } = periods[i];
-      if (ps == pe) {
-        if (ps == dateString) return;
-      } else if (ps == dateString) return <StartIndicator dayNumber={dayNumber} />;
-    }
-
-    if (periods.length >= 0 && periodStart == dateString) {
-      return <StartIndicator dayNumber={dayNumber} />;
-    }
-  }
-
-  handleEnd() {
-    const { periodEnd, periods } = this.props;
-    const { dateString, dayNumber } = this.state;
-
-    for (let i = 0; i < periods.length; i++) {
-      const { periodStart: ps, periodEnd: pe } = periods[i];
-      if (ps === pe) {
-        if (pe == dateString) return <DateText>선택</DateText>;
-      } else if (pe == dateString) return <EndIndicator dayNumber={dayNumber} />;
-    }
-
-    if (periods.length == 0 && periodEnd == dateString) {
-      return <EndIndicator dayNumber={dayNumber} />;
-    }
-  }
-
   render() {
     const { cssObject } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday } = this.state;
-    const handlers = { handleDateClick: this.handleDateClick };
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType } = this.state;
     return (
       <Date
         cssObject={cssObject}
@@ -163,22 +141,12 @@ class DateContainer extends React.Component {
         isHoliday={isHoliday}
         isInPeriod={isInPeriod}
         isSaturday={isSaturday}
-        handlers={handlers}
-      >
-        {this.handleStart()}
-        {this.handleEnd()}
-      </Date>
+        indicatorType={indicatorType}
+        handleDateClick={this.handleDateClick}
+      />
     );
   }
 }
-
-StartIndicator.propTypes = {
-  dayNumber: PropTypes.number
-};
-
-EndIndicator.propTypes = {
-  dayNumber: PropTypes.number
-};
 
 DateContainer.defaultProps = {
   day: "1"
