@@ -24,6 +24,7 @@
     "lint": "eslint ./src",
     "prepublish": "npm run clean && npm run test && npm run build",
     "test": "npm run lint && npm run coverage",
+    "dev-test": "jest test --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
