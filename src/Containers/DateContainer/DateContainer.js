@@ -131,7 +131,6 @@ class DateContainer extends React.Component {
   render() {
     const { cssObject } = this.props;
     const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType } = this.state;
-    const handlers = { handleDateClick: this.handleDateClick };
     return (
       <Date
         cssObject={cssObject}
@@ -143,7 +142,7 @@ class DateContainer extends React.Component {
         isInPeriod={isInPeriod}
         isSaturday={isSaturday}
         indicatorType={indicatorType}
-        handlers={handlers}
+        handleDateClick={this.handleDateClick}
       />
     );
   }

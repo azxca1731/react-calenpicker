@@ -74,8 +74,7 @@ const SelectIndicator = props => (
 );
 
 const Date = props => {
-  const { handleDateClick } = props.handlers;
-  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType } = props;
+  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType, handleDateClick } = props;
   let contents;
   if (indicatorType == "date") {
     contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text });
@@ -126,11 +125,7 @@ SelectIndicator.propTypes = {
 };
 
 Date.propTypes = {
-  handlers: PropTypes.shape({
-    handleDateClick: PropTypes.func,
-    handleStart: PropTypes.func,
-    handleEnd: PropTypes.func
-  }),
+  handleDateClick: PropTypes.func,
   cssObject: PropTypes.object,
   dayNumber: PropTypes.number,
   text: PropTypes.string,
