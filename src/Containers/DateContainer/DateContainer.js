@@ -117,38 +117,6 @@ class DateContainer extends React.Component {
     }
   }
 
-  handleStart() {
-    const { periodStart, periods } = this.props;
-    const { dateString, dayNumber } = this.state;
-
-    for (let i = 0; i < periods.length; i++) {
-      const { periodStart: ps, periodEnd: pe } = periods[i];
-      if (ps == pe) {
-        if (ps == dateString) return;
-      } else if (ps == dateString) return <StartIndicator dayNumber={dayNumber} />;
-    }
-
-    if (periods.length >= 0 && periodStart == dateString) {
-      return <StartIndicator dayNumber={dayNumber} />;
-    }
-  }
-
-  handleEnd() {
-    const { periodEnd, periods } = this.props;
-    const { dateString, dayNumber } = this.state;
-
-    for (let i = 0; i < periods.length; i++) {
-      const { periodStart: ps, periodEnd: pe } = periods[i];
-      if (ps === pe) {
-        if (pe == dateString) return <DateText>선택</DateText>;
-      } else if (pe == dateString) return <EndIndicator dayNumber={dayNumber} />;
-    }
-
-    if (periods.length == 0 && periodEnd == dateString) {
-      return <EndIndicator dayNumber={dayNumber} />;
-    }
-  }
-
   render() {
     const { cssObject } = this.props;
     const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday } = this.state;
@@ -164,10 +132,7 @@ class DateContainer extends React.Component {
         isInPeriod={isInPeriod}
         isSaturday={isSaturday}
         handlers={handlers}
-      >
-        {this.handleStart()}
-        {this.handleEnd()}
-      </Date>
+      />
     );
   }
 }
