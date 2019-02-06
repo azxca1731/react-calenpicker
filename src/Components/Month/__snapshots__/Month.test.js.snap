@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Month render custom css render well 1`] = `
+<styled.div
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  2018-10
+</styled.div>
+`;
+
+exports[`Month render with snapshot 1`] = `
+<styled.div
+  style={Object {}}
+>
+  2018.02
+</styled.div>
+`;
