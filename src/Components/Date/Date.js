@@ -69,7 +69,7 @@ const DateIndicator = props => (
 const SelectIndicator = props => (
   <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
     <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
-    <DateTextDiv>선택</DateTextDiv>
+    <DateTextDiv>{props.text ? props.text : "선택"}</DateTextDiv>
   </DateDiv>
 );
 
@@ -83,7 +83,7 @@ const Date = props => {
   } else if (indicatorType == "end") {
     contents = EndIndicator({ dayNumber });
   } else {
-    contents = SelectIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber });
+    contents = SelectIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text });
   }
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
@@ -121,7 +121,8 @@ SelectIndicator.propTypes = {
   isToday: PropTypes.bool,
   isInThisMonth: PropTypes.bool,
   isSaturday: PropTypes.bool,
-  dayNumber: PropTypes.number
+  dayNumber: PropTypes.number,
+  text: PropTypes.string
 };
 
 Date.propTypes = {

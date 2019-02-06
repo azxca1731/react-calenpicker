@@ -19,8 +19,13 @@ class PropsProvider extends Component {
     objectSetText: this.props.objectSetText,
     addText: this.props.addText,
     canMouseWheel: this.props.canMouseWheel,
-    changeSelectedDate: this.props.changeSelectedDate,
-    modalShowFromDate: false
+    editSelectedDate: this.props.editSelectedDate,
+    modalShowFromDate: false,
+    targetEditDate: {
+      date: "",
+      text: "",
+      isHoliday: false
+    }
   };
 
   actions = {
@@ -29,10 +34,19 @@ class PropsProvider extends Component {
         objectSetText: [...this.state.objectSetText, newDateObject]
       });
     },
-    handleModalFromDate: show => {
-      this.setState({
-        modalShowFromDate: show
-      });
+    handleModalFromDate: (show, target) => {
+      if (show) {
+        this.setState({
+          modalShowFromDate: show,
+          targetEditDate: {
+            ...target
+          }
+        });
+      } else {
+        this.setState({
+          modalShowFromDate: show
+        });
+      }
     }
   };
 
@@ -64,7 +78,7 @@ PropsProvider.propTypes = {
     })
   ),
   canMouseWheel: PropTypes.bool,
-  changeSelectedDate: PropTypes.bool
+  editSelectedDate: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
