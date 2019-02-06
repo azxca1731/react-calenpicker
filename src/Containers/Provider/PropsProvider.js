@@ -18,7 +18,8 @@ class PropsProvider extends Component {
     onlyThisMonth: this.props.onlyThisMonth,
     objectSetText: this.props.objectSetText,
     addText: this.props.addText,
-    canMouseWheel: this.props.canMouseWheel
+    canMouseWheel: this.props.canMouseWheel,
+    changeSelectedDate: this.props.changeSelectedDate
   };
 
   actions = {
@@ -56,7 +57,8 @@ PropsProvider.propTypes = {
       isHoliday: PropTypes.bool
     })
   ),
-  canMouseWheel: PropTypes.bool
+  canMouseWheel: PropTypes.bool,
+  changeSelectedDate: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
