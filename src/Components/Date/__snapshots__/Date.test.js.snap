@@ -15,6 +15,9 @@ ShallowWrapper {
         "handleDateClick": [Function],
       }
     }
+    indicatorType="date"
+    isInPeriod={false}
+    isInThisMonth={false}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -31,15 +34,14 @@ ShallowWrapper {
     "props": Object {
       "children": <ForwardRef
         dayNumber={1}
+        isInThisMonth={false}
       >
         <ForwardRef>
           1
         </ForwardRef>
-        <ForwardRef>
-          선택
-        </ForwardRef>
+        <ForwardRef />
       </ForwardRef>,
-      "isInPeriod": undefined,
+      "isInPeriod": false,
       "onClick": undefined,
       "style": Object {
         "color": "red",
@@ -55,13 +57,11 @@ ShallowWrapper {
           <ForwardRef>
             1
           </ForwardRef>,
-          <ForwardRef>
-            선택
-          </ForwardRef>,
+          <ForwardRef />,
         ],
         "dayNumber": 1,
         "isHoliday": undefined,
-        "isInThisMonth": undefined,
+        "isInThisMonth": false,
         "isSaturday": undefined,
         "isToday": undefined,
       },
@@ -82,6 +82,7 @@ ShallowWrapper {
             "componentStyle": ComponentStyle {
               "componentId": "sc-bxivhb",
               "isStatic": true,
+              "lastClassName": "jDMdIj",
               "rules": Array [
                 "
   margin-bottom: 20%;
@@ -103,16 +104,17 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": "선택",
+            "children": undefined,
           },
           "ref": null,
-          "rendered": "선택",
+          "rendered": null,
           "type": Object {
             "$$typeof": Symbol(react.forward_ref),
             "attrs": Array [],
             "componentStyle": ComponentStyle {
               "componentId": "sc-htpNat",
               "isStatic": true,
+              "lastClassName": "jKgTdy",
               "rules": Array [
                 "
   width: inherit;
@@ -140,6 +142,7 @@ ShallowWrapper {
         "componentStyle": ComponentStyle {
           "componentId": "sc-bwzfXH",
           "isStatic": false,
+          "lastClassName": "eGiJSH",
           "rules": Array [
             "
   color: ",
@@ -167,6 +170,7 @@ ShallowWrapper {
       "componentStyle": ComponentStyle {
         "componentId": "sc-bdVaJa",
         "isStatic": false,
+        "lastClassName": "kdsAZh",
         "rules": Array [
           "
   display: inline-block;
@@ -201,15 +205,14 @@ ShallowWrapper {
       "props": Object {
         "children": <ForwardRef
           dayNumber={1}
+          isInThisMonth={false}
         >
           <ForwardRef>
             1
           </ForwardRef>
-          <ForwardRef>
-            선택
-          </ForwardRef>
+          <ForwardRef />
         </ForwardRef>,
-        "isInPeriod": undefined,
+        "isInPeriod": false,
         "onClick": undefined,
         "style": Object {
           "color": "red",
@@ -225,13 +228,11 @@ ShallowWrapper {
             <ForwardRef>
               1
             </ForwardRef>,
-            <ForwardRef>
-              선택
-            </ForwardRef>,
+            <ForwardRef />,
           ],
           "dayNumber": 1,
           "isHoliday": undefined,
-          "isInThisMonth": undefined,
+          "isInThisMonth": false,
           "isSaturday": undefined,
           "isToday": undefined,
         },
@@ -252,6 +253,7 @@ ShallowWrapper {
               "componentStyle": ComponentStyle {
                 "componentId": "sc-bxivhb",
                 "isStatic": true,
+                "lastClassName": "jDMdIj",
                 "rules": Array [
                   "
   margin-bottom: 20%;
@@ -273,16 +275,17 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "children": "선택",
+              "children": undefined,
             },
             "ref": null,
-            "rendered": "선택",
+            "rendered": null,
             "type": Object {
               "$$typeof": Symbol(react.forward_ref),
               "attrs": Array [],
               "componentStyle": ComponentStyle {
                 "componentId": "sc-htpNat",
                 "isStatic": true,
+                "lastClassName": "jKgTdy",
                 "rules": Array [
                   "
   width: inherit;
@@ -310,6 +313,7 @@ ShallowWrapper {
           "componentStyle": ComponentStyle {
             "componentId": "sc-bwzfXH",
             "isStatic": false,
+            "lastClassName": "eGiJSH",
             "rules": Array [
               "
   color: ",
@@ -337,6 +341,7 @@ ShallowWrapper {
         "componentStyle": ComponentStyle {
           "componentId": "sc-bdVaJa",
           "isStatic": false,
+          "lastClassName": "kdsAZh",
           "rules": Array [
             "
   display: inline-block;
@@ -386,10 +391,81 @@ ShallowWrapper {
 
 exports[`Month renders with snapshot 1`] = `
 <styled.td
+  isInPeriod={false}
   style={Object {}}
 >
   <styled.div
     dayNumber={1}
+    isInThisMonth={false}
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop dayNumber 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={20}
+    isInThisMonth={false}
+  >
+    <styled.div>
+      20
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - date 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={1}
+    isInThisMonth={false}
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - end 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    img="end-period.png"
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div>
+      끝
+    </styled.div>
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - select 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={1}
+    isInThisMonth={false}
   >
     <styled.div>
       1
@@ -399,4 +475,462 @@ exports[`Month renders with snapshot 1`] = `
     </styled.div>
   </styled.div>
 </styled.td>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - start 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    img="start-period.png"
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div>
+      시작
+    </styled.div>
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop isHoliday 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={1}
+    isHoliday={true}
+    isInThisMonth={false}
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop isInPeriod 1`] = `
+<styled.td
+  isInPeriod={true}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={1}
+    isInThisMonth={false}
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop isInThisMonth 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={1}
+    isInThisMonth={true}
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop isSaturday 1`] = `
+<styled.td
+  isInPeriod={false}
+  style={Object {}}
+>
+  <styled.div
+    dayNumber={1}
+    isInThisMonth={false}
+    isSaturday={true}
+  >
+    <styled.div>
+      1
+    </styled.div>
+    <styled.div />
+  </styled.div>
+</styled.td>
+`;
+
+exports[`Month renders with snapshot prop isToday 1`] = `
+<Date
+  cssObject={Object {}}
+  dayNumber={1}
+  handlers={
+    Object {
+      "handleDateClick": [Function],
+    }
+  }
+  indicatorType="date"
+  isInPeriod={false}
+  isInThisMonth={false}
+  isToday={true}
+>
+  <styled.td
+    isInPeriod={false}
+    style={Object {}}
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": false,
+            "lastClassName": "kdsAZh",
+            "rules": Array [
+              "
+  display: inline-block;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+  width: 13.6%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  font-weight: bold;
+  background-color: ",
+              [Function],
+              ";
+",
+            ],
+          },
+          "displayName": "styled.td",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "td",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      isInPeriod={false}
+      style={Object {}}
+    >
+      <td
+        className="sc-bdVaJa kdsAZh"
+        style={Object {}}
+      >
+        <styled.div
+          dayNumber={1}
+          isInThisMonth={false}
+          isToday={true}
+        >
+          <StyledComponent
+            dayNumber={1}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bwzfXH",
+                  "isStatic": false,
+                  "lastClassName": "eGiJSH",
+                  "rules": Array [
+                    "
+  color: ",
+                    [Function],
+                    ";
+  opacity: ",
+                    [Function],
+                    ";
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bwzfXH",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            isInThisMonth={false}
+            isToday={true}
+          >
+            <div
+              className="sc-bwzfXH eGiJSH"
+            >
+              <styled.div>
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-bxivhb",
+                        "isStatic": true,
+                        "lastClassName": "jDMdIj",
+                        "rules": Array [
+                          "
+  margin-bottom: 20%;
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-bxivhb",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                >
+                  <div
+                    className="sc-bxivhb jDMdIj"
+                  >
+                    1
+                  </div>
+                </StyledComponent>
+              </styled.div>
+              <styled.div>
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-htpNat",
+                        "isStatic": true,
+                        "lastClassName": "jKgTdy",
+                        "rules": Array [
+                          "
+  width: inherit;
+  height: 100%;
+  justify-content: center;
+  overflow-x: hidden;
+  font-size: 80%;
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-htpNat",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                >
+                  <div
+                    className="sc-htpNat jKgTdy"
+                  />
+                </StyledComponent>
+              </styled.div>
+            </div>
+          </StyledComponent>
+        </styled.div>
+      </td>
+    </StyledComponent>
+  </styled.td>
+</Date>
+`;
+
+exports[`Month renders with snapshot prop isToday 2`] = `
+<Date
+  cssObject={Object {}}
+  dayNumber={1}
+  handlers={
+    Object {
+      "handleDateClick": [Function],
+    }
+  }
+  indicatorType="date"
+  isInPeriod={false}
+  isInThisMonth={false}
+  text="random"
+>
+  <styled.td
+    isInPeriod={false}
+    style={Object {}}
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": false,
+            "lastClassName": "kdsAZh",
+            "rules": Array [
+              "
+  display: inline-block;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+  width: 13.6%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  font-weight: bold;
+  background-color: ",
+              [Function],
+              ";
+",
+            ],
+          },
+          "displayName": "styled.td",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "td",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      isInPeriod={false}
+      style={Object {}}
+    >
+      <td
+        className="sc-bdVaJa kdsAZh"
+        style={Object {}}
+      >
+        <styled.div
+          dayNumber={1}
+          isInThisMonth={false}
+        >
+          <StyledComponent
+            dayNumber={1}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bwzfXH",
+                  "isStatic": false,
+                  "lastClassName": "eGiJSH",
+                  "rules": Array [
+                    "
+  color: ",
+                    [Function],
+                    ";
+  opacity: ",
+                    [Function],
+                    ";
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bwzfXH",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            isInThisMonth={false}
+          >
+            <div
+              className="sc-bwzfXH eGiJSH"
+            >
+              <styled.div>
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-bxivhb",
+                        "isStatic": true,
+                        "lastClassName": "jDMdIj",
+                        "rules": Array [
+                          "
+  margin-bottom: 20%;
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-bxivhb",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                >
+                  <div
+                    className="sc-bxivhb jDMdIj"
+                  >
+                    1
+                  </div>
+                </StyledComponent>
+              </styled.div>
+              <styled.div>
+                <StyledComponent
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-htpNat",
+                        "isStatic": true,
+                        "lastClassName": "jKgTdy",
+                        "rules": Array [
+                          "
+  width: inherit;
+  height: 100%;
+  justify-content: center;
+  overflow-x: hidden;
+  font-size: 80%;
+",
+                        ],
+                      },
+                      "displayName": "styled.div",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-htpNat",
+                      "target": "div",
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                >
+                  <div
+                    className="sc-htpNat jKgTdy"
+                  >
+                    random
+                  </div>
+                </StyledComponent>
+              </styled.div>
+            </div>
+          </StyledComponent>
+        </styled.div>
+      </td>
+    </StyledComponent>
+  </styled.td>
+</Date>
 `;
