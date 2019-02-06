@@ -55,10 +55,9 @@ describe("Month", () => {
   it("renders with snapshot prop isToday", () => {
     const wrapper = mount(<Date isToday />);
     expect(toJson(wrapper)).toMatchSnapshot();
-    expect(wrapper.text()).toContain("오늘");
   });
 
-  it("renders with snapshot prop isToday", () => {
+  it("renders with snapshot prop text", () => {
     const text = "random";
     const wrapper = mount(<Date text={text} />);
     expect(toJson(wrapper)).toMatchSnapshot();

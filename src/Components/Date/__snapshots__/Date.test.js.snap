@@ -750,7 +750,7 @@ exports[`Month renders with snapshot prop isToday 1`] = `
 </Date>
 `;
 
-exports[`Month renders with snapshot prop isToday 2`] = `
+exports[`Month renders with snapshot prop text 1`] = `
 <Date
   cssObject={Object {}}
   dayNumber={1}
