@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonthArrow render custom css render well with snapshot 1`] = `
+<MonthArrow
+  cssObject={
+    Object {
+      "color": "red",
+    }
+  }
+  onClick={[Function]}
+  type="left"
+>
+  <styled.div
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": false,
+            "lastClassName": "srDMb",
+            "rules": Array [
+              "
+  padding: 25px;
+  cursor: pointer;
+  color: ",
+              [Function],
+              ";
+  font-size: 130%;
+  background-color: ",
+              [Function],
+              ";
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      onClick={[Function]}
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+      <div
+        className="sc-bdVaJa srDMb"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "red",
+          }
+        }
+      >
+        ❮
+      </div>
+    </StyledComponent>
+  </styled.div>
+</MonthArrow>
+`;
+
+exports[`MonthArrow renders with snapshot 1`] = `
+<MonthArrow
+  cssObject={Object {}}
+  onClick={[Function]}
+  type="left"
+>
+  <styled.div
+    onClick={[Function]}
+    style={Object {}}
+  >
+    <StyledComponent
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": false,
+            "lastClassName": "srDMb",
+            "rules": Array [
+              "
+  padding: 25px;
+  cursor: pointer;
+  color: ",
+              [Function],
+              ";
+  font-size: 130%;
+  background-color: ",
+              [Function],
+              ";
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <div
+        className="sc-bdVaJa srDMb"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        ❮
+      </div>
+    </StyledComponent>
+  </styled.div>
+</MonthArrow>
+`;

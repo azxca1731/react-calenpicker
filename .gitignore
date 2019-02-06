@@ -3,6 +3,7 @@ dist/*.js
 examples/dist/*.js
 coverage
 storybook-static
+report.*.json
 
 .vscode
 .idea

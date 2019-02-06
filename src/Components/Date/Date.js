@@ -96,7 +96,7 @@ Date.defaultProps = {
     handleDateClick: () => {}
   },
   cssObject: {},
-  dayNumber: "1"
+  dayNumber: 1
 };
 
 StartIndicator.propTypes = {

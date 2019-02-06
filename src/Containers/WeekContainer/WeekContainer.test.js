@@ -1,6 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
-import WeekContainer from "index";
+import toJson from "enzyme-to-json";
+
+import WeekContainer from "./index";
 
 describe("WeekDay", () => {
   it("renders without crashing", () => {
@@ -8,8 +10,8 @@ describe("WeekDay", () => {
     expect(wrapper).toHaveLength(1);
   });
 
-  it("renders with valid props", () => {
-    const wrapper = shallow(<WeekContainer weekNumber={0} />);
-    expect(wrapper).toHaveLength(1);
+  it("renders with snapshot", () => {
+    const wrapper = shallow(<WeekContainer />);
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 });
