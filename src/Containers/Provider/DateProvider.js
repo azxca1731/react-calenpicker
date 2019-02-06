@@ -25,7 +25,6 @@ class DateProvider extends Component {
   actions = {
     calculateMonth: (propMonthString, duplicated) => {
       const propMonth = new Date(propMonthString);
-      console.log(propMonth, duplicated);
       const month = duplicated ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1) : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
       const today = month;
       const currentMonthFirstDay = new Date(today.getFullYear(), today.getMonth());
@@ -124,6 +123,7 @@ class DateProvider extends Component {
           periods: multiSelect ? [...periods, { periodStart, periodEnd: null }] : []
         });
       } else if (new Date(periodStart) <= new Date(insertDate)) {
+        if (this.state.periods.length > 0) this.state.periods.pop();
         const returnvalue = multiSelect ? [...this.state.periods, { periodStart, periodEnd: insertDate }] : [{ periodStart, periodEnd: insertDate }];
         this.setState({ periodStart: null, periods: returnvalue });
         callbackFunction(returnvalue);
