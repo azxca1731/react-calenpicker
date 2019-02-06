@@ -19,5 +19,6 @@ describe("Template", () => {
     const customCssObject = { color: "red" };
     const wrapper = shallow(<Template cssObject={customCssObject} />);
     expect(toJson(wrapper)).toMatchSnapshot();
+    expect(toJson(wrapper).props.style).toBe(customCssObject);
   });
 });

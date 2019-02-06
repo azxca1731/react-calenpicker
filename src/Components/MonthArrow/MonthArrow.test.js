@@ -32,7 +32,8 @@ describe("MonthArrow", () => {
 
   it("render custom css render well with snapshot", () => {
     const customCssObject = { color: "red" };
-    const wrapper = mount(<MonthArrow cssObject={customCssObject} />);
+    const wrapper = shallow(<MonthArrow cssObject={customCssObject} />);
     expect(toJson(wrapper)).toMatchSnapshot();
+    expect(toJson(wrapper).props.style).toBe(customCssObject);
   });
 });

@@ -19,5 +19,6 @@ describe("WeekDay", () => {
     const customCssObject = { color: "red" };
     const wrapper = shallow(<WeekDay cssObject={customCssObject} />);
     expect(toJson(wrapper)).toMatchSnapshot();
+    expect(toJson(wrapper).props.style).toBe(customCssObject);
   });
 });

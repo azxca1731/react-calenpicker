@@ -25,7 +25,6 @@ class DateProvider extends Component {
   actions = {
     calculateMonth: (propMonthString, duplicated) => {
       const propMonth = new Date(propMonthString);
-      console.log(propMonth, duplicated);
       const month = duplicated ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1) : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
       const today = month;
       const currentMonthFirstDay = new Date(today.getFullYear(), today.getMonth());

@@ -26,5 +26,6 @@ describe("Month", () => {
     const customCssObject = { color: "red" };
     const wrapper = shallow(<Month cssObject={customCssObject} />);
     expect(toJson(wrapper)).toMatchSnapshot();
+    expect(toJson(wrapper).props.style).toBe(customCssObject);
   });
 });
