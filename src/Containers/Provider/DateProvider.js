@@ -23,8 +23,6 @@ class DateProvider extends Component {
   };
 
   actions = {
-<<<<<<< Updated upstream
-=======
     calculateMonth: (propMonthString, duplicated) => {
       const propMonth = new Date(propMonthString);
       const month = duplicated ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1) : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
@@ -66,29 +64,53 @@ class DateProvider extends Component {
 
       return dateObjectArray;
     },
->>>>>>> Stashed changes
     setDateObjectArray: (dateObjectArray, duplicated) => {
       !duplicated ? this.setState({ dateObjectArray }) : this.setState({ duplicatedDateObjectArray: dateObjectArray });
     },
     increaseMonth: () => {
-      if (this.state.month === 11) {
-        this.setState({
-          month: 0,
-          year: this.state.year * 1 + 1
-        });
+      const { year, month, dateObjectArray, duplicatedDateObjectArray } = this.state;
+      let calcedYear, calcedMonth;
+
+      if (month === 11) {
+        calcedYear = year * 1 + 1;
+        calcedMonth = 0;
       } else {
-        this.setState({ month: this.state.month + 1 });
+        calcedYear = year;
+        calcedMonth = month + 1;
       }
+      const monthString = `${calcedYear}-${calcedMonth + 1}`;
+
+      const nextState = {
+        year: calcedYear,
+        month: calcedMonth,
+        dateObjectArray,
+        duplicatedDateObjectArray
+      };
+      nextState.dateObjectArray = this.actions.calculateMonth(monthString, false);
+      nextState.duplicatedDateObjectArray = this.actions.calculateMonth(monthString, true);
+      this.setState(nextState);
     },
     decreaseMonth: () => {
-      if (this.state.month === 0) {
-        this.setState({
-          month: 11,
-          year: this.state.year - 1
-        });
+      const { year, month, dateObjectArray, duplicatedDateObjectArray } = this.state;
+      let calcedYear, calcedMonth;
+      if (month === 0) {
+        calcedYear = year - 1;
+        calcedMonth = 11;
       } else {
-        this.setState({ month: this.state.month - 1 });
+        calcedYear = year;
+        calcedMonth = month - 1;
       }
+      const monthString = `${calcedYear}-${calcedMonth + 1}`;
+
+      const nextState = {
+        year: calcedYear,
+        month: calcedMonth,
+        dateObjectArray,
+        duplicatedDateObjectArray
+      };
+      nextState.dateObjectArray = this.actions.calculateMonth(monthString, false);
+      nextState.duplicatedDateObjectArray = this.actions.calculateMonth(monthString, true);
+      this.setState(nextState);
     },
     handleDateClicked: dateState => {
       const { periodStart, multiSelect, periods } = this.state;
@@ -98,7 +120,7 @@ class DateProvider extends Component {
       if (!periodStart) {
         this.setState({
           periodStart: insertDate,
-          periods: multiSelect ? [...periods] : []
+          periods: multiSelect ? [...periods, { periodStart, periodEnd: null }] : []
         });
       } else if (new Date(periodStart) <= new Date(insertDate)) {
         const returnvalue = multiSelect ? [...this.state.periods, { periodStart, periodEnd: insertDate }] : [{ periodStart, periodEnd: insertDate }];
