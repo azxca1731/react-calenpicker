@@ -15,4 +15,5 @@ storiesOf("Calendar", module)
   .add("캘린더 마우스 휠로 이동", () => <Calendar canMouseWheel />)
   .add("캘린더 커스텀 테마 적용", () => <Calendar customTheme={{ backgroundColor: "#efefef", secondaryColor: "#fe88a0", fontColor: "#74c9c6" }} />)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />)
-  .add("연속캘린더 듀플리케이트 날짜추가", () => <Calendar addText duplicate />);
+  .add("연속캘린더 듀플리케이트 날짜추가", () => <Calendar addText duplicate />)
+  .add("선택한 날짜의 텍스트 변경", () => <Calendar editSelectedDate />);
