@@ -25,6 +25,7 @@
     "prepublish": "npm run clean && npm run test && npm run build",
     "test": "npm run lint && npm run coverage",
     "dev-test": "jest test --watch",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -45,6 +46,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^0.1.16",
+    "coveralls": "^3.0.2",
     "css-loader": "^1.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
