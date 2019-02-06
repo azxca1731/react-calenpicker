@@ -131,20 +131,19 @@ class DateContainer extends React.Component {
   render() {
     const { cssObject } = this.props;
     const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType } = this.state;
-    return (
-      <Date
-        cssObject={cssObject}
-        text={text}
-        dayNumber={dayNumber}
-        isInThisMonth={isInThisMonth}
-        isToday={isToday}
-        isHoliday={isHoliday}
-        isInPeriod={isInPeriod}
-        isSaturday={isSaturday}
-        indicatorType={indicatorType}
-        handleDateClick={this.handleDateClick}
-      />
-    );
+    const packedProps = {
+      cssObject,
+      text,
+      dayNumber,
+      isInPeriod,
+      isHoliday,
+      isInThisMonth,
+      isToday,
+      isSaturday,
+      indicatorType,
+      handleDateClick: this.handleDateClick
+    };
+    return <Date {...packedProps} />;
   }
 }
 
@@ -178,13 +177,15 @@ DateContainer.propTypes = {
   ),
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  editSelectedDate: PropTypes.bool
 };
 
 export default PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
-  duplicated: state.duplicated
+  duplicated: state.duplicated,
+  editSelectedDate: state.editSelectedDate
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
