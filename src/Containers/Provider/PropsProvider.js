@@ -18,7 +18,14 @@ class PropsProvider extends Component {
     onlyThisMonth: this.props.onlyThisMonth,
     objectSetText: this.props.objectSetText,
     addText: this.props.addText,
-    canMouseWheel: this.props.canMouseWheel
+    canMouseWheel: this.props.canMouseWheel,
+    editSelectedDate: this.props.editSelectedDate,
+    modalShowFromDate: false,
+    targetEditDate: {
+      date: "",
+      text: "",
+      isHoliday: false
+    }
   };
 
   actions = {
@@ -26,6 +33,20 @@ class PropsProvider extends Component {
       this.setState({
         objectSetText: [...this.state.objectSetText, newDateObject]
       });
+    },
+    handleModalFromDate: (show, target) => {
+      if (show) {
+        this.setState({
+          modalShowFromDate: show,
+          targetEditDate: {
+            ...target
+          }
+        });
+      } else {
+        this.setState({
+          modalShowFromDate: show
+        });
+      }
     }
   };
 
@@ -56,7 +77,8 @@ PropsProvider.propTypes = {
       isHoliday: PropTypes.bool
     })
   ),
-  canMouseWheel: PropTypes.bool
+  canMouseWheel: PropTypes.bool,
+  editSelectedDate: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);

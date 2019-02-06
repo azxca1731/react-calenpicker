@@ -47,10 +47,11 @@ const CalendarDateInputModalButton = styled.button`
 class CalendarDateInputModal extends React.Component {
   constructor(props) {
     super(props);
+    const { target } = props;
     this.state = {
-      date: "",
-      text: "",
-      isHoliday: true
+      date: target ? target.date : "",
+      text: target ? target.text : "",
+      isHoliday: target ? target.isHoliday : true
     };
   }
 
@@ -131,7 +132,12 @@ CalendarDateInputModal.defaultProps = {
 
 CalendarDateInputModal.propTypes = {
   addCalendarText: PropTypes.func,
-  handleModal: PropTypes.func
+  handleModal: PropTypes.func,
+  target: PropTypes.shape({
+    date: PropTypes.string,
+    text: PropTypes.string,
+    isHoliday: PropTypes.bool
+  })
 };
 
 export default CalendarDateInputModal;
