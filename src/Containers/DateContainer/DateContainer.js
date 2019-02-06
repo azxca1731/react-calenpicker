@@ -109,9 +109,10 @@ class DateContainer extends React.Component {
   }
 
   handleDateClick() {
-    const { dateClicked, isInPeriod } = this.props;
+    const { dateClicked, isInPeriod, editSelectedDate, handleModalShowFromDate } = this.props;
     const { isInThisMonth, dateString } = this.state;
     if (isInThisMonth) {
+      if (editSelectedDate) handleModalShowFromDate(true);
       dateClicked(this.state);
     }
     if (isInPeriod(dateString)) {
@@ -178,14 +179,16 @@ DateContainer.propTypes = {
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
   cssObject: PropTypes.object,
-  editSelectedDate: PropTypes.bool
+  editSelectedDate: PropTypes.bool,
+  handleModalShowFromDate: PropTypes.func
 };
 
-export default PropsConnector(({ state }) => ({
+export default PropsConnector(({ state, actions }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
   duplicated: state.duplicated,
-  editSelectedDate: state.editSelectedDate
+  editSelectedDate: state.editSelectedDate,
+  handleModalShowFromDate: actions.handleModalShowFromDate
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,

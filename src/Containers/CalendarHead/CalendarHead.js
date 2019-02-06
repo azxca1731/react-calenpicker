@@ -35,6 +35,12 @@ class CalendarHead extends React.Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { modalShowFromDate, editSelectedDate } = nextProps;
+    if (editSelectedDate) return { modalShow: modalShowFromDate };
+    else return { modalShow: prevState };
+  }
+
   handleModal = result => {
     this.setState({
       modalshow: result
@@ -94,14 +100,18 @@ CalendarHead.propTypes = {
   duplicate: PropTypes.bool,
   cssObject: PropTypes.object,
   addCalendarText: PropTypes.func,
-  addText: PropTypes.bool
+  addText: PropTypes.bool,
+  editSelectedDate: PropTypes.bool,
+  modalShowFromDate: PropTypes.bool
 };
 
 export default PropsConnector(({ state, actions }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
   addCalendarText: actions.addCalendarText,
-  addText: state.addText
+  addText: state.addText,
+  editSelectedDate: state.editSelectedDate,
+  modalShowFromDate: state.modalShowFromDate
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,

@@ -19,13 +19,19 @@ class PropsProvider extends Component {
     objectSetText: this.props.objectSetText,
     addText: this.props.addText,
     canMouseWheel: this.props.canMouseWheel,
-    changeSelectedDate: this.props.changeSelectedDate
+    changeSelectedDate: this.props.changeSelectedDate,
+    modalShowFromDate: false
   };
 
   actions = {
     addCalendarText: newDateObject => {
       this.setState({
         objectSetText: [...this.state.objectSetText, newDateObject]
+      });
+    },
+    handleModalFromDate: show => {
+      this.setState({
+        modalShowFromDate: show
       });
     }
   };
