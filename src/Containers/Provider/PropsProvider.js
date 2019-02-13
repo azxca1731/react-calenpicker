@@ -36,7 +36,7 @@ class PropsProvider extends Component {
     },
     deleteCalendarText: deletedDateObject => {
       this.setState({
-        objectSetText: this.state.objectSetText.filter(({ date, text, isHoliday }) => date != deletedDateObject.date && text != deletedDateObject.text && isHoliday != deletedDateObject.isHoliday)
+        objectSetText: this.state.objectSetText.filter(({ date, text, isHoliday }) => !(date == deletedDateObject.date && text == deletedDateObject.text && isHoliday == deletedDateObject.isHoliday))
       });
     },
     handleModal: result => {

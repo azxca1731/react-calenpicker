@@ -49,7 +49,7 @@ class CalendarDateInputModal extends React.Component {
     super(props);
     const { target } = props;
     this.state = {
-      dateString: target ? target.dateString : "",
+      date: target ? target.date : "",
       text: target ? target.text : "",
       isHoliday: target ? target.isHoliday : true
     };
@@ -57,7 +57,7 @@ class CalendarDateInputModal extends React.Component {
 
   handleInputDateChange = event => {
     this.setState({
-      dateString: event.target.value
+      date: event.target.value
     });
   };
 
@@ -75,13 +75,13 @@ class CalendarDateInputModal extends React.Component {
 
   render() {
     const { addCalendarText, handleModal, handleTargetSetValue, target, deleteCalendarText } = this.props;
-    const { isHoliday, dateString, text } = this.state;
+    const { isHoliday, date, text } = this.state;
     return (
       <CalendarDateInputModalDiv>
         <CalendarDateInputModalHead>날짜 추가</CalendarDateInputModalHead>
         <CalendarDateInputModalBody>
           <label htmlFor="date">날짜: </label>
-          <input id="date" value={dateString} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
           <br />
           <br />
           <label htmlFor="text">이름: </label>
@@ -96,19 +96,19 @@ class CalendarDateInputModal extends React.Component {
           <CalendarDateInputModalButton
             isAccept
             onClick={() => {
-              addCalendarText({ text, date: dateString, isHoliday });
+              if (target && target.text) deleteCalendarText(target);
+              addCalendarText({ text, date, isHoliday });
               this.setState({
                 text: "",
-                dateString: "",
+                date: "",
+                isHoliday: true
+              });
+              handleTargetSetValue({
+                text: "",
+                date: "",
                 isHoliday: true
               });
               handleModal(false);
-              handleTargetSetValue({
-                text: "",
-                dateString: "",
-                isHoliday: true
-              });
-              target && target.text ? deleteCalendarText(target) : null;
             }}
           >
             {target && target.text ? "수정" : "추가"}
@@ -117,15 +117,15 @@ class CalendarDateInputModal extends React.Component {
             onClick={() => {
               this.setState({
                 text: "",
-                dateString: "",
+                date: "",
+                isHoliday: true
+              });
+              handleTargetSetValue({
+                text: "",
+                date: "",
                 isHoliday: true
               });
               handleModal(false);
-              handleTargetSetValue({
-                text: "",
-                dateString: "",
-                isHoliday: true
-              });
             }}
           >
             닫기
@@ -147,7 +147,7 @@ CalendarDateInputModal.propTypes = {
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
   target: PropTypes.shape({
-    dateString: PropTypes.string,
+    date: PropTypes.string,
     text: PropTypes.string,
     isHoliday: PropTypes.bool
   })
