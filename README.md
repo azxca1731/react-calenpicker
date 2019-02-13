@@ -80,6 +80,7 @@ Props는 다음과 같습니다.
 | `canMouseWheel`    | 마우스 휠로 달을 바꿀 수 있습니다                                                                                                                      | Bool                                                   | `<Calendar canMouseWheel />`                                                                                                   | False    |
 | `customTheme`      | 커스텀 테마를 적용 가능합니다.                                                                                                                         | Object                                                 | `<Calendar customTheme={{ backgroundColor: "#efefef", secondaryColor: "#fe88a0", fontColor: "#74c9c6" }} />`                   | Null     |
 | `editSelectedDate` | 선택되어있는 날에 커스텀 텍스트를 적용할 수 있습니다.                                                                                                  | Bool                                                   | `<Calendar editSelectedDate />`                                                                                                | False    |
+| `canUpdateDate`    | 날짜에 글씨(일정)이 있는 날을 수정 할 수 있습니다.                                                                                                     | Bool                                                   | `<Calendar canUpdateDate />`                                                                                                   | False    |
 
 ---
 

@@ -19,7 +19,6 @@ class DateContainer extends React.Component {
     isHoliday: false,
     isToday: false,
     isSaturday: false,
-    isSelected: false,
     indicatorType: "date"
   };
 
@@ -46,13 +45,11 @@ class DateContainer extends React.Component {
       const isSaturday = day == 7 ? true : false;
 
       let indicatorType = "date";
-      let isSelected = false;
       const selected = DateContainer._filterSelectedPeriod(props, state, dateString);
       if (DateContainer._isPeriodDate(props, state, "start", dateString)) indicatorType = "start";
       else if (DateContainer._isPeriodDate(props, state, "end", dateString)) indicatorType = "end";
       if (selected.length > 0) {
         indicatorType = "select";
-        isSelected = true;
       }
 
       return {
@@ -64,7 +61,6 @@ class DateContainer extends React.Component {
         isInPeriod,
         isToday,
         isSaturday,
-        isSelected,
         indicatorType
       };
     }
@@ -113,55 +109,51 @@ class DateContainer extends React.Component {
   }
 
   handleDateClick() {
-    const { dateClicked, isInPeriod, editSelectedDate, handleModalFromDate } = this.props;
-    const { isInThisMonth, dateString, isSelected, text, isHoliday } = this.state;
-    if (editSelectedDate && isSelected) {
-      const targetObject = {
-        date: dateString,
-        text,
-        isHoliday
-      };
-      handleModalFromDate(true, targetObject);
+    const { dateClicked, isInPeriod } = this.props;
+    const { isInThisMonth, dateString } = this.state;
+    if (isInThisMonth) {
+      dateClicked(this.state);
+    }
+    if (isInPeriod(dateString)) {
+      if (!isInPeriod) {
+        this.setState({
+          isInPeriod: true
+        });
+      }
     } else {
-      if (isInThisMonth) {
-        dateClicked(this.state);
-      }
-      if (isInPeriod(dateString)) {
-        if (!isInPeriod) {
-          this.setState({
-            isInPeriod: true
-          });
-        }
-      } else {
-        if (isInPeriod)
-          this.setState({
-            isInPeriod: false
-          });
-      }
+      if (isInPeriod)
+        this.setState({
+          isInPeriod: false
+        });
     }
   }
 
   render() {
-    const { cssObject } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType } = this.state;
-    const packedProps = {
-      cssObject,
-      text,
-      dayNumber,
-      isInPeriod,
-      isHoliday,
-      isInThisMonth,
-      isToday,
-      isSaturday,
-      indicatorType,
-      handleDateClick: this.handleDateClick
-    };
-    return <Date {...packedProps} />;
+    const { cssObject, canUpdateDate, handleModal, handleTargetSetValue } = this.props;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString } = this.state;
+    return (
+      <Date
+        cssObject={cssObject}
+        text={text}
+        dayNumber={dayNumber}
+        isInThisMonth={isInThisMonth}
+        isToday={isToday}
+        isHoliday={isHoliday}
+        isInPeriod={isInPeriod}
+        isSaturday={isSaturday}
+        indicatorType={indicatorType}
+        handleDateClick={this.handleDateClick}
+        handleModal={canUpdateDate ? handleModal : () => {}}
+        dateString={dateString}
+        handleTargetSetValue={handleTargetSetValue}
+      />
+    );
   }
 }
 
 DateContainer.defaultProps = {
-  day: "1"
+  day: "1",
+  handleModal: () => {}
 };
 
 DateContainer.propTypes = {
@@ -191,22 +183,18 @@ DateContainer.propTypes = {
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
   cssObject: PropTypes.object,
-  editSelectedDate: PropTypes.bool,
-  handleModalFromDate: PropTypes.func,
-  targetEditDate: PropTypes.shape({
-    date: PropTypes.string,
-    text: PropTypes.string,
-    isHoliday: PropTypes.bool
-  })
+  handleModal: PropTypes.func,
+  canUpdateDate: PropTypes.bool,
+  handleTargetSetValue: PropTypes.func
 };
 
 export default PropsConnector(({ state, actions }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
   duplicated: state.duplicated,
-  editSelectedDate: state.editSelectedDate,
-  handleModalFromDate: actions.handleModalFromDate,
-  targetEditDate: state.targetEditDate
+  handleModal: actions.handleModal,
+  canUpdateDate: state.canUpdateDate,
+  handleTargetSetValue: actions.handleTargetSetValue
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,

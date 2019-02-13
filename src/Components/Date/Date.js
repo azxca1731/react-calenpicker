@@ -58,12 +58,22 @@ const EndIndicator = props => (
   </EndPointDiv>
 );
 
-const DateIndicator = props => (
-  <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
-    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
-    <DateTextDiv>{props.text}</DateTextDiv>
-  </DateDiv>
-);
+const DateIndicator = props => {
+  const handleTextClicked = event => {
+    const { dateString, text, isHoliday } = props;
+    props.handleModal(true);
+    props.handleTargetSetValue({ date: dateString, text, isHoliday });
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  return (
+    <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
+      <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+      <DateTextDiv onClick={handleTextClicked}>{props.text}</DateTextDiv>
+    </DateDiv>
+  );
+};
 
 const SelectIndicator = props => (
   <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
@@ -73,10 +83,10 @@ const SelectIndicator = props => (
 );
 
 const Date = props => {
-  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType, handleDateClick } = props;
+  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType, handleDateClick, handleModal, dateString, handleTargetSetValue } = props;
   let contents;
   if (indicatorType == "date") {
-    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text });
+    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue });
   } else if (indicatorType == "start") {
     contents = StartIndicator({ dayNumber });
   } else if (indicatorType == "end") {
@@ -115,7 +125,10 @@ DateIndicator.propTypes = {
   isInThisMonth: PropTypes.bool,
   isSaturday: PropTypes.bool,
   dayNumber: PropTypes.number,
-  text: PropTypes.string
+  text: PropTypes.string,
+  handleModal: PropTypes.func,
+  dateString: PropTypes.string,
+  handleTargetSetValue: PropTypes.func
 };
 
 SelectIndicator.propTypes = {
@@ -138,7 +151,10 @@ Date.propTypes = {
   isHoliday: PropTypes.bool,
   isToday: PropTypes.bool,
   isSaturday: PropTypes.bool,
-  indicatorType: PropTypes.oneOf(["date", "start", "end", "select"])
+  indicatorType: PropTypes.oneOf(["date", "start", "end", "select"]),
+  handleModal: PropTypes.func,
+  dateString: PropTypes.string,
+  handleTargetSetValue: PropTypes.func
 };
 
 export default Date;
