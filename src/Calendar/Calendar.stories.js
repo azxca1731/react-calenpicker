@@ -12,3 +12,13 @@ storiesOf("Calendar", module)
   .add("텍스트 커스터마이징", () => <Calendar objectSetText={[{ text: "연말", date: "2018-12-31" }, { text: "휴가", date: "2018-12-26", isHoliday: true }]} />)
   .add("캘린더 중복선택가능", () => <Calendar multiSelect />)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />);
+// .add("인풋 예제", () => (
+//   <div>
+//     <Calendar callbackFunction={value => console.log(value)} />
+//   </div>
+// ));
+// .add("인풋 예제", () => (
+//   <div>
+//     <InputEX1 />
+//   </div>
+// ));
