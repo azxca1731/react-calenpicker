@@ -8,7 +8,8 @@ const CalendarDateInputModalDiv = styled.div`
   color: ${props => props.theme.fontColor};
   border: 1px solid ${props => props.theme.fontColor};
   background-color: ${props => props.theme.backgroundColor};
-  top: 0px;
+  top: -1px;
+  left: 0px;
 `;
 
 const CalendarDateInputModalHead = styled.div`
@@ -28,8 +29,7 @@ const CalendarDateInputModalFooter = styled.div`
 `;
 
 const CalendarDateInputModalBody = styled.div`
-  padding: 40px 20px;
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.5}px;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.7}px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +83,6 @@ class CalendarDateInputModal extends React.Component {
   render() {
     const { addCalendarText, handleModal, size } = this.props;
     const { isHoliday, date, text } = this.state;
-    console.log(size.height);
     return (
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>날짜 추가</CalendarDateInputModalHead>
