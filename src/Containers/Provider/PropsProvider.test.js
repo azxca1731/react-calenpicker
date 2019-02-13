@@ -4,7 +4,11 @@ import { PropsProvider } from "./index";
 
 describe("PropsProvider", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<PropsProvider />);
+    const wrapper = shallow(
+      <PropsProvider>
+        <div />
+      </PropsProvider>
+    );
     expect(wrapper).toHaveLength(1);
   });
 });
