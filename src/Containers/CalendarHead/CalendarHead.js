@@ -37,7 +37,7 @@ class CalendarHead extends React.Component {
   };
 
   renderCalendarDateInputModal = () => {
-    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText } = this.props;
+    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size } = this.props;
     return (
       <CalendarDateInputModal
         addCalendarText={addCalendarText}
@@ -46,6 +46,7 @@ class CalendarHead extends React.Component {
         handleTargetSetValue={handleTargetSetValue}
         deleteCalendarText={deleteCalendarText}
         updateCalendarText={updateCalendarText}
+        size={size}
       />
     );
   };
@@ -111,6 +112,7 @@ CalendarHead.propTypes = {
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func
+  size: PropTypes.object
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -132,7 +134,8 @@ export default PropsConnector(({ state, actions }) => ({
     showNextMonth: actions.increaseMonth
   }))(
     CssConnector(({ state }) => ({
-      cssObject: state.CalendarHeadCssObject
+      cssObject: state.CalendarHeadCssObject,
+      size: state.TemplateCssObject
     }))(CalendarHead)
   )
 );

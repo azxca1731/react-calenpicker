@@ -1,82 +1,109 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 
 import Date from "./index";
 
+const setup = (props = {}) => {
+  const wrapper = shallow(
+    <table>
+      <tbody>
+        <tr>
+          <Date {...props} />
+        </tr>
+      </tbody>
+    </table>
+  );
+  return wrapper;
+};
+
 describe("Month", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<Date />);
+    const wrapper = setup();
     expect(wrapper).toHaveLength(1);
   });
 
   it("renders with snapshot", () => {
-    const wrapper = shallow(<Date />);
+    const wrapper = setup();
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop for indicator type - date", () => {
-    const wrapper = shallow(<Date indicatorType="date" />);
+    const props = {
+      indicatorType: "date"
+    };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop for indicator type - start", () => {
-    const wrapper = shallow(<Date indicatorType="start" />);
+    const props = { indicatorType: "start" };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop for indicator type - end", () => {
-    const wrapper = shallow(<Date indicatorType="end" />);
+    const props = { indicatorType: "end" };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop for indicator type - select", () => {
-    const wrapper = shallow(<Date indicatorType="select" />);
+    const props = { indicatorType: "select" };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop isSaturday", () => {
-    const wrapper = shallow(<Date isSaturday />);
+    const props = { isSaturday: true };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop isHoliday", () => {
-    const wrapper = shallow(<Date isHoliday />);
+    const props = { isHoliday: true };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop dayNumber", () => {
     const dayNumber = 20;
-    const wrapper = shallow(<Date dayNumber={dayNumber} />);
+    const props = { dayNumber };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
-    expect(wrapper.text()).toContain(dayNumber);
+    expect(wrapper.find({ dayNumber })).toHaveLength(1);
   });
 
   it("renders with snapshot prop isToday", () => {
-    const wrapper = mount(<Date isToday />);
+    const props = { isToday: true };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop text", () => {
     const text = "random";
-    const wrapper = mount(<Date text={text} />);
+    const props = { text };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
-    expect(wrapper.text()).toContain(text);
+    expect(wrapper.find({ text })).toHaveLength(1);
   });
 
   it("renders with snapshot prop isInPeriod", () => {
-    const wrapper = shallow(<Date isInPeriod />);
+    const props = { isInPeriod: true };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("renders with snapshot prop isInThisMonth", () => {
-    const wrapper = shallow(<Date isInThisMonth />);
+    const props = { isInThisMonth: true };
+    const wrapper = setup(props);
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   it("render custom css render well with snapshot", () => {
     const customCssObject = { color: "red" };
-    const wrapper = shallow(<Date cssObject={customCssObject} />);
+    const props = { cssObject: { ...customCssObject } };
+    const wrapper = setup(props);
     expect(wrapper).toMatchSnapshot();
   });
 });

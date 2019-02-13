@@ -25,7 +25,8 @@ class PropsProvider extends Component {
       dateString: "",
       text: "",
       isHoliday: false
-    }
+    },
+    modalShow: false
   };
 
   actions = {
@@ -55,7 +56,7 @@ class PropsProvider extends Component {
       this.setState({
         target: newTarget
       });
-    }
+    },
   };
 
   render() {
