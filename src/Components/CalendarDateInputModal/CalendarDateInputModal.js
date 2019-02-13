@@ -80,8 +80,41 @@ class CalendarDateInputModal extends React.Component {
     });
   };
 
+  handleAddButtonClicked = () => {
+    const { target, updateCalendarText, addCalendarText } = this.props;
+    const { text, date, isHoliday } = this.state;
+    if (target && target.text) {
+      updateCalendarText(target, { text, date, isHoliday });
+    } else {
+      addCalendarText({ text, date, isHoliday });
+    }
+    this.handleCloseButtonClicked();
+  };
+
+  handleDeleteButtonClicked = () => {
+    const { target, deleteCalendarText } = this.props;
+    const { text, date, isHoliday } = this.state;
+    deleteCalendarText(target, { text, date, isHoliday });
+    this.handleCloseButtonClicked();
+  };
+
+  handleCloseButtonClicked = () => {
+    const { handleTargetSetValue, handleModal } = this.props;
+    this.setState({
+      text: "",
+      date: "",
+      isHoliday: true
+    });
+    handleTargetSetValue({
+      text: "",
+      date: "",
+      isHoliday: true
+    });
+    handleModal(false);
+  };
+
   render() {
-    const { addCalendarText, handleModal, size, handleTargetSetValue, target, updateCalendarText, deleteCalendarText } = this.props;
+    const { size, target } = this.props;
     const { isHoliday, date, text } = this.state;
     return (
       <CalendarDateInputModalDiv style={size}>
@@ -106,71 +139,15 @@ class CalendarDateInputModal extends React.Component {
           <br />
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
-          <CalendarDateInputModalButton
-            isAccept
-            onClick={() => {
-              if (target && target.text) {
-                updateCalendarText(target, { text, date, isHoliday });
-              } else {
-                addCalendarText({ text, date, isHoliday });
-              }
-              this.setState({
-                text: "",
-                date: "",
-                isHoliday: true
-              });
-              handleTargetSetValue({
-                text: "",
-                date: "",
-                isHoliday: true
-              });
-              handleModal(false);
-            }}
-          >
+          <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
             {target && target.text ? "수정" : "추가"}
           </CalendarDateInputModalButton>
           {target && target.text ? (
-            <CalendarDateInputModalButton
-              isDelete
-              onClick={() => {
-                if (target && target.text) {
-                  deleteCalendarText(target, { text, date, isHoliday });
-                } else {
-                  addCalendarText({ text, date, isHoliday });
-                }
-                this.setState({
-                  text: "",
-                  date: "",
-                  isHoliday: true
-                });
-                handleTargetSetValue({
-                  text: "",
-                  date: "",
-                  isHoliday: true
-                });
-                handleModal(false);
-              }}
-            >
+            <CalendarDateInputModalButton isDelete onClick={this.handleDeleteButtonClicked}>
               삭제
             </CalendarDateInputModalButton>
           ) : null}
-          <CalendarDateInputModalButton
-            onClick={() => {
-              this.setState({
-                text: "",
-                date: "",
-                isHoliday: true
-              });
-              handleTargetSetValue({
-                text: "",
-                date: "",
-                isHoliday: true
-              });
-              handleModal(false);
-            }}
-          >
-            닫기
-          </CalendarDateInputModalButton>
+          <CalendarDateInputModalButton onClick={this.handleCloseButtonClicked}>닫기</CalendarDateInputModalButton>
         </CalendarDateInputModalFooter>
       </CalendarDateInputModalDiv>
     );
