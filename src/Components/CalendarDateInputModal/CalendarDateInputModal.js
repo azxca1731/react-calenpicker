@@ -5,28 +5,35 @@ import styled from "styled-components";
 const CalendarDateInputModalDiv = styled.div`
   position: absolute;
   z-index: 1000;
-  width: calc(100% - 3px);
   color: ${props => props.theme.fontColor};
   border: 1px solid ${props => props.theme.fontColor};
   background-color: ${props => props.theme.backgroundColor};
-  top: 0px;
+  top: -1px;
   left: 0px;
 `;
 
 const CalendarDateInputModalHead = styled.div`
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-bottom: 1px solid ${props => props.theme.fontColor};
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.15}px;
 `;
 
 const CalendarDateInputModalFooter = styled.div`
-  padding: 20px;
   border-top: 1px solid ${props => props.theme.fontColor};
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.15}px;
 `;
 
 const CalendarDateInputModalBody = styled.div`
-  padding: 40px 20px;
-  text-align: center;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.7}px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CalendarDateInputModalButton = styled.button`
@@ -74,25 +81,31 @@ class CalendarDateInputModal extends React.Component {
   };
 
   render() {
-    const { addCalendarText, handleModal } = this.props;
+    const { addCalendarText, handleModal, size } = this.props;
     const { isHoliday, date, text } = this.state;
     return (
-      <CalendarDateInputModalDiv>
-        <CalendarDateInputModalHead>날짜 추가</CalendarDateInputModalHead>
-        <CalendarDateInputModalBody>
-          <label htmlFor="date">날짜: </label>
-          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+      <CalendarDateInputModalDiv style={size}>
+        <CalendarDateInputModalHead size={size}>날짜 추가</CalendarDateInputModalHead>
+        <CalendarDateInputModalBody size={size}>
+          <div>
+            <label htmlFor="date">날짜: </label>
+            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+          </div>
           <br />
           <br />
-          <label htmlFor="text">이름: </label>
-          <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+          <div>
+            <label htmlFor="text">이름: </label>
+            <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+          </div>
           <br />
           <br />
-          <label htmlFor="isHoliday">휴일 여부: </label>
-          <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+          <div>
+            <label htmlFor="isHoliday">휴일 여부: </label>
+            <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+          </div>
           <br />
         </CalendarDateInputModalBody>
-        <CalendarDateInputModalFooter>
+        <CalendarDateInputModalFooter size={size}>
           <CalendarDateInputModalButton
             isAccept
             onClick={() => {
@@ -127,12 +140,14 @@ class CalendarDateInputModal extends React.Component {
 
 CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
-  handleModal: () => {}
+  handleModal: () => {},
+  size: {}
 };
 
 CalendarDateInputModal.propTypes = {
   addCalendarText: PropTypes.func,
   handleModal: PropTypes.func,
+  size: PropTypes.object,
   target: PropTypes.shape({
     date: PropTypes.string,
     text: PropTypes.string,

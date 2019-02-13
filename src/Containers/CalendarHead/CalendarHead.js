@@ -56,7 +56,7 @@ class CalendarHead extends React.Component {
   };
 
   render() {
-    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText, targetEditDate } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText, targetEditDate, size } = this.props;
 
     let month;
     if (duplicated) {
@@ -73,7 +73,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} target={targetEditDate} /> : null}
+            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} target={targetEditDate} size={size} /> : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
@@ -81,14 +81,14 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} target={targetEditDate} /> : null}
+            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} target={targetEditDate} size={size} /> : null}
             <MonthArrowContainer type="none" onClick={() => {}} />
           </CalendarHeadDiv>
         ) : (
           <CalendarHeadDiv>
             <MonthArrowContainer type="none" onClick={() => {}} />
             <MonthContainer month={month} />
-            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} target={targetEditDate} /> : null}
+            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} target={targetEditDate} size={size} /> : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         )}
@@ -113,7 +113,8 @@ CalendarHead.propTypes = {
     date: PropTypes.string,
     text: PropTypes.string,
     isHoliday: PropTypes.bool
-  })
+  }),
+  size: PropTypes.object
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -132,7 +133,8 @@ export default PropsConnector(({ state, actions }) => ({
     showNextMonth: actions.increaseMonth
   }))(
     CssConnector(({ state }) => ({
-      cssObject: state.CalendarHeadCssObject
+      cssObject: state.CalendarHeadCssObject,
+      size: state.TemplateCssObject
     }))(CalendarHead)
   )
 );

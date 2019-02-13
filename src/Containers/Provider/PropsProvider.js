@@ -25,7 +25,8 @@ class PropsProvider extends Component {
       date: "",
       text: "",
       isHoliday: false
-    }
+    },
+    modalShow: false
   };
 
   actions = {
@@ -47,6 +48,11 @@ class PropsProvider extends Component {
           modalShowFromDate: show
         });
       }
+    },
+    handleModalShow: openState => {
+      this.setState({
+        modalShow: openState
+      });
     }
   };
 
