@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 import { CssConnector, PropsConnector, DayConnector } from "Containers/Provider";
 import Template from "Components/Template";
+import CalendarDateInputModal from "Components/CalendarDateInputModal";
 
 const TemplateContainerDiv = styled.div`
   display: inline;
+  position: relative;
 `;
 
 class TemplateContainer extends React.Component {
@@ -39,6 +41,7 @@ class TemplateContainer extends React.Component {
     return (
       <TemplateContainerDiv ref={this.element}>
         <Template {...this.props} />
+        <CalendarDateInputModal size={this.props.cssObject} />
       </TemplateContainerDiv>
     );
   }
