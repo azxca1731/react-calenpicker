@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CalendarDateInputModal renders with snapshot 1`] = `
-<styled.div>
+<styled.div
+  style={Object {}}
+>
   <styled.div>
     날짜 추가
   </styled.div>
