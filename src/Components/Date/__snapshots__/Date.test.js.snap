@@ -39,7 +39,9 @@ ShallowWrapper {
         <ForwardRef>
           1
         </ForwardRef>
-        <ForwardRef />
+        <ForwardRef
+          onClick={[Function]}
+        />
       </ForwardRef>,
       "isInPeriod": false,
       "onClick": undefined,
@@ -57,7 +59,9 @@ ShallowWrapper {
           <ForwardRef>
             1
           </ForwardRef>,
-          <ForwardRef />,
+          <ForwardRef
+            onClick={[Function]}
+          />,
         ],
         "dayNumber": 1,
         "isHoliday": undefined,
@@ -105,6 +109,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": undefined,
+            "onClick": [Function],
           },
           "ref": null,
           "rendered": null,
@@ -210,7 +215,9 @@ ShallowWrapper {
           <ForwardRef>
             1
           </ForwardRef>
-          <ForwardRef />
+          <ForwardRef
+            onClick={[Function]}
+          />
         </ForwardRef>,
         "isInPeriod": false,
         "onClick": undefined,
@@ -228,7 +235,9 @@ ShallowWrapper {
             <ForwardRef>
               1
             </ForwardRef>,
-            <ForwardRef />,
+            <ForwardRef
+              onClick={[Function]}
+            />,
           ],
           "dayNumber": 1,
           "isHoliday": undefined,
@@ -276,6 +285,7 @@ ShallowWrapper {
             "nodeType": "function",
             "props": Object {
               "children": undefined,
+              "onClick": [Function],
             },
             "ref": null,
             "rendered": null,
@@ -401,7 +411,9 @@ exports[`Month renders with snapshot 1`] = `
     <styled.div>
       1
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -418,7 +430,9 @@ exports[`Month renders with snapshot prop dayNumber 1`] = `
     <styled.div>
       20
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -435,7 +449,9 @@ exports[`Month renders with snapshot prop for indicator type - date 1`] = `
     <styled.div>
       1
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -508,7 +524,9 @@ exports[`Month renders with snapshot prop isHoliday 1`] = `
     <styled.div>
       1
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -525,7 +543,9 @@ exports[`Month renders with snapshot prop isInPeriod 1`] = `
     <styled.div>
       1
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -542,7 +562,9 @@ exports[`Month renders with snapshot prop isInThisMonth 1`] = `
     <styled.div>
       1
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -560,7 +582,9 @@ exports[`Month renders with snapshot prop isSaturday 1`] = `
     <styled.div>
       1
     </styled.div>
-    <styled.div />
+    <styled.div
+      onClick={[Function]}
+    />
   </styled.div>
 </styled.td>
 `;
@@ -704,7 +728,9 @@ exports[`Month renders with snapshot prop isToday 1`] = `
                   </div>
                 </StyledComponent>
               </styled.div>
-              <styled.div>
+              <styled.div
+                onClick={[Function]}
+              >
                 <StyledComponent
                   forwardedComponent={
                     Object {
@@ -735,9 +761,11 @@ exports[`Month renders with snapshot prop isToday 1`] = `
                     }
                   }
                   forwardedRef={null}
+                  onClick={[Function]}
                 >
                   <div
                     className="sc-htpNat jKgTdy"
+                    onClick={[Function]}
                   />
                 </StyledComponent>
               </styled.div>
@@ -887,7 +915,9 @@ exports[`Month renders with snapshot prop text 1`] = `
                   </div>
                 </StyledComponent>
               </styled.div>
-              <styled.div>
+              <styled.div
+                onClick={[Function]}
+              >
                 <StyledComponent
                   forwardedComponent={
                     Object {
@@ -918,9 +948,11 @@ exports[`Month renders with snapshot prop text 1`] = `
                     }
                   }
                   forwardedRef={null}
+                  onClick={[Function]}
                 >
                   <div
                     className="sc-htpNat jKgTdy"
+                    onClick={[Function]}
                   >
                     random
                   </div>

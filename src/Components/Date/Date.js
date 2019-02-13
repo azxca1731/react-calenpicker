@@ -68,9 +68,7 @@ const DateIndicator = props => {
   return (
     <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
       <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
-      <DateTextDiv onClick={handleTextClicked} style={{ backgroundColor: "black" }}>
-        {props.text}
-      </DateTextDiv>
+      <DateTextDiv onClick={handleTextClicked}>{props.text}</DateTextDiv>
     </DateDiv>
   );
 };
