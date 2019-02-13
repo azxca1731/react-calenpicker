@@ -61,10 +61,13 @@ const EndIndicator = props => (
 
 const DateIndicator = props => {
   const handleTextClicked = event => {
+    const { dateString, text, isHoliday } = props;
     props.handleModal(true);
+    props.handleTargetSetValue({ dateString, text, isHoliday });
     event.preventDefault();
     event.stopPropagation();
   };
+
   return (
     <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
       <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
@@ -81,10 +84,10 @@ const SelectIndicator = props => (
 );
 
 const Date = props => {
-  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType, handleDateClick, handleModal } = props;
+  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType, handleDateClick, handleModal, dateString, handleTargetSetValue } = props;
   let contents;
   if (indicatorType == "date") {
-    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal });
+    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue });
   } else if (indicatorType == "start") {
     contents = StartIndicator({ dayNumber });
   } else if (indicatorType == "end") {
@@ -124,7 +127,9 @@ DateIndicator.propTypes = {
   isSaturday: PropTypes.bool,
   dayNumber: PropTypes.number,
   text: PropTypes.string,
-  handleModal: PropTypes.func
+  handleModal: PropTypes.func,
+  dateString: PropTypes.string,
+  handleTargetSetValue: PropTypes.func
 };
 
 SelectIndicator.propTypes = {
@@ -148,7 +153,9 @@ Date.propTypes = {
   isToday: PropTypes.bool,
   isSaturday: PropTypes.bool,
   indicatorType: PropTypes.oneOf(["date", "start", "end", "select"]),
-  handleModal: PropTypes.func
+  handleModal: PropTypes.func,
+  dateString: PropTypes.string,
+  handleTargetSetValue: PropTypes.func
 };
 
 export default Date;

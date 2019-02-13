@@ -49,7 +49,7 @@ class CalendarDateInputModal extends React.Component {
     super(props);
     const { target } = props;
     this.state = {
-      date: target ? target.date : "",
+      dateString: target ? target.dateString : "",
       text: target ? target.text : "",
       isHoliday: target ? target.isHoliday : true
     };
@@ -57,7 +57,7 @@ class CalendarDateInputModal extends React.Component {
 
   handleInputDateChange = event => {
     this.setState({
-      date: event.target.value
+      dateString: event.target.value
     });
   };
 
@@ -75,13 +75,13 @@ class CalendarDateInputModal extends React.Component {
 
   render() {
     const { addCalendarText, handleModal } = this.props;
-    const { isHoliday, date, text } = this.state;
+    const { isHoliday, dateString, text } = this.state;
     return (
       <CalendarDateInputModalDiv>
         <CalendarDateInputModalHead>날짜 추가</CalendarDateInputModalHead>
         <CalendarDateInputModalBody>
           <label htmlFor="date">날짜: </label>
-          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+          <input id="date" value={dateString} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
           <br />
           <br />
           <label htmlFor="text">이름: </label>
@@ -96,10 +96,10 @@ class CalendarDateInputModal extends React.Component {
           <CalendarDateInputModalButton
             isAccept
             onClick={() => {
-              addCalendarText({ text, date, isHoliday });
+              addCalendarText({ text, dateString, isHoliday });
               this.setState({
                 text: "",
-                date: "",
+                dateString: "",
                 isHoliday: true
               });
               handleModal(false);
@@ -111,7 +111,7 @@ class CalendarDateInputModal extends React.Component {
             onClick={() => {
               this.setState({
                 text: "",
-                date: "",
+                dateString: "",
                 isHoliday: true
               });
               handleModal(false);
@@ -134,7 +134,7 @@ CalendarDateInputModal.propTypes = {
   addCalendarText: PropTypes.func,
   handleModal: PropTypes.func,
   target: PropTypes.shape({
-    date: PropTypes.string,
+    dateString: PropTypes.string,
     text: PropTypes.string,
     isHoliday: PropTypes.bool
   })

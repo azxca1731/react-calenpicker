@@ -36,8 +36,13 @@ class CalendarHead extends React.Component {
     return <AddButton onClick={() => this.props.handleModal(true)}>+</AddButton>;
   };
 
+  renderCalendarDateInputModal = () => {
+    const { target, canUpdateDate, addCalendarText, handleModal } = this.props;
+    return <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={handleModal} target={canUpdateDate ? target : null} />;
+  };
+
   render() {
-    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText, modalShow, handleModal } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addText, modalShow } = this.props;
 
     let month;
     if (duplicated) {
@@ -54,7 +59,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {modalShow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={handleModal} /> : null}
+            {modalShow ? this.renderCalendarDateInputModal() : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
@@ -62,7 +67,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {modalShow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={handleModal} /> : null}
+            {modalShow ? this.renderCalendarDateInputModal() : null}
             <MonthArrowContainer type="none" onClick={() => {}} />
           </CalendarHeadDiv>
         ) : (
@@ -87,7 +92,13 @@ CalendarHead.propTypes = {
   addCalendarText: PropTypes.func,
   addText: PropTypes.bool,
   modalShow: PropTypes.bool,
-  handleModal: PropTypes.func
+  handleModal: PropTypes.func,
+  canUpdateDate: PropTypes.bool,
+  target: PropTypes.shape({
+    dateString: PropTypes.string,
+    text: PropTypes.string,
+    isHoliday: PropTypes.bool
+  })
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -96,7 +107,9 @@ export default PropsConnector(({ state, actions }) => ({
   addCalendarText: actions.addCalendarText,
   addText: state.addText,
   modalShow: state.modalShow,
-  handleModal: actions.handleModal
+  handleModal: actions.handleModal,
+  canUpdateDate: state.canUpdateDate,
+  target: state.target
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,

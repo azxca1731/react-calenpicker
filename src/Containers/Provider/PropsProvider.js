@@ -20,7 +20,12 @@ class PropsProvider extends Component {
     addText: this.props.addText,
     canMouseWheel: this.props.canMouseWheel,
     canUpdateDate: this.props.canUpdateDate,
-    modalShow: false
+    modalShow: false,
+    target: {
+      dateString: "",
+      text: "",
+      isHoliday: false
+    }
   };
 
   actions = {
@@ -32,6 +37,11 @@ class PropsProvider extends Component {
     handleModal: result => {
       this.setState({
         modalShow: result
+      });
+    },
+    handleTargetSetValue: newTarget => {
+      this.setState({
+        target: newTarget
       });
     }
   };

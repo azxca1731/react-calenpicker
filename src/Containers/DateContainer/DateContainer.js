@@ -129,8 +129,8 @@ class DateContainer extends React.Component {
   }
 
   render() {
-    const { cssObject, canUpdateDate, handleModal } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType } = this.state;
+    const { cssObject, canUpdateDate, handleModal, handleTargetSetValue } = this.props;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString } = this.state;
     return (
       <Date
         cssObject={cssObject}
@@ -144,6 +144,8 @@ class DateContainer extends React.Component {
         indicatorType={indicatorType}
         handleDateClick={this.handleDateClick}
         handleModal={canUpdateDate ? handleModal : () => {}}
+        dateString={dateString}
+        handleTargetSetValue={handleTargetSetValue}
       />
     );
   }
@@ -182,7 +184,8 @@ DateContainer.propTypes = {
   duplicatedDateObjectArray: PropTypes.array,
   cssObject: PropTypes.object,
   handleModal: PropTypes.func,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  handleTargetSetValue: PropTypes.func
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -190,7 +193,8 @@ export default PropsConnector(({ state, actions }) => ({
   objectSetText: state.objectSetText,
   duplicated: state.duplicated,
   handleModal: actions.handleModal,
-  canUpdateDate: state.canUpdateDate
+  canUpdateDate: state.canUpdateDate,
+  handleTargetSetValue: actions.handleTargetSetValue
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,
