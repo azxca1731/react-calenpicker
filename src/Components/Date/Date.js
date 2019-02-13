@@ -27,10 +27,9 @@ const DateDiv = styled.div`
   opacity: ${props => (props.isInThisMonth ? 1 : 0.3)};
 `;
 
-export const DateTextDiv = styled.div`
+const DateTextDiv = styled.div`
   width: inherit;
   height: 100%;
-  justify-content: center;
   overflow-x: hidden;
   font-size: 80%;
 `;
