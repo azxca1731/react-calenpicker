@@ -16,6 +16,7 @@ storiesOf("Calendar/Sizing/By Modifier String", module)
   .add("Modifier - sm", () => <Calendar sizeOption="sm" />, { notes: "sm, md, lg로 미리 약속된 크기로 설정할 수 있다." })
   .add("Modifier - md", () => <Calendar sizeOption="md" />, { notes: "sm, md, lg로 미리 약속된 크기로 설정할 수 있다." })
   .add("Modifier - lg", () => <Calendar sizeOption="lg" />, { notes: "sm, md, lg로 미리 약속된 크기로 설정할 수 있다." });
+
 storiesOf("Calendar/Sizing/By Object", module).add("By Object Specification", () => <Calendar sizeOption={{ width: "300px", height: "400px" }} />, {
   notes: "JSON객체 형태로 정의할 수 있다.\n 현재 상태 : {\n&nbsp;&nbsp;width: '300px',\n&nbsp;&nbsp;height: '400px'\n}"
 });
