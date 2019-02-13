@@ -17,4 +17,4 @@ storiesOf("Calendar", module)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />)
   .add("연속캘린더 듀플리케이트 날짜추가", () => <Calendar addText duplicate />)
   .add("선택한 날짜의 텍스트 변경", () => <Calendar editSelectedDate />)
-  .add("일정이 있으면(특정 날짜에 글씨가 있으면) 글씨를 클릭시 수정 가능", () => <Calendar canUpdateDate objectSetText={[{ text: "미리담기", date: "2019-2-21" }]} />);
+  .add("일정이 있으시 글씨를 클릭해 수정 가능", () => <Calendar canUpdateDate objectSetText={[{ text: "미리담기", date: "2019-2-21" }]} />);
