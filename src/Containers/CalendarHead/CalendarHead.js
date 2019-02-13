@@ -37,8 +37,16 @@ class CalendarHead extends React.Component {
   };
 
   renderCalendarDateInputModal = () => {
-    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue } = this.props;
-    return <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={handleModal} target={canUpdateDate ? target : null} handleTargetSetValue={handleTargetSetValue} />;
+    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText } = this.props;
+    return (
+      <CalendarDateInputModal
+        addCalendarText={addCalendarText}
+        handleModal={handleModal}
+        target={canUpdateDate ? target : null}
+        handleTargetSetValue={handleTargetSetValue}
+        deleteCalendarText={deleteCalendarText}
+      />
+    );
   };
 
   render() {
@@ -99,7 +107,8 @@ CalendarHead.propTypes = {
     text: PropTypes.string,
     isHoliday: PropTypes.bool
   }),
-  handleTargetSetValue: PropTypes.func
+  handleTargetSetValue: PropTypes.func,
+  deleteCalendarText: PropTypes.func
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -111,7 +120,8 @@ export default PropsConnector(({ state, actions }) => ({
   handleModal: actions.handleModal,
   canUpdateDate: state.canUpdateDate,
   target: state.target,
-  handleTargetSetValue: actions.handleTargetSetValue
+  handleTargetSetValue: actions.handleTargetSetValue,
+  deleteCalendarText: actions.deleteCalendarText
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
