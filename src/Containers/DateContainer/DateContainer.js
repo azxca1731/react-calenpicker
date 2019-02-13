@@ -129,7 +129,7 @@ class DateContainer extends React.Component {
   }
 
   render() {
-    const { cssObject } = this.props;
+    const { cssObject, canUpdateDate, handleModal } = this.props;
     const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType } = this.state;
     return (
       <Date
@@ -143,13 +143,15 @@ class DateContainer extends React.Component {
         isSaturday={isSaturday}
         indicatorType={indicatorType}
         handleDateClick={this.handleDateClick}
+        handleModal={canUpdateDate ? handleModal : () => {}}
       />
     );
   }
 }
 
 DateContainer.defaultProps = {
-  day: "1"
+  day: "1",
+  handleModal: () => {}
 };
 
 DateContainer.propTypes = {
@@ -178,13 +180,17 @@ DateContainer.propTypes = {
   ),
   duplicated: PropTypes.bool,
   duplicatedDateObjectArray: PropTypes.array,
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  handleModal: PropTypes.func,
+  canUpdateDate: PropTypes.bool
 };
 
-export default PropsConnector(({ state }) => ({
+export default PropsConnector(({ state, actions }) => ({
   onlyThisMonth: state.onlyThisMonth,
   objectSetText: state.objectSetText,
-  duplicated: state.duplicated
+  duplicated: state.duplicated,
+  handleModal: actions.handleModal,
+  canUpdateDate: state.canUpdateDate
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,

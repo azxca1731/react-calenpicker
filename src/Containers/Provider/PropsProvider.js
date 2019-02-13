@@ -19,6 +19,7 @@ class PropsProvider extends Component {
     objectSetText: this.props.objectSetText,
     addText: this.props.addText,
     canMouseWheel: this.props.canMouseWheel,
+    canUpdateDate: this.props.canUpdateDate,
     modalShow: false
   };
 
@@ -62,7 +63,8 @@ PropsProvider.propTypes = {
       isHoliday: PropTypes.bool
     })
   ),
-  canMouseWheel: PropTypes.bool
+  canMouseWheel: PropTypes.bool,
+  canUpdateDate: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
