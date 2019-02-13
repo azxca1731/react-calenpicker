@@ -74,7 +74,7 @@ class CalendarDateInputModal extends React.Component {
   };
 
   render() {
-    const { addCalendarText, handleModal } = this.props;
+    const { addCalendarText, handleModal, handleTargetSetValue } = this.props;
     const { isHoliday, dateString, text } = this.state;
     return (
       <CalendarDateInputModalDiv>
@@ -103,6 +103,11 @@ class CalendarDateInputModal extends React.Component {
                 isHoliday: true
               });
               handleModal(false);
+              handleTargetSetValue({
+                text: "",
+                dateString: "",
+                isHoliday: true
+              });
             }}
           >
             추가
@@ -115,6 +120,11 @@ class CalendarDateInputModal extends React.Component {
                 isHoliday: true
               });
               handleModal(false);
+              handleTargetSetValue({
+                text: "",
+                dateString: "",
+                isHoliday: true
+              });
             }}
           >
             닫기
@@ -133,6 +143,7 @@ CalendarDateInputModal.defaultProps = {
 CalendarDateInputModal.propTypes = {
   addCalendarText: PropTypes.func,
   handleModal: PropTypes.func,
+  handleTargetSetValue: PropTypes.func,
   target: PropTypes.shape({
     dateString: PropTypes.string,
     text: PropTypes.string,
