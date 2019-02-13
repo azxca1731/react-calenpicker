@@ -74,7 +74,7 @@ class CalendarDateInputModal extends React.Component {
   };
 
   render() {
-    const { addCalendarText, handleModal, handleTargetSetValue, target, deleteCalendarText } = this.props;
+    const { addCalendarText, handleModal, handleTargetSetValue, target, updateCalendarText } = this.props;
     const { isHoliday, date, text } = this.state;
     return (
       <CalendarDateInputModalDiv>
@@ -96,8 +96,11 @@ class CalendarDateInputModal extends React.Component {
           <CalendarDateInputModalButton
             isAccept
             onClick={() => {
-              if (target && target.text) deleteCalendarText(target);
-              addCalendarText({ text, date, isHoliday });
+              if (target && target.text) {
+                updateCalendarText(target, { text, date, isHoliday });
+              } else {
+                addCalendarText({ text, date, isHoliday });
+              }
               this.setState({
                 text: "",
                 date: "",
@@ -146,6 +149,7 @@ CalendarDateInputModal.propTypes = {
   handleModal: PropTypes.func,
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
+  updateCalendarText: PropTypes.func,
   target: PropTypes.shape({
     date: PropTypes.string,
     text: PropTypes.string,
