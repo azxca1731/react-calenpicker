@@ -111,7 +111,7 @@ CalendarHead.propTypes = {
   }),
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
-  updateCalendarText: PropTypes.func
+  updateCalendarText: PropTypes.func,
   size: PropTypes.object
 };
 

@@ -1,0 +1,514 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Month render custom css render well with snapshot 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <table>
+    <tbody>
+      <tr>
+        <Date
+          cssObject={
+            Object {
+              "color": "red",
+            }
+          }
+          dayNumber={1}
+          handlers={
+            Object {
+              "handleDateClick": [Function],
+            }
+          }
+          indicatorType="date"
+          isInPeriod={false}
+          isInThisMonth={false}
+        />
+      </tr>
+    </tbody>
+  </table>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <tbody>
+        <tr>
+          <Date
+            cssObject={
+              Object {
+                "color": "red",
+              }
+            }
+            dayNumber={1}
+            handlers={
+              Object {
+                "handleDateClick": [Function],
+              }
+            }
+            indicatorType="date"
+            isInPeriod={false}
+            isInThisMonth={false}
+          />
+        </tr>
+      </tbody>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <tr>
+          <Date
+            cssObject={
+              Object {
+                "color": "red",
+              }
+            }
+            dayNumber={1}
+            handlers={
+              Object {
+                "handleDateClick": [Function],
+              }
+            }
+            indicatorType="date"
+            isInPeriod={false}
+            isInThisMonth={false}
+          />
+        </tr>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <Date
+            cssObject={
+              Object {
+                "color": "red",
+              }
+            }
+            dayNumber={1}
+            handlers={
+              Object {
+                "handleDateClick": [Function],
+              }
+            }
+            indicatorType="date"
+            isInPeriod={false}
+            isInThisMonth={false}
+          />,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "cssObject": Object {
+              "color": "red",
+            },
+            "dayNumber": 1,
+            "handlers": Object {
+              "handleDateClick": [Function],
+            },
+            "indicatorType": "date",
+            "isInPeriod": false,
+            "isInThisMonth": false,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "tr",
+      },
+      "type": "tbody",
+    },
+    "type": "table",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <tbody>
+          <tr>
+            <Date
+              cssObject={
+                Object {
+                  "color": "red",
+                }
+              }
+              dayNumber={1}
+              handlers={
+                Object {
+                  "handleDateClick": [Function],
+                }
+              }
+              indicatorType="date"
+              isInPeriod={false}
+              isInThisMonth={false}
+            />
+          </tr>
+        </tbody>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <tr>
+            <Date
+              cssObject={
+                Object {
+                  "color": "red",
+                }
+              }
+              dayNumber={1}
+              handlers={
+                Object {
+                  "handleDateClick": [Function],
+                }
+              }
+              indicatorType="date"
+              isInPeriod={false}
+              isInThisMonth={false}
+            />
+          </tr>,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Date
+              cssObject={
+                Object {
+                  "color": "red",
+                }
+              }
+              dayNumber={1}
+              handlers={
+                Object {
+                  "handleDateClick": [Function],
+                }
+              }
+              indicatorType="date"
+              isInPeriod={false}
+              isInThisMonth={false}
+            />,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "cssObject": Object {
+                "color": "red",
+              },
+              "dayNumber": 1,
+              "handlers": Object {
+                "handleDateClick": [Function],
+              },
+              "indicatorType": "date",
+              "isInPeriod": false,
+              "isInThisMonth": false,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "tr",
+        },
+        "type": "tbody",
+      },
+      "type": "table",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Month renders with snapshot 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop dayNumber 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={20}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - date 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - end 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="end"
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - select 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="select"
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop for indicator type - start 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="start"
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop isHoliday 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isHoliday={true}
+        isInPeriod={false}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop isInPeriod 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={true}
+        isInThisMonth={false}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop isInThisMonth 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={true}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop isSaturday 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={false}
+        isSaturday={true}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop isToday 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={false}
+        isToday={true}
+      />
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Month renders with snapshot prop text 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <Date
+        cssObject={Object {}}
+        dayNumber={1}
+        handlers={
+          Object {
+            "handleDateClick": [Function],
+          }
+        }
+        indicatorType="date"
+        isInPeriod={false}
+        isInThisMonth={false}
+        text="random"
+      />
+    </tr>
+  </tbody>
+</table>
+`;
