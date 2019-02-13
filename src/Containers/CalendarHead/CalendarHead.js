@@ -30,23 +30,14 @@ const AddButton = styled.div`
 class CalendarHead extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      modalshow: false
-    };
   }
 
-  handleModal = result => {
-    this.setState({
-      modalshow: result
-    });
-  };
-
   renderAddTextButton = () => {
-    return <AddButton onClick={() => this.setState({ modalshow: true })}>+</AddButton>;
+    return <AddButton onClick={() => this.props.handleModal(true)}>+</AddButton>;
   };
 
   render() {
-    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addCalendarText, addText, modalShow, handleModal } = this.props;
 
     let month;
     if (duplicated) {
@@ -63,7 +54,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} /> : null}
+            {modalShow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={handleModal} /> : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
@@ -71,7 +62,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {this.state.modalshow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={this.handleModal} /> : null}
+            {modalShow ? <CalendarDateInputModal addCalendarText={addCalendarText} handleModal={handleModal} /> : null}
             <MonthArrowContainer type="none" onClick={() => {}} />
           </CalendarHeadDiv>
         ) : (
@@ -94,14 +85,18 @@ CalendarHead.propTypes = {
   duplicate: PropTypes.bool,
   cssObject: PropTypes.object,
   addCalendarText: PropTypes.func,
-  addText: PropTypes.bool
+  addText: PropTypes.bool,
+  modalShow: PropTypes.bool,
+  handleModal: PropTypes.func
 };
 
 export default PropsConnector(({ state, actions }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
   addCalendarText: actions.addCalendarText,
-  addText: state.addText
+  addText: state.addText,
+  modalShow: state.modalShow,
+  handleModal: actions.handleModal
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
