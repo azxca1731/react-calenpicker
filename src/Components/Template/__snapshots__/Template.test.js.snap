@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Template render custom css render well with snapshot 1`] = `
+<styled.div
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <div />
+  <styled.div />
+  <div />
+</styled.div>
+`;
+
+exports[`Template renders with snapshot 1`] = `
+<styled.div
+  style={Object {}}
+>
+  <div />
+  <styled.div />
+  <div />
+</styled.div>
+`;

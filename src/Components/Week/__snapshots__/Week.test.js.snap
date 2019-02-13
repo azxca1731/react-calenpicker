@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeekDay render custom css render well with snapshot 1`] = `
+<styled.tr
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <Connect(Connect(Connect(DateContainer)))
+    day={1}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={2}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={3}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={4}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={5}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={6}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={7}
+    weekNumber={0}
+  />
+</styled.tr>
+`;
+
+exports[`WeekDay renders with snapshot 1`] = `
+<styled.tr
+  style={Object {}}
+>
+  <Connect(Connect(Connect(DateContainer)))
+    day={1}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={2}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={3}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={4}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={5}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={6}
+    weekNumber={0}
+  />
+  <Connect(Connect(Connect(DateContainer)))
+    day={7}
+    weekNumber={0}
+  />
+</styled.tr>
+`;

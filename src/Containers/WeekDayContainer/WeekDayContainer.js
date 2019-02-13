@@ -7,7 +7,7 @@ import WeekDay from "Components/WeekDay";
 const WeekDayContainer = props => <WeekDay {...props} />;
 
 WeekDayContainer.propTypes = {
-  theme: PropTypes.string
+  cssObject: PropTypes.object
 };
 
 export default CssConnector(({ state }) => ({

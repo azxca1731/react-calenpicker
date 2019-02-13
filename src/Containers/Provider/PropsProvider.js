@@ -13,16 +13,42 @@ class PropsProvider extends Component {
 
   state = {
     sizeOption: this.props.sizeOption,
-    theme: this.props.theme,
-    animation: this.props.animation,
     duplicate: this.props.duplicate,
     duplicated: this.props.duplicated,
     onlyThisMonth: this.props.onlyThisMonth,
-    couldSelectPrevDate: this.props.couldSelectPrevDate,
-    objectSetText: this.props.objectSetText
+    objectSetText: this.props.objectSetText,
+    addText: this.props.addText,
+    canMouseWheel: this.props.canMouseWheel,
+    editSelectedDate: this.props.editSelectedDate,
+    modalShowFromDate: false,
+    targetEditDate: {
+      date: "",
+      text: "",
+      isHoliday: false
+    }
   };
 
-  actions = {};
+  actions = {
+    addCalendarText: newDateObject => {
+      this.setState({
+        objectSetText: [...this.state.objectSetText, newDateObject]
+      });
+    },
+    handleModalFromDate: (show, target) => {
+      if (show) {
+        this.setState({
+          modalShowFromDate: show,
+          targetEditDate: {
+            ...target
+          }
+        });
+      } else {
+        this.setState({
+          modalShowFromDate: show
+        });
+      }
+    }
+  };
 
   render() {
     const { state, actions } = this;
@@ -40,19 +66,19 @@ PropsProvider.propTypes = {
       height: PropTypes.number
     })
   ]),
-  themeColor: PropTypes.string,
-  animation: PropTypes.bool,
   duplicate: PropTypes.bool,
   duplicated: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
-  couldSelectPrevDate: PropTypes.bool,
+  addText: PropTypes.bool,
   objectSetText: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
-      date: PropTypes.string
+      date: PropTypes.string,
+      isHoliday: PropTypes.bool
     })
   ),
-  theme: PropTypes.string
+  canMouseWheel: PropTypes.bool,
+  editSelectedDate: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);

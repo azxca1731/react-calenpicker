@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeekDay render custom css render well with snapshot 1`] = `
+<styled.thead
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <styled.tr>
+    <styled.td>
+      Sun
+    </styled.td>
+    <styled.td>
+      Mon
+    </styled.td>
+    <styled.td>
+      Tue
+    </styled.td>
+    <styled.td>
+      Wed
+    </styled.td>
+    <styled.td>
+      Thu
+    </styled.td>
+    <styled.td>
+      Fri
+    </styled.td>
+    <styled.td>
+      Sat
+    </styled.td>
+  </styled.tr>
+</styled.thead>
+`;
+
+exports[`WeekDay renders with snapshot 1`] = `
+<styled.thead>
+  <styled.tr>
+    <styled.td>
+      Sun
+    </styled.td>
+    <styled.td>
+      Mon
+    </styled.td>
+    <styled.td>
+      Tue
+    </styled.td>
+    <styled.td>
+      Wed
+    </styled.td>
+    <styled.td>
+      Thu
+    </styled.td>
+    <styled.td>
+      Fri
+    </styled.td>
+    <styled.td>
+      Sat
+    </styled.td>
+  </styled.tr>
+</styled.thead>
+`;

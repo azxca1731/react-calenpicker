@@ -1,6 +1,6 @@
 {
   "name": "react-calenpicker",
-  "version": "0.0.54",
+  "version": "0.0.7",
   "description": "You can make Easily Picker for react-calenpicker!",
   "contributors": [
     {
@@ -24,6 +24,7 @@
     "lint": "eslint ./src",
     "prepublish": "npm run clean && npm run test && npm run build",
     "test": "npm run lint && npm run coverage",
+    "dev-test": "jest test --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -47,6 +48,7 @@
     "css-loader": "^1.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^5.8.0",
     "eslint-plugin-react": "^7.4.0",
     "jest-cli": "^23.6.0",
