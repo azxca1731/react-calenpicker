@@ -37,7 +37,7 @@ const CalendarDateInputModalBody = styled.div`
 `;
 
 const CalendarDateInputModalButton = styled.button`
-  background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.theme.cancelColor)};
+  background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
   color: ${props => props.theme.backgroundColor};
   border: 2px solid ${props => props.theme.fontColor};
   margin: 0px 5px;
@@ -131,6 +131,7 @@ class CalendarDateInputModal extends React.Component {
           </CalendarDateInputModalButton>
           {target && target.text ? (
             <CalendarDateInputModalButton
+              isDelete
               onClick={() => {
                 if (target && target.text) {
                   deleteCalendarText(target, { text, date, isHoliday });
