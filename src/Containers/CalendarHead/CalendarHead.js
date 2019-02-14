@@ -37,7 +37,9 @@ class CalendarHead extends React.Component {
   };
 
   renderCalendarDateInputModal = () => {
-    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size } = this.props;
+    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText } = this.props;
+
+    const filtered = target ? objectSetText.filter(({ date, text, isHoliday }) => date == target.date && (text != target.text || isHoliday != target.isHoliday)) : [];
     return (
       <CalendarDateInputModal
         addCalendarText={addCalendarText}
@@ -47,6 +49,7 @@ class CalendarHead extends React.Component {
         deleteCalendarText={deleteCalendarText}
         updateCalendarText={updateCalendarText}
         size={size}
+        anotherSchedules={filtered}
       />
     );
   };
@@ -112,7 +115,14 @@ CalendarHead.propTypes = {
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
-  size: PropTypes.object
+  size: PropTypes.object,
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      date: PropTypes.string,
+      isHoliday: PropTypes.bool
+    })
+  )
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -126,7 +136,8 @@ export default PropsConnector(({ state, actions }) => ({
   target: state.target,
   handleTargetSetValue: actions.handleTargetSetValue,
   deleteCalendarText: actions.deleteCalendarText,
-  updateCalendarText: actions.updateCalendarText
+  updateCalendarText: actions.updateCalendarText,
+  objectSetText: state.objectSetText
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
