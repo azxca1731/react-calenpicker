@@ -60,7 +60,7 @@ class PropsProvider extends Component {
 
   componentDidUpdate(_, prevState) {
     if (prevState.objectSetText != this.state.objectSetText) {
-      //TODO 여기에 특정 함수 - 리스너를 임플리먼츠 해야함
+      this.props.scheduleListener(this.state.objectSetText);
     }
   }
 
@@ -92,7 +92,8 @@ PropsProvider.propTypes = {
     })
   ),
   canMouseWheel: PropTypes.bool,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  scheduleListener: PropTypes.func
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
