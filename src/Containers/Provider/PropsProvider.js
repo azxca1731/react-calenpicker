@@ -58,6 +58,12 @@ class PropsProvider extends Component {
     }
   };
 
+  componentDidUpdate(_, prevState) {
+    if (prevState.objectSetText != this.state.objectSetText) {
+      //TODO 여기에 특정 함수 - 리스너를 임플리먼츠 해야함
+    }
+  }
+
   render() {
     const { state, actions } = this;
     const value = { state, actions };
