@@ -113,6 +113,7 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   callbackFunction: () => {},
+  scheduleListener: () => {},
   objectSetText: [],
   sizeOption: "md",
   theme: "light",
