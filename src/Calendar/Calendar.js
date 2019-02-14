@@ -152,7 +152,8 @@ Calendar.propTypes = {
   CalendarBodyCssObject: PropTypes.object,
   CalendarHeadCssObject: PropTypes.object,
   canMouseWheel: PropTypes.bool,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  scheduleListener: PropTypes.func
 };
 
 export default Calendar;
