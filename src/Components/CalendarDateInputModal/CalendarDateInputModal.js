@@ -29,11 +29,20 @@ const CalendarDateInputModalFooter = styled.div`
 `;
 
 const CalendarDateInputModalBody = styled.div`
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.7}px;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.6}px;
+  padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.05}px;
+`;
+
+const CalendarDateInputModalInputZone = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  border: 1px solid ${props => props.theme.fontColor};
+  padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.05}px 0px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
 
 const CalendarDateInputModalButton = styled.button`
@@ -113,30 +122,37 @@ class CalendarDateInputModal extends React.Component {
     handleModal(false);
   };
 
-  render() {
-    const { size, target, anotherSchedules } = this.props;
+  renderInputZone = () => {
+    const { size } = this.props;
     const { isHoliday, date, text } = this.state;
+    return (
+      <CalendarDateInputModalInputZone size={size}>
+        <div>
+          <label htmlFor="date">날짜: </label>
+          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+        </div>
+        <br />
+        <div>
+          <label htmlFor="text">이름: </label>
+          <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+        </div>
+        <br />
+        <div>
+          <label htmlFor="isHoliday">휴일 여부: </label>
+          <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+        </div>
+      </CalendarDateInputModalInputZone>
+    );
+  };
+
+  render() {
+    const { size, target } = this.props;
+
     return (
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>날짜 추가</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
-          <div>
-            <label htmlFor="date">날짜: </label>
-            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
-          </div>
-          <br />
-          <br />
-          <div>
-            <label htmlFor="text">이름: </label>
-            <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
-          </div>
-          <br />
-          <br />
-          <div>
-            <label htmlFor="isHoliday">휴일 여부: </label>
-            <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
-          </div>
-          <br />
+          {this.renderInputZone(size)}
           {/* TODO 여기에 조금 더 다듬어서 이쁘게 <div>
             {anotherSchedules.map(item => (
               <div key={item.text}>{item.text}</div>
