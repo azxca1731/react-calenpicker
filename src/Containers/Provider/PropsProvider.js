@@ -58,6 +58,12 @@ class PropsProvider extends Component {
     }
   };
 
+  componentDidUpdate(_, prevState) {
+    if (prevState.objectSetText != this.state.objectSetText) {
+      this.props.scheduleListener(this.state.objectSetText);
+    }
+  }
+
   render() {
     const { state, actions } = this;
     const value = { state, actions };
@@ -86,7 +92,8 @@ PropsProvider.propTypes = {
     })
   ),
   canMouseWheel: PropTypes.bool,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  scheduleListener: PropTypes.func
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
