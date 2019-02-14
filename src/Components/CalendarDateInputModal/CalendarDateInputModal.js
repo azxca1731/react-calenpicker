@@ -114,7 +114,7 @@ class CalendarDateInputModal extends React.Component {
   };
 
   render() {
-    const { size, target } = this.props;
+    const { size, target, anotherSchedules } = this.props;
     const { isHoliday, date, text } = this.state;
     return (
       <CalendarDateInputModalDiv style={size}>
@@ -137,6 +137,11 @@ class CalendarDateInputModal extends React.Component {
             <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
           </div>
           <br />
+          {/* TODO 여기에 조금 더 다듬어서 이쁘게 <div>
+            {anotherSchedules.map(item => (
+              <div key={item.text}>{item.text}</div>
+            ))}
+          </div> */}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
           <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
