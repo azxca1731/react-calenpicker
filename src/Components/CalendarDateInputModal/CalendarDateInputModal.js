@@ -171,7 +171,14 @@ CalendarDateInputModal.propTypes = {
     date: PropTypes.string,
     text: PropTypes.string,
     isHoliday: PropTypes.bool
-  })
+  }),
+  anotherSchedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      date: PropTypes.string,
+      isHoliday: PropTypes.bool
+    })
+  )
 };
 
 export default CalendarDateInputModal;
