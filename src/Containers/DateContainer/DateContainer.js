@@ -29,13 +29,14 @@ class DateContainer extends React.Component {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
       const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
-      let text, isHoliday, isToday;
+      let text, isHoliday, isToday, haveMoreDate;
       if (state.today === dateString && indicateToday) {
         text = "오늘";
         isToday = true;
       } else {
         const filtered = objectSetText.length > 0 ? objectSetText.filter(item => item.date === dateString) : [];
         text = filtered.length > 0 ? filtered[0].text : "";
+        haveMoreDate = filtered.length > 1;
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
         isToday = false;
       }
@@ -61,7 +62,8 @@ class DateContainer extends React.Component {
         isInPeriod,
         isToday,
         isSaturday,
-        indicatorType
+        indicatorType,
+        haveMoreDate
       };
     }
     return null;
