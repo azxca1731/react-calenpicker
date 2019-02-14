@@ -132,7 +132,7 @@ class DateContainer extends React.Component {
 
   render() {
     const { cssObject, canUpdateDate, handleModal, handleTargetSetValue } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString } = this.state;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString, haveMoreDate } = this.state;
     return (
       <Date
         cssObject={cssObject}
@@ -148,6 +148,7 @@ class DateContainer extends React.Component {
         handleModal={canUpdateDate ? handleModal : () => {}}
         dateString={dateString}
         handleTargetSetValue={handleTargetSetValue}
+        haveMoreDate={haveMoreDate}
       />
     );
   }
