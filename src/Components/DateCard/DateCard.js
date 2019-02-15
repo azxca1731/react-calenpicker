@@ -29,12 +29,13 @@ const DateCardConfig = styled.div`
 const DateCardText = styled.div`
   margin-left: 10px;
   margin-top: 5px;
+  color: ${props => (props.isHoliday ? "red" : props.theme.fontColor)};
 `;
 
 const DateCard = props => {
   return (
     <DateCardDiv height={props.height}>
-      <DateCardText>{props.text}</DateCardText>
+      <DateCardText isHoliday={props.isHoliday}>{props.text}</DateCardText>
       <DateCardConfig>
         <ArrowDoubleUp />
         <ArrowUp />
@@ -47,12 +48,14 @@ const DateCard = props => {
 
 DateCard.defaultProps = {
   text: "",
-  height: 100
+  height: 100,
+  isHoliday: false
 };
 
 DateCard.propTypes = {
   text: PropTypes.text,
-  height: PropTypes.number
+  height: PropTypes.number,
+  isHoliday: PropTypes.bool
 };
 
 export default DateCard;

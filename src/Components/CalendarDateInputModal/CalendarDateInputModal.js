@@ -177,7 +177,7 @@ class CalendarDateInputModal extends React.Component {
     return (
       <CalendarDateInputModalDateZone size={size}>
         {anotherSchedules.map(item => (
-          <DateCard key={item.text} text={item.text} height={height} />
+          <DateCard key={item.text} text={item.text} height={height} isHoliday={item.isHoliday} />
         ))}
       </CalendarDateInputModalDateZone>
     );
