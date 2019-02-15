@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import DateCard from "Components/DateCard";
+
 const CalendarDateInputModalDiv = styled.div`
   position: absolute;
   z-index: 1000;
@@ -55,19 +57,6 @@ const CalendarDateInputModalDateZone = styled.div`
   padding: 0px 5%;
   margin-top: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px;
 `;
-
-const DateCard = styled.div`
-  width: 100%;
-  border: 1px solid ${props => props.theme.fontColor};
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.1}px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: 10px 0px;
-`;
-
-const DateCardConfig = styled.div``;
-
-const DateCardText = styled.h4``;
 
 const CalendarDateInputModalButton = styled.button`
   background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
@@ -184,13 +173,11 @@ class CalendarDateInputModal extends React.Component {
 
   renderDateZone = () => {
     const { size, anotherSchedules } = this.props;
+    const height = size.height.substr(0, size.height.length - 2) * 0.1;
     return (
       <CalendarDateInputModalDateZone size={size}>
         {anotherSchedules.map(item => (
-          <DateCard key={item.text} size={size}>
-            <DateCardConfig />
-            <DateCardText>{item.text}</DateCardText>
-          </DateCard>
+          <DateCard key={item.text} text={item.text} height={height} />
         ))}
       </CalendarDateInputModalDateZone>
     );
