@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const Icon = styled.svg`
   fill: ${props => props.theme.fontColor};
+  cursor: pointer;
 `;
 
 const SVG = ({ style = {}, width = "15px", viewBox = "0 0 1792 1792" }) => (
