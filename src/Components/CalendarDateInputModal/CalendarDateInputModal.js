@@ -213,7 +213,8 @@ CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
   handleModal: () => {},
   size: {},
-  anotherSchedules: []
+  anotherSchedules: [],
+  type: "read"
 };
 
 CalendarDateInputModal.propTypes = {
@@ -234,7 +235,13 @@ CalendarDateInputModal.propTypes = {
       date: PropTypes.string,
       isHoliday: PropTypes.bool
     })
-  )
+  ),
+  /**
+   * add - 일정을 더 할때의 모달, 다른 스케줄이 보이면 안된다.
+   * update - 일정을 업데이트 한다. 다른 일정을 볼 수 있고 수정도 가능하다.
+   * read - 다른 일정이 뭐가 있는지만 볼 수 가 있다.
+   */
+  type: PropTypes.oneOf(["add", "update", "read"])
 };
 
 export default CalendarDateInputModal;
