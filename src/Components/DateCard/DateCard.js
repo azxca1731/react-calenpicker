@@ -2,6 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import ArrowUp from "Styles/icons/ArrowUp";
+import ArrowDoubleUp from "Styles/icons/ArrowDoubleUp";
+import ArrowDown from "Styles/icons/ArrowDown";
+import Modify from "Styles/icons/Modify";
+
 const DateCardDiv = styled.div`
   width: 100%;
   border: 1px solid ${props => props.theme.fontColor};
@@ -13,17 +18,29 @@ const DateCardDiv = styled.div`
   color: ${props => props.theme.fontColor};
 `;
 
-const DateCardConfig = styled.div``;
+const DateCardConfig = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 10px;
+  margin: 4px 0px;
+`;
 
-const DateCardText = styled.h4`
+const DateCardText = styled.div`
   margin-left: 10px;
+  margin-top: 5px;
 `;
 
 const DateCard = props => {
   return (
     <DateCardDiv height={props.height}>
       <DateCardText>{props.text}</DateCardText>
-      <DateCardConfig />
+      <DateCardConfig>
+        <ArrowDoubleUp />
+        <ArrowUp />
+        <ArrowDown />
+        <Modify />
+      </DateCardConfig>
     </DateCardDiv>
   );
 };
