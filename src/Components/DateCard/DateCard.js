@@ -6,6 +6,7 @@ import ArrowUp from "Styles/icons/ArrowUp";
 import ArrowDoubleUp from "Styles/icons/ArrowDoubleUp";
 import ArrowDown from "Styles/icons/ArrowDown";
 import Modify from "Styles/icons/Modify";
+import Close from "Styles/icons/Close";
 
 const DateCardDiv = styled.div`
   width: 100%;
@@ -29,6 +30,7 @@ const DateCardConfig = styled.div`
 const DateCardText = styled.div`
   margin-left: 10px;
   margin-top: 5px;
+  font-weight: bold;
   color: ${props => (props.isHoliday ? "red" : props.theme.fontColor)};
 `;
 
@@ -41,6 +43,7 @@ const DateCard = props => {
         <ArrowUp />
         <ArrowDown />
         <Modify />
+        <Close />
       </DateCardConfig>
     </DateCardDiv>
   );
