@@ -9,17 +9,21 @@ const DateCardDiv = styled.div`
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 10px 0px;
+  background-color: ${props => props.theme.backgroundColor};
+  color: ${props => props.theme.fontColor};
 `;
 
 const DateCardConfig = styled.div``;
 
-const DateCardText = styled.h4``;
+const DateCardText = styled.h4`
+  margin-left: 10px;
+`;
 
 const DateCard = props => {
   return (
     <DateCardDiv height={props.height}>
-      <DateCardConfig />
       <DateCardText>{props.text}</DateCardText>
+      <DateCardConfig />
     </DateCardDiv>
   );
 };
