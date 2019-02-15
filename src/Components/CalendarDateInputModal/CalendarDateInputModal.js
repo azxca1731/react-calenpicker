@@ -146,6 +146,19 @@ class CalendarDateInputModal extends React.Component {
     handleModal(false);
   };
 
+  renderHead = () => {
+    const { type } = this.props;
+    let head;
+    if (type == "READ") {
+      head = "자세히 보기";
+    } else if (type == "UPDATE") {
+      head = "일정 수정";
+    } else {
+      head = "일정 추가";
+    }
+    return head;
+  };
+
   renderInputZone = () => {
     const { size } = this.props;
     const { isHoliday, date, text } = this.state;
@@ -188,7 +201,7 @@ class CalendarDateInputModal extends React.Component {
 
     return (
       <CalendarDateInputModalDiv style={size}>
-        <CalendarDateInputModalHead size={size}>날짜 추가</CalendarDateInputModalHead>
+        <CalendarDateInputModalHead size={size}>{this.renderHead()}</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
           {this.renderInputZone()}
           {this.renderDateZone()}
@@ -214,7 +227,7 @@ CalendarDateInputModal.defaultProps = {
   handleModal: () => {},
   size: {},
   anotherSchedules: [],
-  type: "read"
+  type: "READ"
 };
 
 CalendarDateInputModal.propTypes = {
@@ -237,11 +250,11 @@ CalendarDateInputModal.propTypes = {
     })
   ),
   /**
-   * add - 일정을 더 할때의 모달, 다른 스케줄이 보이면 안된다.
-   * update - 일정을 업데이트 한다. 다른 일정을 볼 수 있고 수정도 가능하다.
-   * read - 다른 일정이 뭐가 있는지만 볼 수 가 있다.
+   * ADD - 일정을 더 할때의 모달, 다른 스케줄이 보이면 안된다.
+   * UPDATE - 일정을 업데이트 한다. 다른 일정을 볼 수 있고 수정도 가능하다.
+   * READ - 다른 일정이 뭐가 있는지만 볼 수 가 있다.
    */
-  type: PropTypes.oneOf(["add", "update", "read"])
+  type: PropTypes.oneOf(["ADD", "UPDATE", "READ"])
 };
 
 export default CalendarDateInputModal;

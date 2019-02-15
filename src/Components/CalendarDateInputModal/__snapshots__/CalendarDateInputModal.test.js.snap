@@ -7,7 +7,7 @@ exports[`CalendarDateInputModal renders with snapshot 1`] = `
   <styled.div
     size={Object {}}
   >
-    날짜 추가
+    자세히 보기
   </styled.div>
   <styled.div
     size={Object {}}
