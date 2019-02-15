@@ -29,8 +29,8 @@ const CalendarDateInputModalFooter = styled.div`
 `;
 
 const CalendarDateInputModalBody = styled.div`
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.6}px;
-  padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.05}px;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.625}px;
+  padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px ${props => props.size.width.substr(0, props.size.width.length - 2) * 0.05}px;
 `;
 
 const CalendarDateInputModalInputZone = styled.div`
@@ -44,6 +44,30 @@ const CalendarDateInputModalInputZone = styled.div`
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
+
+const CalendarDateInputModalDateZone = styled.div`
+  width: 90%;
+  border: 1px solid ${props => props.theme.fontColor};
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.2 + 10}px;
+  overflow-y: scroll;
+  padding: 0px 5%;
+  margin-top: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px;
+`;
+
+const DateCard = styled.div`
+  width: 100%;
+  border: 1px solid ${props => props.theme.fontColor};
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.1}px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px 0px;
+`;
+
+const DateCardConfig = styled.div``;
+
+const DateCardText = styled.h3``;
 
 const CalendarDateInputModalButton = styled.button`
   background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
@@ -145,6 +169,20 @@ class CalendarDateInputModal extends React.Component {
     );
   };
 
+  renderDateZone = () => {
+    const { size, anotherSchedules } = this.props;
+    return (
+      <CalendarDateInputModalDateZone size={size}>
+        {anotherSchedules.map(item => (
+          <DateCard key={item.text} size={size}>
+            <DateCardConfig />
+            <DateCardText>{item.text}</DateCardText>
+          </DateCard>
+        ))}
+      </CalendarDateInputModalDateZone>
+    );
+  };
+
   render() {
     const { size, target } = this.props;
 
@@ -152,12 +190,8 @@ class CalendarDateInputModal extends React.Component {
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>날짜 추가</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
-          {this.renderInputZone(size)}
-          {/* TODO 여기에 조금 더 다듬어서 이쁘게 <div>
-            {anotherSchedules.map(item => (
-              <div key={item.text}>{item.text}</div>
-            ))}
-          </div> */}
+          {this.renderInputZone()}
+          {this.renderDateZone()}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
           <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
