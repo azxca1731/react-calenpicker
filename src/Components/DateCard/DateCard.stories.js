@@ -10,9 +10,17 @@ import DateCard from "Components/DateCard";
 storiesOf("Components", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("DateCard light", () => <DateCard />);
+  .add("DateCard light", () => (
+    <div style={{ width: "200px" }}>
+      <DateCard height={50} text="Example" />
+    </div>
+  ));
 
 storiesOf("Components", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("DateCard Dark", () => <DateCard />);
+  .add("DateCard Dark", () => (
+    <div style={{ width: "200px" }}>
+      <DateCard height={50} text="Example" />
+    </div>
+  ));
