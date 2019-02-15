@@ -113,6 +113,7 @@ class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   callbackFunction: () => {},
+  scheduleListener: () => {},
   objectSetText: [],
   sizeOption: "md",
   theme: "light",
@@ -122,7 +123,8 @@ Calendar.defaultProps = {
   onlyThisMonth: false,
   duplicate: false,
   multiSelect: false,
-  indicateToday: false
+  indicateToday: false,
+  canUpdateDate: false
 };
 
 Calendar.propTypes = {
@@ -150,7 +152,9 @@ Calendar.propTypes = {
   WeekDayCssObject: PropTypes.object,
   CalendarBodyCssObject: PropTypes.object,
   CalendarHeadCssObject: PropTypes.object,
-  canMouseWheel: PropTypes.bool
+  canMouseWheel: PropTypes.bool,
+  canUpdateDate: PropTypes.bool,
+  scheduleListener: PropTypes.func
 };
 
 export default Calendar;

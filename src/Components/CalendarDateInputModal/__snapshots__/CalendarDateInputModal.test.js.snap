@@ -1,57 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CalendarDateInputModal renders with snapshot 1`] = `
-<styled.div>
-  <styled.div>
-    날짜 추가
+<styled.div
+  style={Object {}}
+>
+  <styled.div
+    size={Object {}}
+  >
+    자세히 보기
   </styled.div>
-  <styled.div>
-    <label
-      htmlFor="date"
-    >
-      날짜: 
-    </label>
-    <input
-      id="date"
-      onChange={[Function]}
-      placeholder="2019-12-10"
-      value=""
+  <styled.div
+    size={Object {}}
+  >
+    <styled.div
+      size={Object {}}
     />
-    <br />
-    <br />
-    <label
-      htmlFor="text"
-    >
-      이름: 
-    </label>
-    <input
-      id="text"
-      onChange={[Function]}
-      placeholder="휴가"
-      value=""
-    />
-    <br />
-    <br />
-    <label
-      htmlFor="isHoliday"
-    >
-      휴일 여부: 
-    </label>
-    <input
-      checked={true}
-      id="isHoliday"
-      onChange={[Function]}
-      type="checkbox"
-    />
-    <br />
   </styled.div>
-  <styled.div>
-    <styled.button
-      isAccept={true}
-      onClick={[Function]}
-    >
-      추가
-    </styled.button>
+  <styled.div
+    size={Object {}}
+  >
     <styled.button
       onClick={[Function]}
     >

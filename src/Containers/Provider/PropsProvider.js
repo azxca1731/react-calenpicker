@@ -19,10 +19,10 @@ class PropsProvider extends Component {
     objectSetText: this.props.objectSetText,
     addText: this.props.addText,
     canMouseWheel: this.props.canMouseWheel,
-    editSelectedDate: this.props.editSelectedDate,
-    modalShowFromDate: false,
-    targetEditDate: {
-      date: "",
+    canUpdateDate: this.props.canUpdateDate,
+    modalType: "NONE",
+    target: {
+      dateString: "",
       text: "",
       isHoliday: false
     }
@@ -34,21 +34,36 @@ class PropsProvider extends Component {
         objectSetText: [...this.state.objectSetText, newDateObject]
       });
     },
-    handleModalFromDate: (show, target) => {
-      if (show) {
-        this.setState({
-          modalShowFromDate: show,
-          targetEditDate: {
-            ...target
-          }
-        });
-      } else {
-        this.setState({
-          modalShowFromDate: show
-        });
-      }
+    deleteCalendarText: deletedDateObject => {
+      const filterd = this.state.objectSetText.filter(({ date, text, isHoliday }) => !(date == deletedDateObject.date && text == deletedDateObject.text && isHoliday == deletedDateObject.isHoliday));
+      this.setState({
+        objectSetText: filterd
+      });
+    },
+    updateCalendarText: (deletedDateObject, newDateObject) => {
+      const filterd = this.state.objectSetText.filter(({ date, text, isHoliday }) => !(date == deletedDateObject.date && text == deletedDateObject.text && isHoliday == deletedDateObject.isHoliday));
+      this.setState({
+        objectSetText: [...filterd, newDateObject]
+      });
+    },
+    handleModal: result => {
+      if (result == "READ" && this.props.canUpdateDate) result = "UPDATE";
+      this.setState({
+        modalType: result
+      });
+    },
+    handleTargetSetValue: newTarget => {
+      this.setState({
+        target: newTarget
+      });
     }
   };
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.objectSetText != this.state.objectSetText) {
+      this.props.scheduleListener(this.state.objectSetText);
+    }
+  }
 
   render() {
     const { state, actions } = this;
@@ -78,7 +93,8 @@ PropsProvider.propTypes = {
     })
   ),
   canMouseWheel: PropTypes.bool,
-  editSelectedDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  scheduleListener: PropTypes.func
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
