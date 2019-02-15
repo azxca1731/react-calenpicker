@@ -205,13 +205,15 @@ class CalendarDateInputModal extends React.Component {
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>{this.renderHead()}</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
-          {this.renderInputZone()}
-          {this.renderDateZone()}
+          {type == "ADD" || type == "UPDATE" ? this.renderInputZone() : null}
+          {type == "UPDATE" || type == "READ" ? this.renderDateZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
-          <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
-            {target && target.text ? "수정" : "추가"}
-          </CalendarDateInputModalButton>
+          {type != "READ" ? (
+            <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
+              {target && target.text ? "수정" : "추가"}
+            </CalendarDateInputModalButton>
+          ) : null}
           {target && target.text ? (
             <CalendarDateInputModalButton isDelete onClick={this.handleDeleteButtonClicked}>
               삭제

@@ -14,62 +14,11 @@ exports[`CalendarDateInputModal renders with snapshot 1`] = `
   >
     <styled.div
       size={Object {}}
-    >
-      <div>
-        <label
-          htmlFor="date"
-        >
-          날짜: 
-        </label>
-        <input
-          id="date"
-          onChange={[Function]}
-          placeholder="2019-12-10"
-          value=""
-        />
-      </div>
-      <br />
-      <div>
-        <label
-          htmlFor="text"
-        >
-          이름: 
-        </label>
-        <input
-          id="text"
-          onChange={[Function]}
-          placeholder="휴가"
-          value=""
-        />
-      </div>
-      <br />
-      <div>
-        <label
-          htmlFor="isHoliday"
-        >
-          휴일 여부: 
-        </label>
-        <input
-          checked={true}
-          id="isHoliday"
-          onChange={[Function]}
-          type="checkbox"
-        />
-      </div>
-    </styled.div>
-    <styled.div
-      size={Object {}}
     />
   </styled.div>
   <styled.div
     size={Object {}}
   >
-    <styled.button
-      isAccept={true}
-      onClick={[Function]}
-    >
-      추가
-    </styled.button>
     <styled.button
       onClick={[Function]}
     >
