@@ -67,7 +67,7 @@ const DateCard = styled.div`
 
 const DateCardConfig = styled.div``;
 
-const DateCardText = styled.h3``;
+const DateCardText = styled.h4``;
 
 const CalendarDateInputModalButton = styled.button`
   background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
@@ -212,7 +212,8 @@ class CalendarDateInputModal extends React.Component {
 CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
   handleModal: () => {},
-  size: {}
+  size: {},
+  anotherSchedules: []
 };
 
 CalendarDateInputModal.propTypes = {
