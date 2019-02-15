@@ -143,7 +143,7 @@ class CalendarDateInputModal extends React.Component {
       date: "",
       isHoliday: true
     });
-    handleModal(false);
+    handleModal("NONE");
   };
 
   renderHead = () => {
@@ -197,8 +197,10 @@ class CalendarDateInputModal extends React.Component {
   };
 
   render() {
-    const { size, target } = this.props;
-
+    const { size, target, type } = this.props;
+    if (type == "NONE") {
+      return null;
+    }
     return (
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>{this.renderHead()}</CalendarDateInputModalHead>

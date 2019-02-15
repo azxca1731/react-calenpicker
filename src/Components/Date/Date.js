@@ -61,7 +61,7 @@ const EndIndicator = props => (
 const DateIndicator = props => {
   const handleTextClicked = event => {
     const { dateString, text, isHoliday } = props;
-    props.handleModal(true);
+    props.handleModal("READ");
     props.handleTargetSetValue({ date: dateString, text, isHoliday });
     event.preventDefault();
     event.stopPropagation();

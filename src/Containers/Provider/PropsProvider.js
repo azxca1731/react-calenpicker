@@ -20,7 +20,7 @@ class PropsProvider extends Component {
     addText: this.props.addText,
     canMouseWheel: this.props.canMouseWheel,
     canUpdateDate: this.props.canUpdateDate,
-    modalShow: false,
+    modalType: "NONE",
     target: {
       dateString: "",
       text: "",
@@ -47,8 +47,9 @@ class PropsProvider extends Component {
       });
     },
     handleModal: result => {
+      if (result == "READ" && this.props.canUpdateDate) result = "UPDATE";
       this.setState({
-        modalShow: result
+        modalType: result
       });
     },
     handleTargetSetValue: newTarget => {
