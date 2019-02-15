@@ -29,12 +29,45 @@ const CalendarDateInputModalFooter = styled.div`
 `;
 
 const CalendarDateInputModalBody = styled.div`
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.7}px;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.625}px;
+  padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px ${props => props.size.width.substr(0, props.size.width.length - 2) * 0.05}px;
+`;
+
+const CalendarDateInputModalInputZone = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  border: 1px solid ${props => props.theme.fontColor};
+  padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.05}px 0px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
+
+const CalendarDateInputModalDateZone = styled.div`
+  width: 90%;
+  border: 1px solid ${props => props.theme.fontColor};
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.2 + 10}px;
+  overflow-y: scroll;
+  padding: 0px 5%;
+  margin-top: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px;
+`;
+
+const DateCard = styled.div`
+  width: 100%;
+  border: 1px solid ${props => props.theme.fontColor};
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.1}px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 10px 0px;
+`;
+
+const DateCardConfig = styled.div``;
+
+const DateCardText = styled.h4``;
 
 const CalendarDateInputModalButton = styled.button`
   background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
@@ -110,38 +143,77 @@ class CalendarDateInputModal extends React.Component {
       date: "",
       isHoliday: true
     });
-    handleModal(false);
+    handleModal("NONE");
+  };
+
+  renderHead = () => {
+    const { type } = this.props;
+    let head;
+    if (type == "READ") {
+      head = "자세히 보기";
+    } else if (type == "UPDATE") {
+      head = "일정 수정";
+    } else {
+      head = "일정 추가";
+    }
+    return head;
+  };
+
+  renderInputZone = () => {
+    const { size } = this.props;
+    const { isHoliday, date, text } = this.state;
+    return (
+      <CalendarDateInputModalInputZone size={size}>
+        <div>
+          <label htmlFor="date">날짜: </label>
+          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+        </div>
+        <br />
+        <div>
+          <label htmlFor="text">이름: </label>
+          <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+        </div>
+        <br />
+        <div>
+          <label htmlFor="isHoliday">휴일 여부: </label>
+          <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+        </div>
+      </CalendarDateInputModalInputZone>
+    );
+  };
+
+  renderDateZone = () => {
+    const { size, anotherSchedules } = this.props;
+    return (
+      <CalendarDateInputModalDateZone size={size}>
+        {anotherSchedules.map(item => (
+          <DateCard key={item.text} size={size}>
+            <DateCardConfig />
+            <DateCardText>{item.text}</DateCardText>
+          </DateCard>
+        ))}
+      </CalendarDateInputModalDateZone>
+    );
   };
 
   render() {
-    const { size, target } = this.props;
-    const { isHoliday, date, text } = this.state;
+    const { size, target, type } = this.props;
+    if (type == "NONE") {
+      return null;
+    }
     return (
       <CalendarDateInputModalDiv style={size}>
-        <CalendarDateInputModalHead size={size}>날짜 추가</CalendarDateInputModalHead>
+        <CalendarDateInputModalHead size={size}>{this.renderHead()}</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
-          <div>
-            <label htmlFor="date">날짜: </label>
-            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
-          </div>
-          <br />
-          <br />
-          <div>
-            <label htmlFor="text">이름: </label>
-            <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
-          </div>
-          <br />
-          <br />
-          <div>
-            <label htmlFor="isHoliday">휴일 여부: </label>
-            <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
-          </div>
-          <br />
+          {type == "ADD" || type == "UPDATE" ? this.renderInputZone() : null}
+          {type == "UPDATE" || type == "READ" ? this.renderDateZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
-          <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
-            {target && target.text ? "수정" : "추가"}
-          </CalendarDateInputModalButton>
+          {type != "READ" ? (
+            <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
+              {target && target.text ? "수정" : "추가"}
+            </CalendarDateInputModalButton>
+          ) : null}
           {target && target.text ? (
             <CalendarDateInputModalButton isDelete onClick={this.handleDeleteButtonClicked}>
               삭제
@@ -157,7 +229,9 @@ class CalendarDateInputModal extends React.Component {
 CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
   handleModal: () => {},
-  size: {}
+  size: {},
+  anotherSchedules: [],
+  type: "READ"
 };
 
 CalendarDateInputModal.propTypes = {
@@ -171,7 +245,20 @@ CalendarDateInputModal.propTypes = {
     date: PropTypes.string,
     text: PropTypes.string,
     isHoliday: PropTypes.bool
-  })
+  }),
+  anotherSchedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      date: PropTypes.string,
+      isHoliday: PropTypes.bool
+    })
+  ),
+  /**
+   * ADD - 일정을 더 할때의 모달, 다른 스케줄이 보이면 안된다.
+   * UPDATE - 일정을 업데이트 한다. 다른 일정을 볼 수 있고 수정도 가능하다.
+   * READ - 다른 일정이 뭐가 있는지만 볼 수 가 있다.
+   */
+  type: PropTypes.oneOf(["ADD", "UPDATE", "READ"])
 };
 
 export default CalendarDateInputModal;

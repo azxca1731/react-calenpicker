@@ -33,11 +33,13 @@ class CalendarHead extends React.Component {
   }
 
   renderAddTextButton = () => {
-    return <AddButton onClick={() => this.props.handleModal(true)}>+</AddButton>;
+    return <AddButton onClick={() => this.props.handleModal("ADD")}>+</AddButton>;
   };
 
   renderCalendarDateInputModal = () => {
-    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size } = this.props;
+    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText, modalType } = this.props;
+
+    const filtered = target ? objectSetText.filter(({ date, text, isHoliday }) => date == target.date && (text != target.text || isHoliday != target.isHoliday)) : [];
     return (
       <CalendarDateInputModal
         addCalendarText={addCalendarText}
@@ -47,12 +49,14 @@ class CalendarHead extends React.Component {
         deleteCalendarText={deleteCalendarText}
         updateCalendarText={updateCalendarText}
         size={size}
+        anotherSchedules={filtered}
+        type={modalType}
       />
     );
   };
 
   render() {
-    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addText, modalShow } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addText, modalType } = this.props;
 
     let month;
     if (duplicated) {
@@ -69,7 +73,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {modalShow ? this.renderCalendarDateInputModal() : null}
+            {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
         ) : !duplicated ? (
@@ -77,7 +81,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             {addText ? this.renderAddTextButton() : null}
-            {modalShow ? this.renderCalendarDateInputModal() : null}
+            {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
             <MonthArrowContainer type="none" onClick={() => {}} />
           </CalendarHeadDiv>
         ) : (
@@ -101,7 +105,7 @@ CalendarHead.propTypes = {
   cssObject: PropTypes.object,
   addCalendarText: PropTypes.func,
   addText: PropTypes.bool,
-  modalShow: PropTypes.bool,
+  modalType: PropTypes.String,
   handleModal: PropTypes.func,
   canUpdateDate: PropTypes.bool,
   target: PropTypes.shape({
@@ -112,7 +116,14 @@ CalendarHead.propTypes = {
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
-  size: PropTypes.object
+  size: PropTypes.object,
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      date: PropTypes.string,
+      isHoliday: PropTypes.bool
+    })
+  )
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -120,13 +131,14 @@ export default PropsConnector(({ state, actions }) => ({
   duplicate: state.duplicate,
   addCalendarText: actions.addCalendarText,
   addText: state.addText,
-  modalShow: state.modalShow,
+  modalType: state.modalType,
   handleModal: actions.handleModal,
   canUpdateDate: state.canUpdateDate,
   target: state.target,
   handleTargetSetValue: actions.handleTargetSetValue,
   deleteCalendarText: actions.deleteCalendarText,
-  updateCalendarText: actions.updateCalendarText
+  updateCalendarText: actions.updateCalendarText,
+  objectSetText: state.objectSetText
 }))(
   DayConnector(({ state, actions }) => ({
     month: `${state.year}.${state.month + 1}`,
