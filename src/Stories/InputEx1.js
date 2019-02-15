@@ -1,40 +1,55 @@
-import React from "react";
-
+import React, { Component } from "react";
 import Calendar from "../Calendar";
+// import styled from "styled-components";
 
-class InputEx1 extends React.Component {
+// const MonthDiv = styled.div`
+//   color: ${props => props.theme.fontColor};
+//   font-size: 150%;
+//   background-color:0 ${props => props.theme.backgroundColor};
+// `;
+
+// const Month = props => {
+//   const { cssObject, month } = props;
+//   return <MonthDiv style={cssObject}>{month}</MonthDiv>;
+
+class InputEx1 extends Component {
   constructor(props) {
     super(props);
-    this.state = { turn: false, periods: { periodStart: "", periodEnd: "" } };
+    this.state = {
+      turn: false,
+      periods: { periodStart: "", periodEnd: "" }
+    };
   }
-  showCalendar = () => {
-    console.log("hi");
+  handleCalendarShow = () => {
     this.setState({ turn: !this.state.turn });
   };
-  selectedPeriod = period => {
-    console.log(period);
-    // this.setState({ periods });
+
+  handlePeriods = periods => {
+    this.setState({ periods });
+    this.handleBtnShow(periods.periodStart, periods.periodEnd);
   };
-  // selectedPeriod = periods => {
-  //   console.log(periods);
-  //   this.setState({ periods });
-  // };
+  btnShow = "yyyy-mm-dd";
+  handleBtnShow = (periodStart, periodEnd) => {
+    if (periodStart == "") {
+      this.btnShow = "yyyy-mm-dd";
+    } else if (periodStart == periodEnd) {
+      this.btnShow = periodStart;
+    } else {
+      this.btnShow = periodStart + " ~ " + periodEnd;
+    }
+  };
+
   render() {
     return (
-      <div className="inputExDiv">
-        <button type="button" onClick={this.showCalendar} value={this.state.periodStart}>
-          {/* {this.selectedPeriod(this.state.periods.periods[0])} */}
-          {this.state.periods.periodStart}
-        </button>
+      <div>
+        <input type="button" onClick={this.handleCalendarShow} value={this.btnShow} style={cssObject} />
+        {/* <input onClick={this.handleCalendarShow} value={this.state.periods.periodStart} /> */}
         <div style={this.state.turn ? {} : { display: "none" }}>
-          <Calendar callbackFuntion={periods => this.selectedPeriod(periods[0])} />
+          <Calendar callbackFunction={periods => this.handlePeriods(periods[0])} sizeOption="md" theme="light" />
         </div>
-        {/* <input  value={this.state.periods.periodStart} onChange={this.showCalendar} />
-        <div style={this.state.turn ? {} : { display: "none" }}>
-          <Calendar callbackFuntion={periods => this.selectedPeriod(periods[0])} />
-        </div> */}
       </div>
     );
   }
 }
+
 export default InputEx1;
