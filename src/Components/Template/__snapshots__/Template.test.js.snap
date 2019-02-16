@@ -2,6 +2,7 @@
 
 exports[`Template render custom css render well with snapshot 1`] = `
 <styled.div
+  duplicated={false}
   style={
     Object {
       "color": "red",
@@ -16,6 +17,7 @@ exports[`Template render custom css render well with snapshot 1`] = `
 
 exports[`Template renders with snapshot 1`] = `
 <styled.div
+  duplicated={false}
   style={Object {}}
 >
   <div />
