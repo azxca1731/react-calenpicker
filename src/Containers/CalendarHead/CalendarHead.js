@@ -105,7 +105,7 @@ CalendarHead.propTypes = {
   cssObject: PropTypes.object,
   addCalendarText: PropTypes.func,
   addText: PropTypes.bool,
-  modalType: PropTypes.String,
+  modalType: PropTypes.string,
   handleModal: PropTypes.func,
   canUpdateDate: PropTypes.bool,
   target: PropTypes.shape({

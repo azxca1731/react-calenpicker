@@ -53,7 +53,7 @@ const DateCard = props => {
         <ArrowUp />
         <ArrowDown />
         <Modify />
-        <Close />
+        <Close onClick={props.handleDelete} />
       </DateCardConfig>
     </DateCardDiv>
   );
@@ -64,15 +64,17 @@ DateCard.defaultProps = {
   height: 100,
   isHoliday: false,
   index: 1,
-  dateLength: 1
+  dateLength: 1,
+  handleDelete: () => {}
 };
 
 DateCard.propTypes = {
-  text: PropTypes.text,
+  text: PropTypes.string,
   height: PropTypes.number,
   isHoliday: PropTypes.bool,
   index: PropTypes.number,
-  dateLength: PropTypes.number
+  dateLength: PropTypes.number,
+  handleDelete: PropTypes.func
 };
 
 export default DateCard;

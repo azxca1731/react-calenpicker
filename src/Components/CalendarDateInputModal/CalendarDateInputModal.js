@@ -121,6 +121,14 @@ class CalendarDateInputModal extends React.Component {
     this.handleCloseButtonClicked();
   };
 
+  handleListOut = deleteindex => {
+    const { anotherSchedules } = this.state;
+    const filtered = anotherSchedules.filter((_, index) => index != deleteindex);
+    this.setState({
+      anotherSchedules: filtered
+    });
+  };
+
   handleCloseButtonClicked = () => {
     const { handleTargetSetValue, handleModal } = this.props;
     this.setState({
@@ -179,7 +187,7 @@ class CalendarDateInputModal extends React.Component {
     return (
       <CalendarDateInputModalDateZone size={size}>
         {anotherSchedules.map(({ text, isHoliday }, index) => (
-          <DateCard key={text} text={text} height={height} isHoliday={isHoliday} index={index + 1} dateLength={anotherSchedules.length} />
+          <DateCard key={text} text={text} height={height} isHoliday={isHoliday} index={index + 1} dateLength={anotherSchedules.length} handleDelete={() => this.handleListOut(index)} />
         ))}
       </CalendarDateInputModalDateZone>
     );
@@ -200,12 +208,7 @@ class CalendarDateInputModal extends React.Component {
         <CalendarDateInputModalFooter size={size}>
           {type != "READ" ? (
             <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
-              {target && target.text ? "수정" : "추가"}
-            </CalendarDateInputModalButton>
-          ) : null}
-          {target && target.text ? (
-            <CalendarDateInputModalButton isDelete onClick={this.handleDeleteButtonClicked}>
-              삭제
+              {target && target.text ? "저장" : "추가"}
             </CalendarDateInputModalButton>
           ) : null}
           <CalendarDateInputModalButton onClick={this.handleCloseButtonClicked}>닫기</CalendarDateInputModalButton>
