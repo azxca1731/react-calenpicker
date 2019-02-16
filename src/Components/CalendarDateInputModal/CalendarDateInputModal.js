@@ -128,6 +128,20 @@ class CalendarDateInputModal extends React.Component {
     });
   };
 
+  updateScheduleArray = (updatedIndex, updateSchedule) => {
+    const { anotherSchedules } = this.state;
+    const filtered = anotherSchedules.map((item, index) => {
+      if (index != updatedIndex) {
+        return item;
+      } else {
+        return updateSchedule;
+      }
+    });
+    this.setState({
+      anotherSchedules: filtered
+    });
+  };
+
   handleListFirst = firstIndex => {
     const { anotherSchedules } = this.state;
     if (firstIndex == 0) return;
@@ -213,23 +227,26 @@ class CalendarDateInputModal extends React.Component {
   };
 
   renderDateZone = () => {
-    const { size } = this.props;
+    const { size, target } = this.props;
     const { anotherSchedules } = this.state;
-    const height = size.height.substr(0, size.height.length - 2) * 0.1;
+    const height = size.height.substr(0, size.height.length - 2) * 0.12;
+    const list = anotherSchedules.filter(({ date }) => date == target.date);
     return (
       <CalendarDateInputModalDateZone size={size}>
-        {anotherSchedules.map(({ text, isHoliday }, index) => (
+        {list.map(({ text, isHoliday, date }, index) => (
           <DateCard
             key={text}
             text={text}
             height={height}
             isHoliday={isHoliday}
             index={index + 1}
-            dateLength={anotherSchedules.length}
+            date={date}
+            dateLength={list.length}
             handleDelete={() => this.handleListOut(index)}
             handleUp={() => this.handleListUp(index)}
             handleDown={() => this.handleListDown(index)}
             handleFirst={() => this.handleListFirst(index)}
+            handleModify={this.updateScheduleArray}
           />
         ))}
       </CalendarDateInputModalDateZone>
@@ -264,7 +281,7 @@ class CalendarDateInputModal extends React.Component {
 CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
   handleModal: () => {},
-  size: { height: "", widht: "" },
+  size: { height: "450px", width: "300px" },
   anotherSchedules: [],
   type: "READ"
 };
