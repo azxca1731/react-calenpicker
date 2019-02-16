@@ -129,6 +129,17 @@ class CalendarDateInputModal extends React.Component {
     });
   };
 
+  handleListFirst = firstIndex => {
+    const { anotherSchedules } = this.state;
+    if (firstIndex == 0) return;
+    const frontSlice = anotherSchedules.slice(0, firstIndex);
+    const backSlice = anotherSchedules.slice(firstIndex + 1, anotherSchedules.length);
+    const returnArray = [anotherSchedules[firstIndex], ...frontSlice, ...backSlice];
+    this.setState({
+      anotherSchedules: returnArray
+    });
+  };
+
   handleListUp = upIndex => {
     const { anotherSchedules } = this.state;
     if (upIndex == 0) return;
@@ -219,6 +230,7 @@ class CalendarDateInputModal extends React.Component {
             handleDelete={() => this.handleListOut(index)}
             handleUp={() => this.handleListUp(index)}
             handleDown={() => this.handleListDown(index)}
+            handleFirst={() => this.handleListFirst(index)}
           />
         ))}
       </CalendarDateInputModalDateZone>
