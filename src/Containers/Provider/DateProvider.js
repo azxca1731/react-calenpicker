@@ -129,8 +129,9 @@ class DateProvider extends Component {
         };
         newPeriods = multiSelect ? [...periods, lastPeriod] : [lastPeriod];
       } else {
+        periods.pop();
         ps = insertDate;
-        newPeriods = [...periods];
+        newPeriods = multiSelect ? [...periods, { periodStart: insertDate, periodEnd: "" }] : [{ periodStart: insertDate, periodEnd: "" }];
       }
 
       this.setState({
