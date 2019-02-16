@@ -129,6 +129,17 @@ class CalendarDateInputModal extends React.Component {
     });
   };
 
+  handleListUp = upIndex => {
+    const { anotherSchedules } = this.state;
+    if (upIndex == 0) return;
+    const frontSlice = anotherSchedules.slice(0, upIndex - 1);
+    const backSlice = anotherSchedules.slice(upIndex + 1, anotherSchedules.length);
+    const returnArray = [...frontSlice, anotherSchedules[upIndex], anotherSchedules[upIndex - 1], ...backSlice];
+    this.setState({
+      anotherSchedules: returnArray
+    });
+  };
+
   handleCloseButtonClicked = () => {
     const { handleTargetSetValue, handleModal } = this.props;
     this.setState({
@@ -187,7 +198,16 @@ class CalendarDateInputModal extends React.Component {
     return (
       <CalendarDateInputModalDateZone size={size}>
         {anotherSchedules.map(({ text, isHoliday }, index) => (
-          <DateCard key={text} text={text} height={height} isHoliday={isHoliday} index={index + 1} dateLength={anotherSchedules.length} handleDelete={() => this.handleListOut(index)} />
+          <DateCard
+            key={text}
+            text={text}
+            height={height}
+            isHoliday={isHoliday}
+            index={index + 1}
+            dateLength={anotherSchedules.length}
+            handleDelete={() => this.handleListOut(index)}
+            handleUp={() => this.handleListUp(index)}
+          />
         ))}
       </CalendarDateInputModalDateZone>
     );
