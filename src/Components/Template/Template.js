@@ -18,14 +18,14 @@ const Devider = styled.div`
 `;
 
 const Template = props => {
-  const { head, children, cssObject, duplicate, duplicated, handleModal } = props;
+  const { head, children, cssObject, duplicate, duplicated, handleModal, addText } = props;
   return (
     <TemplateDiv style={cssObject} duplicated={duplicated}>
       {head}
       <Devider />
       {children}
-      {duplicate && duplicated ? <AddButton handleModal={handleModal} /> : null}
-      {!duplicate && !duplicated ? <AddButton handleModal={handleModal} /> : null}
+      {addText && duplicate && duplicated ? <AddButton handleModal={handleModal} /> : null}
+      {addText && !duplicate && !duplicated ? <AddButton handleModal={handleModal} /> : null}
     </TemplateDiv>
   );
 };
@@ -36,6 +36,7 @@ Template.defaultProps = {
   cssObject: {},
   duplicate: false,
   duplicated: false,
+  addText: false,
   handleModal: () => {}
 };
 
@@ -45,6 +46,7 @@ Template.propTypes = {
   cssObject: PropTypes.object,
   duplicate: PropTypes.bool,
   duplicated: PropTypes.bool,
+  addText: PropTypes.bool,
   handleModal: PropTypes.func
 };
 export default Template;

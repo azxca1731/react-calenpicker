@@ -52,13 +52,15 @@ TemplateContainer.propTypes = {
   canMouseWheel: PropTypes.bool,
   duplicate: PropTypes.bool,
   duplicated: PropTypes.bool,
-  handleModal: PropTypes.func
+  handleModal: PropTypes.func,
+  addText: PropTypes.bool
 };
 
 export default PropsConnector(({ state, actions }) => ({
   canMouseWheel: state.canMouseWheel,
   duplicate: state.duplicate,
-  handleModal: actions.handleModal
+  handleModal: actions.handleModal,
+  addText: state.addText
 }))(
   DayConnector(({ actions }) => ({
     decreaseMonth: actions.decreaseMonth,
