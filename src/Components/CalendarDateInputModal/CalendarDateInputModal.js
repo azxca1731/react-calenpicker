@@ -52,10 +52,9 @@ const CalendarDateInputModalDateZone = styled.div`
   border: 1px solid ${props => props.theme.fontColor};
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.2 + 10}px;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.6 + 10}px;
   overflow-y: scroll;
   padding: 0px 5%;
-  margin-top: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px;
 `;
 
 const CalendarDateInputModalButton = styled.button`
@@ -246,8 +245,8 @@ class CalendarDateInputModal extends React.Component {
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>{this.renderHead()}</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
-          {type == "ADD" || type == "UPDATE" ? this.renderInputZone() : null}
-          {type == "UPDATE" || type == "READ" ? this.renderDateZone() : null}
+          {type == "ADD" ? this.renderInputZone() : null}
+          {type == "READ" || type == "UPDATE" ? this.renderDateZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
           {type != "READ" ? (
