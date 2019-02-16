@@ -63,7 +63,7 @@ class InputEx1 extends Component {
   handlePeriods = periods => {
     this.setState({ periods });
     this.handleBtnShow(periods.periodStart, periods.periodEnd);
-    this.setState({ turn: !this.state.turn });
+    
   };
   btnShow = "yyyy-mm-dd";
   handleBtnShow = (periodStart, periodEnd) => {
@@ -73,6 +73,9 @@ class InputEx1 extends Component {
       this.btnShow = periodStart;
     } else {
       this.btnShow = periodStart + " - " + periodEnd;
+      if(periodEnd!=""){
+        this.setState({ turn: !this.state.turn });
+      }
     }
   };
 
