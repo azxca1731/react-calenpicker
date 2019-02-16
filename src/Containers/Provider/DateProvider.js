@@ -116,22 +116,28 @@ class DateProvider extends Component {
       const { periodStart, multiSelect, periods } = this.state;
       const { callbackFunction } = this.props;
       const insertDate = `${dateState.dateString}`;
-
+      let ps, newPeriods;
       if (!periodStart) {
-        this.setState({
-          periodStart: insertDate,
-          periods: multiSelect ? [...periods, { periodStart, periodEnd: null }] : []
-        });
+        ps = insertDate;
+        newPeriods = multiSelect ? [...periods, { periodStart: insertDate, periodEnd: "" }] : [{ periodStart: insertDate, periodEnd: "" }];
       } else if (new Date(periodStart) <= new Date(insertDate)) {
-        if (this.state.periods.length > 0) this.state.periods.pop();
-        const returnvalue = multiSelect ? [...this.state.periods, { periodStart, periodEnd: insertDate }] : [{ periodStart, periodEnd: insertDate }];
-        this.setState({ periodStart: null, periods: returnvalue });
-        callbackFunction(returnvalue);
-      } else if (new Date(periodStart) > new Date(insertDate)) {
-        this.setState({
-          periodStart: insertDate
-        });
+        ps = "";
+        const prevPeriod = periods.pop();
+        const lastPeriod = {
+          ...prevPeriod,
+          periodEnd: insertDate
+        };
+        newPeriods = multiSelect ? [...periods, lastPeriod] : [lastPeriod];
+      } else {
+        ps = insertDate;
+        newPeriods = [...periods];
       }
+
+      this.setState({
+        periodStart: ps,
+        periods: newPeriods
+      });
+      callbackFunction(newPeriods);
     },
     isInPeriod: dateString => {
       const { periods } = this.state;
