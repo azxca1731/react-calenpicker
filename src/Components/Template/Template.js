@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 const TemplateDiv = styled.div`
   width: 300px;
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   background-color: ${props => props.theme.backgroundColor};
   border: 1px solid ${props => props.theme.borderColor};
+  ${props => (props.duplicated ? "border-left-width : 0;" : null)}
 `;
 
 const Devider = styled.div`
@@ -15,9 +17,9 @@ const Devider = styled.div`
 `;
 
 const Template = props => {
-  const { head, children, cssObject } = props;
+  const { head, children, cssObject, duplicated } = props;
   return (
-    <TemplateDiv style={cssObject}>
+    <TemplateDiv style={cssObject} duplicated={duplicated}>
       {head}
       <Devider />
       {children}
@@ -28,12 +30,14 @@ const Template = props => {
 Template.defaultProps = {
   head: React.createElement("div"),
   children: React.createElement("div"),
-  cssObject: {}
+  cssObject: {},
+  duplicated: false
 };
 
 Template.propTypes = {
   head: PropTypes.element.isRequired,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  duplicated: PropTypes.bool
 };
 export default Template;

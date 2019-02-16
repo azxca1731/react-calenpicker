@@ -10,9 +10,9 @@ import Template from "Components/Template";
 storiesOf("Components", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("Template light", () => <Template />);
+  .add("Template light", () => <Template cssObject={{ height: "500px" }} />);
 
 storiesOf("Components", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("Template Dark", () => <Template />);
+  .add("Template Dark", () => <Template cssObject={{ height: "500px" }} />);
