@@ -264,7 +264,7 @@ class CalendarDateInputModal extends React.Component {
 CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
   handleModal: () => {},
-  size: {},
+  size: { height: "", widht: "" },
   anotherSchedules: [],
   type: "READ"
 };
