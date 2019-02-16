@@ -51,7 +51,7 @@ const DateCard = props => {
       <DateCardConfig>
         <ArrowDoubleUp />
         <ArrowUp onClick={props.handleUp} />
-        <ArrowDown />
+        <ArrowDown onClick={props.handleDown} />
         <Modify />
         <Close onClick={props.handleDelete} />
       </DateCardConfig>
@@ -66,7 +66,8 @@ DateCard.defaultProps = {
   index: 1,
   dateLength: 1,
   handleDelete: () => {},
-  handleUp: PropTypes.func
+  handleUp: () => {},
+  handleDown: () => {}
 };
 
 DateCard.propTypes = {
@@ -76,7 +77,8 @@ DateCard.propTypes = {
   index: PropTypes.number,
   dateLength: PropTypes.number,
   handleDelete: PropTypes.func,
-  handleUp: PropTypes.func
+  handleUp: PropTypes.func,
+  handleDown: PropTypes.func
 };
 
 export default DateCard;
