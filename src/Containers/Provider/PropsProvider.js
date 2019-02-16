@@ -55,6 +55,7 @@ class PropsProvider extends Component {
       const fomratedArray = newDateObjectArray.map(newDateObject => {
         const { date } = newDateObject;
         newDateObject.date = this.actions.formatDateString(date);
+        return newDateObject;
       });
       const filterd = this.state.objectSetText.filter(({ date }) => date != deletedDate);
       this.setState({
