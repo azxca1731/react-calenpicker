@@ -17,24 +17,10 @@ const CalendarHeadDiv = styled.div`
   position: relative;
 `;
 
-const AddButton = styled.div`
-  border-radius: 50%;
-  background-color: ${props => props.theme.fontColor};
-  color: ${props => props.theme.backgroundColor};
-  padding: 0px 4px;
-  cursor: pointer;
-  position: relative;
-  top: 1px;
-`;
-
 class CalendarHead extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  renderAddTextButton = () => {
-    return <AddButton onClick={() => this.props.handleModal("ADD")}>+</AddButton>;
-  };
 
   renderCalendarDateInputModal = () => {
     const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText, modalType } = this.props;
@@ -56,7 +42,7 @@ class CalendarHead extends React.Component {
   };
 
   render() {
-    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, addText, modalType } = this.props;
+    const { month: propsMonth, duplicated, duplicate, showNextMonth, showPreviousMonth, modalType } = this.props;
 
     let month;
     if (duplicated) {
@@ -72,7 +58,6 @@ class CalendarHead extends React.Component {
           <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
-            {addText ? this.renderAddTextButton() : null}
             {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
             <MonthArrowContainer type="right" onClick={showNextMonth} />
           </CalendarHeadDiv>
@@ -80,8 +65,6 @@ class CalendarHead extends React.Component {
           <CalendarHeadDiv>
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
-            {addText ? this.renderAddTextButton() : null}
-            {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
             <MonthArrowContainer type="none" onClick={() => {}} />
           </CalendarHeadDiv>
         ) : (
@@ -89,6 +72,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="none" onClick={() => {}} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="right" onClick={showNextMonth} />
+            {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
           </CalendarHeadDiv>
         )}
       </div>
@@ -104,7 +88,6 @@ CalendarHead.propTypes = {
   duplicate: PropTypes.bool,
   cssObject: PropTypes.object,
   addCalendarText: PropTypes.func,
-  addText: PropTypes.bool,
   modalType: PropTypes.String,
   handleModal: PropTypes.func,
   canUpdateDate: PropTypes.bool,
@@ -130,7 +113,6 @@ export default PropsConnector(({ state, actions }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
   addCalendarText: actions.addCalendarText,
-  addText: state.addText,
   modalType: state.modalType,
   handleModal: actions.handleModal,
   canUpdateDate: state.canUpdateDate,

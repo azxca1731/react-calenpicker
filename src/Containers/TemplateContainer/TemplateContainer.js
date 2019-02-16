@@ -7,6 +7,7 @@ import Template from "Components/Template";
 
 const TemplateContainerDiv = styled.div`
   display: inline;
+  position: relative;
 `;
 
 class TemplateContainer extends React.Component {
@@ -48,11 +49,16 @@ TemplateContainer.propTypes = {
   cssObject: PropTypes.object,
   decreaseMonth: PropTypes.func,
   increaseMonth: PropTypes.func,
-  canMouseWheel: PropTypes.bool
+  canMouseWheel: PropTypes.bool,
+  duplicate: PropTypes.bool,
+  duplicated: PropTypes.bool,
+  handleModal: PropTypes.func
 };
 
-export default PropsConnector(({ state }) => ({
-  canMouseWheel: state.canMouseWheel
+export default PropsConnector(({ state, actions }) => ({
+  canMouseWheel: state.canMouseWheel,
+  duplicate: state.duplicate,
+  handleModal: actions.handleModal
 }))(
   DayConnector(({ actions }) => ({
     decreaseMonth: actions.decreaseMonth,
