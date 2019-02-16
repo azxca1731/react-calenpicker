@@ -53,9 +53,13 @@ class PropsProvider extends Component {
       });
     },
     updateCalendarText: (deletedDate, newDateObjectArray) => {
+      const fomratedArray = newDateObjectArray.map(newDateObject => {
+        const { date } = newDateObject;
+        newDateObject.date = this.formatDateString(date);
+      });
       const filterd = this.state.objectSetText.filter(({ date }) => date != deletedDate);
       this.setState({
-        objectSetText: [...filterd, ...newDateObjectArray]
+        objectSetText: [...filterd, ...fomratedArray]
       });
     },
     handleModal: result => {
