@@ -76,11 +76,12 @@ const CalendarDateInputModalButton = styled.button`
 class CalendarDateInputModal extends React.Component {
   constructor(props) {
     super(props);
-    const { target } = props;
+    const { target, anotherSchedules } = props;
     this.state = {
       date: target ? target.date : "",
       text: target ? target.text : "",
-      isHoliday: target ? target.isHoliday : true
+      isHoliday: target ? target.isHoliday : true,
+      anotherSchedules
     };
   }
 
@@ -172,12 +173,13 @@ class CalendarDateInputModal extends React.Component {
   };
 
   renderDateZone = () => {
-    const { size, anotherSchedules } = this.props;
+    const { size } = this.props;
+    const { anotherSchedules } = this.state;
     const height = size.height.substr(0, size.height.length - 2) * 0.1;
     return (
       <CalendarDateInputModalDateZone size={size}>
-        {anotherSchedules.map(item => (
-          <DateCard key={item.text} text={item.text} height={height} isHoliday={item.isHoliday} />
+        {anotherSchedules.map(({ text, isHoliday }, index) => (
+          <DateCard key={text} text={text} height={height} isHoliday={isHoliday} index={index + 1} dateLength={anotherSchedules.length} />
         ))}
       </CalendarDateInputModalDateZone>
     );

@@ -28,8 +28,13 @@ const DateCardConfig = styled.div`
 `;
 
 const DateCardText = styled.div`
-  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
   margin-top: 5px;
+`;
+
+const DateCardBody = styled.div`
   font-weight: bold;
   color: ${props => (props.isHoliday ? "red" : props.theme.fontColor)};
 `;
@@ -37,7 +42,12 @@ const DateCardText = styled.div`
 const DateCard = props => {
   return (
     <DateCardDiv height={props.height}>
-      <DateCardText isHoliday={props.isHoliday}>{props.text}</DateCardText>
+      <DateCardText>
+        <DateCardBody isHoliday={props.isHoliday}>{props.text}</DateCardBody>
+        <div>
+          {props.index}/{props.dateLength}
+        </div>
+      </DateCardText>
       <DateCardConfig>
         <ArrowDoubleUp />
         <ArrowUp />
@@ -52,13 +62,17 @@ const DateCard = props => {
 DateCard.defaultProps = {
   text: "",
   height: 100,
-  isHoliday: false
+  isHoliday: false,
+  index: 1,
+  dateLength: 1
 };
 
 DateCard.propTypes = {
   text: PropTypes.text,
   height: PropTypes.number,
-  isHoliday: PropTypes.bool
+  isHoliday: PropTypes.bool,
+  index: PropTypes.number,
+  dateLength: PropTypes.number
 };
 
 export default DateCard;
