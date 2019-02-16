@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import DateCard from "Components/DateCard";
+
 const CalendarDateInputModalDiv = styled.div`
   position: absolute;
   z-index: 1000;
@@ -50,24 +52,10 @@ const CalendarDateInputModalDateZone = styled.div`
   border: 1px solid ${props => props.theme.fontColor};
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.2 + 10}px;
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.6 + 10}px;
   overflow-y: scroll;
   padding: 0px 5%;
-  margin-top: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px;
 `;
-
-const DateCard = styled.div`
-  width: 100%;
-  border: 1px solid ${props => props.theme.fontColor};
-  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.1}px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: 10px 0px;
-`;
-
-const DateCardConfig = styled.div``;
-
-const DateCardText = styled.h4``;
 
 const CalendarDateInputModalButton = styled.button`
   background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
@@ -87,11 +75,12 @@ const CalendarDateInputModalButton = styled.button`
 class CalendarDateInputModal extends React.Component {
   constructor(props) {
     super(props);
-    const { target } = props;
+    const { target, anotherSchedules } = props;
     this.state = {
       date: target ? target.date : "",
       text: target ? target.text : "",
-      isHoliday: target ? target.isHoliday : true
+      isHoliday: target ? target.isHoliday : true,
+      anotherSchedules
     };
   }
 
@@ -115,9 +104,9 @@ class CalendarDateInputModal extends React.Component {
 
   handleAddButtonClicked = () => {
     const { target, updateCalendarText, addCalendarText } = this.props;
-    const { text, date, isHoliday } = this.state;
+    const { text, date, isHoliday, anotherSchedules } = this.state;
     if (target && target.text) {
-      updateCalendarText(target, { text, date, isHoliday });
+      updateCalendarText(target.date, anotherSchedules);
     } else {
       addCalendarText({ text, date, isHoliday });
     }
@@ -129,6 +118,47 @@ class CalendarDateInputModal extends React.Component {
     const { text, date, isHoliday } = this.state;
     deleteCalendarText(target, { text, date, isHoliday });
     this.handleCloseButtonClicked();
+  };
+
+  handleListOut = deleteindex => {
+    const { anotherSchedules } = this.state;
+    const filtered = anotherSchedules.filter((_, index) => index != deleteindex);
+    this.setState({
+      anotherSchedules: filtered
+    });
+  };
+
+  handleListFirst = firstIndex => {
+    const { anotherSchedules } = this.state;
+    if (firstIndex == 0) return;
+    const frontSlice = anotherSchedules.slice(0, firstIndex);
+    const backSlice = anotherSchedules.slice(firstIndex + 1, anotherSchedules.length);
+    const returnArray = [anotherSchedules[firstIndex], ...frontSlice, ...backSlice];
+    this.setState({
+      anotherSchedules: returnArray
+    });
+  };
+
+  handleListUp = upIndex => {
+    const { anotherSchedules } = this.state;
+    if (upIndex == 0) return;
+    const frontSlice = anotherSchedules.slice(0, upIndex - 1);
+    const backSlice = anotherSchedules.slice(upIndex + 1, anotherSchedules.length);
+    const returnArray = [...frontSlice, anotherSchedules[upIndex], anotherSchedules[upIndex - 1], ...backSlice];
+    this.setState({
+      anotherSchedules: returnArray
+    });
+  };
+
+  handleListDown = downIndex => {
+    const { anotherSchedules } = this.state;
+    if (downIndex == anotherSchedules.length - 1) return;
+    const frontSlice = anotherSchedules.slice(0, downIndex);
+    const backSlice = anotherSchedules.slice(downIndex + 2, anotherSchedules.length);
+    const returnArray = [...frontSlice, anotherSchedules[downIndex + 1], anotherSchedules[downIndex], ...backSlice];
+    this.setState({
+      anotherSchedules: returnArray
+    });
   };
 
   handleCloseButtonClicked = () => {
@@ -183,14 +213,24 @@ class CalendarDateInputModal extends React.Component {
   };
 
   renderDateZone = () => {
-    const { size, anotherSchedules } = this.props;
+    const { size } = this.props;
+    const { anotherSchedules } = this.state;
+    const height = size.height.substr(0, size.height.length - 2) * 0.1;
     return (
       <CalendarDateInputModalDateZone size={size}>
-        {anotherSchedules.map(item => (
-          <DateCard key={item.text} size={size}>
-            <DateCardConfig />
-            <DateCardText>{item.text}</DateCardText>
-          </DateCard>
+        {anotherSchedules.map(({ text, isHoliday }, index) => (
+          <DateCard
+            key={text}
+            text={text}
+            height={height}
+            isHoliday={isHoliday}
+            index={index + 1}
+            dateLength={anotherSchedules.length}
+            handleDelete={() => this.handleListOut(index)}
+            handleUp={() => this.handleListUp(index)}
+            handleDown={() => this.handleListDown(index)}
+            handleFirst={() => this.handleListFirst(index)}
+          />
         ))}
       </CalendarDateInputModalDateZone>
     );
@@ -205,18 +245,13 @@ class CalendarDateInputModal extends React.Component {
       <CalendarDateInputModalDiv style={size}>
         <CalendarDateInputModalHead size={size}>{this.renderHead()}</CalendarDateInputModalHead>
         <CalendarDateInputModalBody size={size}>
-          {type == "ADD" || type == "UPDATE" ? this.renderInputZone() : null}
-          {type == "UPDATE" || type == "READ" ? this.renderDateZone() : null}
+          {type == "ADD" ? this.renderInputZone() : null}
+          {type == "READ" || type == "UPDATE" ? this.renderDateZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
           {type != "READ" ? (
             <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
-              {target && target.text ? "수정" : "추가"}
-            </CalendarDateInputModalButton>
-          ) : null}
-          {target && target.text ? (
-            <CalendarDateInputModalButton isDelete onClick={this.handleDeleteButtonClicked}>
-              삭제
+              {target && target.text ? "저장" : "추가"}
             </CalendarDateInputModalButton>
           ) : null}
           <CalendarDateInputModalButton onClick={this.handleCloseButtonClicked}>닫기</CalendarDateInputModalButton>
@@ -229,7 +264,7 @@ class CalendarDateInputModal extends React.Component {
 CalendarDateInputModal.defaultProps = {
   addCalendarText: () => {},
   handleModal: () => {},
-  size: {},
+  size: { height: "", widht: "" },
   anotherSchedules: [],
   type: "READ"
 };

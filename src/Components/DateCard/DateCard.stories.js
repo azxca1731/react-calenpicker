@@ -5,14 +5,22 @@ import { withInfo } from "@storybook/addon-info";
 
 import light from "Styles/theme/light";
 import dark from "Styles/theme/dark";
-import Template from "Components/Template";
+import DateCard from "Components/DateCard";
 
 storiesOf("Components", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("Template light", () => <Template cssObject={{ height: "500px" }} />);
+  .add("DateCard light", () => (
+    <div style={{ width: "200px" }}>
+      <DateCard height={50} text="Example" />
+    </div>
+  ));
 
 storiesOf("Components", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("Template Dark", () => <Template cssObject={{ height: "500px" }} />);
+  .add("DateCard Dark", () => (
+    <div style={{ width: "200px" }}>
+      <DateCard height={50} text="Example" />
+    </div>
+  ));

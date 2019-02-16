@@ -2,22 +2,47 @@
 
 exports[`CalendarDateInputModal renders with snapshot 1`] = `
 <styled.div
-  style={Object {}}
+  style={
+    Object {
+      "height": "",
+      "widht": "",
+    }
+  }
 >
   <styled.div
-    size={Object {}}
+    size={
+      Object {
+        "height": "",
+        "widht": "",
+      }
+    }
   >
     자세히 보기
   </styled.div>
   <styled.div
-    size={Object {}}
+    size={
+      Object {
+        "height": "",
+        "widht": "",
+      }
+    }
   >
     <styled.div
-      size={Object {}}
+      size={
+        Object {
+          "height": "",
+          "widht": "",
+        }
+      }
     />
   </styled.div>
   <styled.div
-    size={Object {}}
+    size={
+      Object {
+        "height": "",
+        "widht": "",
+      }
+    }
   >
     <styled.button
       onClick={[Function]}

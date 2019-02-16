@@ -99,7 +99,7 @@ class Calendar extends React.Component {
             </AppProvider>
             {props.duplicate ? (
               <AppProvider contexts={[PropsProvider]} {...props} duplicated>
-                <TemplateContainer head={<CalendarHead />}>
+                <TemplateContainer head={<CalendarHead />} duplicated>
                   <CalendarBody />
                 </TemplateContainer>
               </AppProvider>
