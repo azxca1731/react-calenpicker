@@ -7,12 +7,12 @@ import light from "Styles/theme/light";
 import dark from "Styles/theme/dark";
 import MonthArrow from "Components/MonthArrow";
 
-storiesOf("Components", module)
+storiesOf("Components/MonthArrow", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("MonthArrow light", () => <MonthArrow />);
+  .add("Light", () => <MonthArrow />);
 
-storiesOf("Components", module)
+storiesOf("Components/MonthArrow", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("MonthArrow Dark", () => <MonthArrow />);
+  .add("Dark", () => <MonthArrow />);

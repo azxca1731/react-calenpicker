@@ -7,12 +7,12 @@ import light from "Styles/theme/light";
 import dark from "Styles/theme/dark";
 import CalendarDateInputModal from "Components/CalendarDateInputModal";
 
-storiesOf("Components", module)
+storiesOf("Components/CalendarDateInputModal", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("CalendarDateInputModal light", () => <CalendarDateInputModal />);
+  .add("Light", () => <CalendarDateInputModal />);
 
-storiesOf("Components", module)
+storiesOf("Components/CalendarDateInputModal", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("CalendarDateInputModal Dark", () => <CalendarDateInputModal />);
+  .add("Dark", () => <CalendarDateInputModal />);

@@ -7,12 +7,12 @@ import light from "Styles/theme/light";
 import dark from "Styles/theme/dark";
 import WeekDay from "Components/WeekDay";
 
-storiesOf("Components", module)
+storiesOf("Components/WeekDay", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("WeekDay light", () => <WeekDay />);
+  .add("Light", () => <WeekDay />);
 
-storiesOf("Components", module)
+storiesOf("Components/WeekDay", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("WeekDay Dark", () => <WeekDay />);
+  .add("Dark", () => <WeekDay />);
