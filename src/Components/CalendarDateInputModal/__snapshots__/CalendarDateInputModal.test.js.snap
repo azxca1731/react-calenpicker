@@ -4,16 +4,16 @@ exports[`CalendarDateInputModal renders with snapshot 1`] = `
 <styled.div
   style={
     Object {
-      "height": "",
-      "widht": "",
+      "height": "450px",
+      "width": "300px",
     }
   }
 >
   <styled.div
     size={
       Object {
-        "height": "",
-        "widht": "",
+        "height": "450px",
+        "width": "300px",
       }
     }
   >
@@ -22,25 +22,29 @@ exports[`CalendarDateInputModal renders with snapshot 1`] = `
   <styled.div
     size={
       Object {
-        "height": "",
-        "widht": "",
+        "height": "450px",
+        "width": "300px",
       }
     }
   >
     <styled.div
       size={
         Object {
-          "height": "",
-          "widht": "",
+          "height": "450px",
+          "width": "300px",
         }
       }
-    />
+    >
+      <styled.div>
+        아무런 스케줄이 없습니다
+      </styled.div>
+    </styled.div>
   </styled.div>
   <styled.div
     size={
       Object {
-        "height": "",
-        "widht": "",
+        "height": "450px",
+        "width": "300px",
       }
     }
   >
