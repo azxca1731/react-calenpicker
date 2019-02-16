@@ -7,12 +7,12 @@ import light from "Styles/theme/light";
 import dark from "Styles/theme/dark";
 import Date from "Components/Date";
 
-storiesOf("Components", module)
+storiesOf("Components/Date", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("Date light", () => <Date />);
+  .add("Light", () => <Date />);
 
-storiesOf("Components", module)
+storiesOf("Components/Date", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("Date Dark", () => <Date />);
+  .add("Dark", () => <Date />);
