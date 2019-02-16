@@ -105,9 +105,9 @@ class CalendarDateInputModal extends React.Component {
 
   handleAddButtonClicked = () => {
     const { target, updateCalendarText, addCalendarText } = this.props;
-    const { text, date, isHoliday } = this.state;
+    const { text, date, isHoliday, anotherSchedules } = this.state;
     if (target && target.text) {
-      updateCalendarText(target, { text, date, isHoliday });
+      updateCalendarText(target.date, anotherSchedules);
     } else {
       addCalendarText({ text, date, isHoliday });
     }
