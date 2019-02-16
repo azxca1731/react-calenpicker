@@ -72,6 +72,13 @@ const CalendarDateInputModalButton = styled.button`
   }
 `;
 
+const NoItemComment = styled.div`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
 class CalendarDateInputModal extends React.Component {
   constructor(props) {
     super(props);
@@ -209,17 +216,17 @@ class CalendarDateInputModal extends React.Component {
     return (
       <CalendarDateInputModalInputZone size={size}>
         <div>
-          <label htmlFor="date">날짜: </label>
+          <label>날짜: </label>
           <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
         </div>
         <br />
         <div>
-          <label htmlFor="text">이름: </label>
+          <label>이름: </label>
           <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
         </div>
         <br />
         <div>
-          <label htmlFor="isHoliday">휴일 여부: </label>
+          <label>휴일 여부: </label>
           <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
         </div>
       </CalendarDateInputModalInputZone>
@@ -227,28 +234,33 @@ class CalendarDateInputModal extends React.Component {
   };
 
   renderDateZone = () => {
-    const { size, target } = this.props;
+    const { size, target, type } = this.props;
     const { anotherSchedules } = this.state;
     const height = size.height.substr(0, size.height.length - 2) * 0.12;
-    const list = anotherSchedules.filter(({ date }) => date == target.date);
+    const list = target ? anotherSchedules.filter(({ date }) => date == target.date) : [];
     return (
       <CalendarDateInputModalDateZone size={size}>
-        {list.map(({ text, isHoliday, date }, index) => (
-          <DateCard
-            key={text}
-            text={text}
-            height={height}
-            isHoliday={isHoliday}
-            index={index + 1}
-            date={date}
-            dateLength={list.length}
-            handleDelete={() => this.handleListOut(index)}
-            handleUp={() => this.handleListUp(index)}
-            handleDown={() => this.handleListDown(index)}
-            handleFirst={() => this.handleListFirst(index)}
-            handleModify={this.updateScheduleArray}
-          />
-        ))}
+        {list.length != 0 ? (
+          list.map(({ text, isHoliday, date }, index) => (
+            <DateCard
+              key={text}
+              text={text}
+              height={height}
+              isHoliday={isHoliday}
+              index={index + 1}
+              date={date}
+              dateLength={list.length}
+              handleDelete={() => this.handleListOut(index)}
+              handleUp={() => this.handleListUp(index)}
+              handleDown={() => this.handleListDown(index)}
+              handleFirst={() => this.handleListFirst(index)}
+              handleModify={this.updateScheduleArray}
+              type={type}
+            />
+          ))
+        ) : (
+          <NoItemComment>아무런 스케줄이 없습니다</NoItemComment>
+        )}
       </CalendarDateInputModalDateZone>
     );
   };

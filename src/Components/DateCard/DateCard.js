@@ -107,7 +107,7 @@ class DateCard extends React.Component {
   };
 
   render() {
-    const { height, index, dateLength, handleDelete, handleDown, handleFirst, handleUp } = this.props;
+    const { height, index, dateLength, handleDelete, handleDown, handleFirst, handleUp, type } = this.props;
     const { collapseOpen, isHoliday, text, date } = this.state;
     return (
       <DateCardDiv height={height} open={collapseOpen}>
@@ -117,13 +117,15 @@ class DateCard extends React.Component {
             {index}/{dateLength}
           </div>
         </DateCardText>
-        <DateCardConfig height={height}>
-          <ArrowDoubleUp onClick={handleFirst} />
-          <ArrowUp onClick={handleUp} />
-          <ArrowDown onClick={handleDown} />
-          <Modify onClick={() => this.setState({ collapseOpen: !this.state.collapseOpen })} />
-          <Close onClick={handleDelete} />
-        </DateCardConfig>
+        {type == "UPDATE" ? (
+          <DateCardConfig height={height}>
+            <ArrowDoubleUp onClick={handleFirst} />
+            <ArrowUp onClick={handleUp} />
+            <ArrowDown onClick={handleDown} />
+            <Modify onClick={() => this.setState({ collapseOpen: !this.state.collapseOpen })} />
+            <Close onClick={handleDelete} />
+          </DateCardConfig>
+        ) : null}
         <ModifyCollapse open={collapseOpen}>
           <div>
             <label htmlFor="date">날짜: </label>
@@ -161,7 +163,8 @@ DateCard.defaultProps = {
   handleUp: () => {},
   handleDown: () => {},
   handleFirst: () => {},
-  handleModify: () => {}
+  handleModify: () => {},
+  type: "UPDATE"
 };
 
 DateCard.propTypes = {
@@ -175,7 +178,8 @@ DateCard.propTypes = {
   handleUp: PropTypes.func,
   handleDown: PropTypes.func,
   handleFirst: PropTypes.func,
-  handleModify: PropTypes.func
+  handleModify: PropTypes.func,
+  type: PropTypes.oneOf(["READ", "UPDATE"])
 };
 
 export default DateCard;
