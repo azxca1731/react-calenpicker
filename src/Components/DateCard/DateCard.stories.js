@@ -7,19 +7,19 @@ import light from "Styles/theme/light";
 import dark from "Styles/theme/dark";
 import DateCard from "Components/DateCard";
 
-storiesOf("Components", module)
+storiesOf("Components/DateCard", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={light}>{story()}</ThemeProvider>)
-  .add("DateCard light", () => (
+  .add("Light", () => (
     <div style={{ width: "200px" }}>
       <DateCard height={50} text="Example" />
     </div>
   ));
 
-storiesOf("Components", module)
+storiesOf("Components/DateCard", module)
   .addDecorator(withInfo)
   .addDecorator(story => <ThemeProvider theme={dark}>{story()}</ThemeProvider>)
-  .add("DateCard Dark", () => (
+  .add("Dark", () => (
     <div style={{ width: "200px" }}>
       <DateCard height={50} text="Example" />
     </div>
