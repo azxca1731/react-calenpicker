@@ -28,8 +28,20 @@ class PropsProvider extends Component {
     }
   };
 
+  /**
+   * @function formatDateString - 날짜 형식 통일을 위한 변환 함수.
+   * @param {String} dateString - 날짜 형식을 변환할 스트링
+   * @return {String} - 변환된 날짜 스트링
+   */
+  formatDateString = dateString => {
+    const newDate = new Date(dateString);
+    return `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+  };
+
   actions = {
     addCalendarText: newDateObject => {
+      const { date } = newDateObject;
+      newDateObject.date = this.formatDateString(date);
       this.setState({
         objectSetText: [...this.state.objectSetText, newDateObject]
       });
