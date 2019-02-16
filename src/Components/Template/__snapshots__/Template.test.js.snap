@@ -12,6 +12,9 @@ exports[`Template render custom css render well with snapshot 1`] = `
   <div />
   <styled.div />
   <div />
+  <AddButton
+    handleModal={[Function]}
+  />
 </styled.div>
 `;
 
@@ -23,5 +26,8 @@ exports[`Template renders with snapshot 1`] = `
   <div />
   <styled.div />
   <div />
+  <AddButton
+    handleModal={[Function]}
+  />
 </styled.div>
 `;
