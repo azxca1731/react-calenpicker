@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import AddButton from "Components/AddButton";
 
 const TemplateDiv = styled.div`
   width: 300px;
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   background-color: ${props => props.theme.backgroundColor};
   border: 1px solid ${props => props.theme.borderColor};
+  ${props => (props.duplicated ? "border-left-width : 0;" : null)}
 `;
 
 const Devider = styled.div`
@@ -15,12 +18,14 @@ const Devider = styled.div`
 `;
 
 const Template = props => {
-  const { head, children, cssObject } = props;
+  const { head, children, cssObject, duplicate, duplicated, handleModal, addText } = props;
   return (
-    <TemplateDiv style={cssObject}>
+    <TemplateDiv style={cssObject} duplicated={duplicated}>
       {head}
       <Devider />
       {children}
+      {addText && duplicate && duplicated ? <AddButton handleModal={handleModal} /> : null}
+      {addText && !duplicate && !duplicated ? <AddButton handleModal={handleModal} /> : null}
     </TemplateDiv>
   );
 };
@@ -28,12 +33,20 @@ const Template = props => {
 Template.defaultProps = {
   head: React.createElement("div"),
   children: React.createElement("div"),
-  cssObject: {}
+  cssObject: {},
+  duplicate: false,
+  duplicated: false,
+  addText: false,
+  handleModal: () => {}
 };
 
 Template.propTypes = {
   head: PropTypes.element.isRequired,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
-  cssObject: PropTypes.object
+  cssObject: PropTypes.object,
+  duplicate: PropTypes.bool,
+  duplicated: PropTypes.bool,
+  addText: PropTypes.bool,
+  handleModal: PropTypes.func
 };
 export default Template;
