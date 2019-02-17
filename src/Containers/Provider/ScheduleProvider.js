@@ -12,15 +12,21 @@ class ScheduleProvider extends Component {
   };
   actions = {
     /**
-     * @function extractSchedules - 기존 objectSetText를 ScheduleObject로 변환해주는 action
+     * @function convertToSchedule - 기존 objectSetText를 ScheduleObject로 변환해주는 action
      * @param {Array} scheduleObjects - objectSetText에 해당.
      * @return {Array} - schedule로 변환된 배열
      */
-    extractSchedules: scheduleObjects => {
+    convertToSchedule: scheduleObjects => {
       const schedule = scheduleObjects.map(item => {
-        return item;
+        return {...item, scheduleId: this.actions.generateUniqueID()};
       });
       return schedule;
+    },
+    generateUniqueID: () => {
+      function s4() {
+        return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+      }
+      return s4();
     }
   };
   render() {
