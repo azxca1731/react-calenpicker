@@ -7,8 +7,17 @@ const Context = createContext();
 const { Provider, Consumer: ScheduleConsumer } = Context;
 
 class ScheduleProvider extends Component {
-  state = {};
-  actions = {};
+  state = {
+    schedules: []
+  };
+  actions = {
+    /**
+     * @function extractSchedules - 기존 objectSetText를 ScheduleObject로 변환해주는 action
+     * @param {Array} scheduleObjects - objectSetText에 해당.
+     * @return {Array} - schedule로 변환된 배열
+     */
+    extractSchedules: scheduleObjects => {}
+  };
   render() {
     const { state, actions } = this;
     const value = { state, actions };
@@ -17,11 +26,19 @@ class ScheduleProvider extends Component {
 }
 
 ScheduleProvider.defaultProps = {
-  children: <div/>
+  children: <div />
 };
 
 ScheduleProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  scheduleObjects: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleId: PropTypes.string
+    })
+  )
 };
 
 const ScheduleConnector = createUseConsumer(ScheduleConsumer);
