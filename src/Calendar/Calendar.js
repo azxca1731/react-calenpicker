@@ -124,7 +124,8 @@ Calendar.defaultProps = {
   duplicate: false,
   multiSelect: false,
   indicateToday: false,
-  canUpdateDate: false
+  canUpdateDate: false,
+  triggerState: "UNIFIED"
 };
 
 Calendar.propTypes = {
@@ -156,7 +157,8 @@ Calendar.propTypes = {
   CalendarHeadCssObject: PropTypes.object,
   canMouseWheel: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
-  scheduleListener: PropTypes.func
+  scheduleListener: PropTypes.func,
+  triggerState: PropTypes.string
 };
 
 export default Calendar;
