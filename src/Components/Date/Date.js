@@ -44,6 +44,13 @@ const EndPointDiv = styled.div`
   background-size: 100% 100%;
 `;
 
+const ScheduleDiv = styled.div`
+  height: 25%;
+  width: 100%;
+  ${props => (props.isStart ? "border-radius: 50% 0 0 50%" : null)}
+  ${props => (props.isEnd ? "border-radius: 0 50% 50% 0" : null)}
+`;
+
 const StartIndicator = props => (
   <EndPointDiv img={startImg}>
     <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
@@ -80,6 +87,13 @@ const SelectIndicator = props => (
   <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
     <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
     <DateTextDiv>{props.text ? props.text : "선택"}</DateTextDiv>
+  </DateDiv>
+);
+
+const ScheduleIndicator = props => (
+  <DateDiv>
+    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+    <ScheduleDiv />
   </DateDiv>
 );
 
@@ -134,6 +148,12 @@ StartIndicator.propTypes = {
 
 EndIndicator.propTypes = {
   dayNumber: PropTypes.number
+};
+
+ScheduleIndicator.propTypes = {
+  dayNumber: PropTypes.number,
+  isStart: PropTypes.bool,
+  isEnd: PropTypes.bool
 };
 
 DateIndicator.propTypes = {
