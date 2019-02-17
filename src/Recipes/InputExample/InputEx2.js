@@ -97,7 +97,6 @@ class InputEx2 extends Component {
             objectSetText={[{ text: "final", date: "2019-2-27" }, { text: "test", date: "2019-2-11" }]}
             addText
             canUpdateDate
-            scheduleListener={schedules => console.log(schedules)}
           />
         </div>
       </div>
