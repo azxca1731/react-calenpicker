@@ -45,4 +45,29 @@ describe("ScheduleProvider", () => {
 
     expect(wrapper).toHaveLength(1);
   })
+
+  it("스케줄 정보가 포함되어야", () => {
+    const wrapper = shallow(
+      <ScheduleProvider scheduleObjects={[
+        {date: "2019-2-1", text: "test1", isHoliday: false, scheduleID: "test1"},
+        {date: "2019-2-2", text: "test1", isHoliday: false, scheduleID: "test1"},
+        {date: "2019-2-3", text: "test1", isHoliday: false, scheduleID: "test1"},
+        {date: "2019-2-4", text: "test1", isHoliday: false, scheduleID: "test1"},
+      ]}>
+        <Deco />
+      </ScheduleProvider>
+    )
+
+    expect(wrapper.state()).toEqual({
+      schedules: [
+        {date: "2019-2-1", text: "test1", isHoliday: false, scheduleID: "test1"},
+        {date: "2019-2-2", text: "test1", isHoliday: false, scheduleID: "test1"},
+        {date: "2019-2-3", text: "test1", isHoliday: false, scheduleID: "test1"},
+        {date: "2019-2-4", text: "test1", isHoliday: false, scheduleID: "test1"},
+      ],
+      scheduleIDs: [
+        "test1"
+      ]
+    })
+  });
 });

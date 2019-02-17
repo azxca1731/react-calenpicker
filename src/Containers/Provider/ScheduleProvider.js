@@ -10,7 +10,7 @@ class ScheduleProvider extends Component {
   constructor (props) {
     super(props);
     const { scheduleObjects } = this.props
-    const ids = scheduleObjects.map(item=> item.scheduleId);
+    const ids = scheduleObjects.map(item=> item.scheduleID);
     this.state = {
       schedules: scheduleObjects, // [{ date, text, isHoliday, scheduleId }]
       scheduleIDs: ids.filter((id, index, self) => {return self.indexOf(id) === index})
