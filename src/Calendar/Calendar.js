@@ -130,7 +130,8 @@ Calendar.defaultProps = {
   multiSelect: false,
   indicateToday: false,
   canUpdateDate: false,
-  triggerState: "UNIFIED"
+  triggerState: "UNIFIED",
+  customElements: React.createElement("div")
 };
 
 Calendar.propTypes = {
@@ -168,7 +169,8 @@ Calendar.propTypes = {
       isHoliday: PropTypes.bool,
       scheduleID: PropTypes.string
     })
-  )
+  ),
+  customElements: PropTypes.element
 };
 
 export default Calendar;
