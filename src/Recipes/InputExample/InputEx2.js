@@ -100,7 +100,6 @@ const InputEx2Select = styled.select`
 const InputEx2SearchBtn = styled.button`
   width: 100%;
   height: 50px !important;
-
   color: #ffffff !important;
   background: #ff5a5f !important;
   border: 1px solid #ff5a5f !important;

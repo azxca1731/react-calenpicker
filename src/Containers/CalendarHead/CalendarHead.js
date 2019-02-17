@@ -23,14 +23,14 @@ class CalendarHead extends React.Component {
   }
 
   renderCalendarDateInputModal = () => {
-    const { target, canUpdateDate, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText, modalType } = this.props;
+    const { target, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText, modalType } = this.props;
 
-    const filtered = target ? objectSetText.filter(({ date }) => date == target.date) : [];
+    const filtered = target ? objectSetText.filter(({ date }) => date == target) : [];
     return (
       <CalendarDateInputModal
         addCalendarText={addCalendarText}
         handleModal={handleModal}
-        target={canUpdateDate ? target : null}
+        target={target}
         handleTargetSetValue={handleTargetSetValue}
         deleteCalendarText={deleteCalendarText}
         updateCalendarText={updateCalendarText}
@@ -90,12 +90,7 @@ CalendarHead.propTypes = {
   addCalendarText: PropTypes.func,
   modalType: PropTypes.string,
   handleModal: PropTypes.func,
-  canUpdateDate: PropTypes.bool,
-  target: PropTypes.shape({
-    dateString: PropTypes.string,
-    text: PropTypes.string,
-    isHoliday: PropTypes.bool
-  }),
+  target: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
@@ -115,7 +110,6 @@ export default PropsConnector(({ state, actions }) => ({
   addCalendarText: actions.addCalendarText,
   modalType: state.modalType,
   handleModal: actions.handleModal,
-  canUpdateDate: state.canUpdateDate,
   target: state.target,
   handleTargetSetValue: actions.handleTargetSetValue,
   deleteCalendarText: actions.deleteCalendarText,

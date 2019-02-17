@@ -21,11 +21,8 @@ class PropsProvider extends Component {
     canMouseWheel: this.props.canMouseWheel,
     canUpdateDate: this.props.canUpdateDate,
     modalType: "NONE",
-    target: {
-      dateString: "",
-      text: "",
-      isHoliday: false
-    }
+    target: "",
+    triggerState: "UNIFIED"
   };
 
   actions = {
@@ -55,6 +52,7 @@ class PropsProvider extends Component {
       const fomratedArray = newDateObjectArray.map(newDateObject => {
         const { date } = newDateObject;
         newDateObject.date = this.actions.formatDateString(date);
+        return newDateObject;
       });
       const filterd = this.state.objectSetText.filter(({ date }) => date != deletedDate);
       this.setState({
@@ -71,6 +69,16 @@ class PropsProvider extends Component {
       this.setState({
         target: newTarget
       });
+    },
+    /**
+     * @function setTriggerState - 캘린터 트리거 세팅
+     * @param trigger - 트리거 종류 one of ["UNIFIED", "START", "END"]
+     * @returns {void}
+     */
+    setTriggerState: trigger => {
+      this.setState({
+        triggerState: trigger
+      });
     }
   };
 
@@ -78,6 +86,11 @@ class PropsProvider extends Component {
     if (prevState.objectSetText != this.state.objectSetText) {
       this.props.scheduleListener(this.state.objectSetText);
     }
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    const { triggerState } = nextProps;
+    return { triggerState };
   }
 
   render() {
@@ -109,7 +122,8 @@ PropsProvider.propTypes = {
   ),
   canMouseWheel: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
-  scheduleListener: PropTypes.func
+  scheduleListener: PropTypes.func,
+  triggerState: PropTypes.string
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
