@@ -107,8 +107,7 @@ ScheduleProvider.propTypes = {
       isHoliday: PropTypes.bool,
       scheduleID: PropTypes.string
     })
-  ),
-  canUpdateDate: PropTypes.bool
+  )
 };
 
 const ScheduleConnector = createUseConsumer(ScheduleConsumer);

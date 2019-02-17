@@ -46,7 +46,7 @@ describe("ScheduleProvider", () => {
   it("스케줄 정보가 포함되어야", () => {
     const wrapper = shallow(
       <ScheduleProvider
-        scheduleObjects={[
+        schedules={[
           {
             date: "2019-2-1",
             text: "test1",
@@ -104,7 +104,9 @@ describe("ScheduleProvider", () => {
           scheduleID: "test1"
         }
       ],
-      scheduleIDs: ["test1"]
+      scheduleIDs: ["test1"],
+      modalType: "NONE",
+      target: ""
     });
   });
 });
