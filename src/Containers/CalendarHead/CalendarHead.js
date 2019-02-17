@@ -25,7 +25,7 @@ class CalendarHead extends React.Component {
   renderCalendarDateInputModal = () => {
     const { target, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText, modalType } = this.props;
 
-    const filtered = target ? objectSetText.filter(({ date }) => date == target.date) : [];
+    const filtered = target ? objectSetText.filter(({ date }) => date == target) : [];
     return (
       <CalendarDateInputModal
         addCalendarText={addCalendarText}
@@ -90,11 +90,7 @@ CalendarHead.propTypes = {
   addCalendarText: PropTypes.func,
   modalType: PropTypes.string,
   handleModal: PropTypes.func,
-  target: PropTypes.shape({
-    dateString: PropTypes.string,
-    text: PropTypes.string,
-    isHoliday: PropTypes.bool
-  }),
+  target: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
