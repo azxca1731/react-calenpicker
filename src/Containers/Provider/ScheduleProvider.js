@@ -17,8 +17,9 @@ class ScheduleProvider extends Component {
      * @return {Array} - schedule로 변환된 배열
      */
     convertToSchedule: scheduleObjects => {
+      const id = this.actions.generateUniqueID();
       const schedule = scheduleObjects.map(item => {
-        return {...item, scheduleId: this.actions.generateUniqueID()};
+        return {...item, scheduleId: id};
       });
       return schedule;
     },
