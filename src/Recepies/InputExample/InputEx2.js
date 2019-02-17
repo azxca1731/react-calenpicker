@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Calendar from "../Calendar";
+import Calendar from "../../Calendar";
 import styled from "styled-components";
 
 const InputEx2Div1 = styled.div`
@@ -62,8 +62,10 @@ class InputEx2 extends Component {
       periods: { periodStart: "", periodEnd: "" }
     };
   }
-  handleCalendarShow = () => {
+  location = 0;
+  handleCalendarShow = which => {
     this.setState({ turn: !this.state.turn });
+    this.location = which;
   };
 
   handlePeriods = periods => {
@@ -76,18 +78,18 @@ class InputEx2 extends Component {
       <div style={{ width: "500px" }}>
         <InputEx2Date>Check In</InputEx2Date>
         <InputEx2Div1>
-          <InputEx2Btn type="button" onClick={this.handleCalendarShow}>
+          <InputEx2Btn type="button" onClick={() => this.handleCalendarShow(1)}>
             <InputEx2BtnContent>{this.state.periods.periodStart}</InputEx2BtnContent>
           </InputEx2Btn>
         </InputEx2Div1>
 
         <InputEx2Date>Check Out</InputEx2Date>
         <InputEx2Div1>
-          <InputEx2Btn type="button" onClick={this.handleCalendarShow}>
+          <InputEx2Btn type="button" onClick={() => this.handleCalendarShow(2)}>
             <InputEx2BtnContent>{this.state.periods.periodEnd}</InputEx2BtnContent>
           </InputEx2Btn>
         </InputEx2Div1>
-        <div style={this.state.turn ? {} : { display: "none", position: "relative" }}>
+        <div style={this.state.turn ? (this.location == 1 ? { position: "relative", right: "-57px" } : { position: "relative", right: "-135px" }) : { display: "none" }}>
           <Calendar
             callbackFunction={periods => this.handlePeriods(periods[0])}
             sizeOption="md"

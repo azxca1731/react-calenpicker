@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Calendar from "../Calendar";
+import Calendar from "../../Calendar";
 import styled from "styled-components";
 
 const InputEx1Div1 = styled.div`
@@ -63,7 +63,6 @@ class InputEx1 extends Component {
   handlePeriods = periods => {
     this.setState({ periods });
     this.handleBtnShow(periods.periodStart, periods.periodEnd);
-    
   };
   btnShow = "yyyy-mm-dd";
   handleBtnShow = (periodStart, periodEnd) => {
@@ -73,7 +72,7 @@ class InputEx1 extends Component {
       this.btnShow = periodStart;
     } else {
       this.btnShow = periodStart + " - " + periodEnd;
-      if(periodEnd!=""){
+      if (periodEnd != "") {
         this.setState({ turn: !this.state.turn });
       }
     }
