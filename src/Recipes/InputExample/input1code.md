@@ -1,3 +1,4 @@
+```javascript
 import React, { Component } from "react";
 import Calendar from "../../Calendar";
 import styled from "styled-components";
@@ -143,3 +144,4 @@ class InputEx1 extends Component {
 }
 
 export default InputEx1;
+```
