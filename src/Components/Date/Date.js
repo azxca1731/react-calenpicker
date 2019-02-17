@@ -113,17 +113,21 @@ const Date = props => {
     dateString,
     handleTargetSetValue,
     haveMoreDate,
-    canUpdateDate
+    canUpdateDate,
+    isStart,
+    isEnd
   } = props;
   let contents;
   if (indicatorType == "date") {
-    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate });
+    contents = <DateIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate }} />;
   } else if (indicatorType == "start") {
-    contents = StartIndicator({ dayNumber });
+    contents = <StartIndicator {...{ dayNumber }} />;
   } else if (indicatorType == "end") {
-    contents = EndIndicator({ dayNumber });
+    contents = <EndIndicator {...{ dayNumber }} />;
+  } else if (indicatorType == "select") {
+    contents = <SelectIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text }} />;
   } else {
-    contents = SelectIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text });
+    contents = <ScheduleDiv isStart={isStart} isEnd={isEnd} />;
   }
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
@@ -166,7 +170,7 @@ DateIndicator.propTypes = {
   handleModal: PropTypes.func,
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
-  haveMoreDate: PropTypes.haveMoreDate,
+  haveMoreDate: PropTypes.bool,
   canUpdateDate: PropTypes.bool
 };
 
@@ -176,7 +180,9 @@ SelectIndicator.propTypes = {
   isInThisMonth: PropTypes.bool,
   isSaturday: PropTypes.bool,
   dayNumber: PropTypes.number,
-  text: PropTypes.string
+  text: PropTypes.string,
+  isStart: PropTypes.bool,
+  isEnd: PropTypes.bool
 };
 
 Date.propTypes = {
@@ -195,7 +201,9 @@ Date.propTypes = {
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
   haveMoreDate: PropTypes.bool,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  isStart: PropTypes.bool,
+  isEnd: PropTypes.bool
 };
 
 export default Date;
