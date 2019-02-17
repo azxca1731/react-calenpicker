@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { CssConnector, PropsConnector, DayConnector } from "Containers/Provider";
 import Template from "Components/Template";
+import { ScheduleConnector } from "../Provider/ScheduleProvider";
 
 const TemplateContainerDiv = styled.div`
   display: inline;
@@ -56,18 +57,23 @@ TemplateContainer.propTypes = {
   addText: PropTypes.bool
 };
 
-export default PropsConnector(({ state, actions }) => ({
+let wrapper = CssConnector(({ state }) => ({
+  cssObject: state.TemplateCssObject
+}))(TemplateContainer);
+
+wrapper = DayConnector(({ actions }) => ({
+  decreaseMonth: actions.decreaseMonth,
+  increaseMonth: actions.increaseMonth
+}))(wrapper);
+
+wrapper = ScheduleConnector(({ actions }) => ({
+  handleModal: actions.handleModal
+}))(wrapper);
+
+wrapper = PropsConnector(({ state }) => ({
   canMouseWheel: state.canMouseWheel,
   duplicate: state.duplicate,
-  handleModal: actions.handleModal,
   addText: state.addText
-}))(
-  DayConnector(({ actions }) => ({
-    decreaseMonth: actions.decreaseMonth,
-    increaseMonth: actions.increaseMonth
-  }))(
-    CssConnector(({ state }) => ({
-      cssObject: state.TemplateCssObject
-    }))(TemplateContainer)
-  )
-);
+}))(wrapper);
+
+export default wrapper;
