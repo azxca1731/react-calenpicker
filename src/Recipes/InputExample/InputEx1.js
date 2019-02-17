@@ -11,7 +11,9 @@ const InputEx1Div1 = styled.div`
   -webkit-transition: width 250ms;
   -moz-transition: width 250ms;
   transition: width 250ms;
-  vertical-align: middle;
+  vertical-align: baseline;
+  // display: inline-block;
+  float: left;
 `;
 
 const InputEx1Div2 = styled.div`
@@ -21,9 +23,9 @@ const InputEx1Div2 = styled.div`
   width: 100%;
 `;
 
-const InputEx1Date = styled.div`
+const InputEx1Str = styled.div`
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   color: rgb(72, 72, 72);
 `;
@@ -48,6 +50,32 @@ const InputEx1Btn = styled.button`
   width: 100%;
 `;
 
+const InputEx1Input = styled.input`
+  background-color: transparent !important;
+  width: 100% !important;
+  text-overflow: ellipsis !important;
+  font-weight: 600 !important;
+  font-size: 17px !important;
+  border-width: 0px !important;
+  border-style: initial !important;
+  border-color: initial !important;
+  border-image: initial !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  height: 25px;
+`;
+const InputEx1SearchBtn = styled.button`
+  display: inline-block !important;
+  width: 76px !important;
+  height: 75px !important;
+  padding: 23px !important;
+  color: #ffffff !important;
+  background: #ff5a5f !important;
+  border: 1px solid #ff5a5f !important;
+  border-radius: 5px !important;
+  text-align: center !important;
+  margin-left: 10px;
+`;
 class InputEx1 extends Component {
   constructor(props) {
     super(props);
@@ -66,12 +94,16 @@ class InputEx1 extends Component {
   };
   btnShow = "yyyy-mm-dd";
   handleBtnShow = (periodStart, periodEnd) => {
+    let tempStart = periodStart.split("-");
+    let tempEnd = periodEnd.split("-");
     if (periodStart == "") {
       this.btnShow = "yyyy-mm-dd";
     } else if (periodStart == periodEnd) {
-      this.btnShow = periodStart;
-    } else {
-      this.btnShow = periodStart + " - " + periodEnd;
+      let temp = periodStart.split("-");
+      this.btnShow = tempStart[1] + "월 " + tempStart[2] + "일";
+      this.setState({ turn: !this.state.turn });
+    } else if (periodStart && periodEnd) {
+      this.btnShow = tempStart[1] + "월 " + tempStart[2] + "일" + " - " + tempEnd[1] + "월 " + tempEnd[2] + "일";
       if (periodEnd != "") {
         this.setState({ turn: !this.state.turn });
       }
@@ -80,10 +112,15 @@ class InputEx1 extends Component {
 
   render() {
     return (
-      <div style={this.state.turn ? { width: "240px" } : { width: "150px" }}>
-        <InputEx1Div1>
+      <div>
+        <InputEx1Div1 style={{ width: "200px" }}>
+          <InputEx1Str>목적지</InputEx1Str>
+          <InputEx1Input />
+        </InputEx1Div1>
+
+        <InputEx1Div1 style={this.state.turn ? { width: "240px" } : { width: "180px" }}>
           <InputEx1Div2>
-            <InputEx1Date>Date</InputEx1Date>
+            <InputEx1Str>날짜</InputEx1Str>
             <div>
               <InputEx1Btn type="button" onClick={this.handleCalendarShow}>
                 <InputEx1BtnContent>{this.btnShow}</InputEx1BtnContent>
@@ -91,7 +128,15 @@ class InputEx1 extends Component {
             </div>
           </InputEx1Div2>
         </InputEx1Div1>
-        <div style={this.state.turn ? {} : { display: "none" }}>
+        <InputEx1Div1 style={{ width: "100px" }}>
+          <InputEx1Str>인원</InputEx1Str>
+          <InputEx1Input />
+        </InputEx1Div1>
+        <InputEx1SearchBtn>
+          <InputEx1Str style={{ color: "white" }}>검색</InputEx1Str>
+        </InputEx1SearchBtn>
+
+        <div style={this.state.turn ? { position: "relative", right: "-200px" } : { display: "none" }}>
           <Calendar callbackFunction={periods => this.handlePeriods(periods[0])} sizeOption="md" theme="light" />
         </div>
       </div>
