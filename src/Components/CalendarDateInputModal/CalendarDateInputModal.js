@@ -257,7 +257,7 @@ class CalendarDateInputModal extends React.Component {
           {type == "READ" || type == "UPDATE" ? this.renderDateZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
-          {type != "ADD" ? (
+          {type == "ADD" ? (
             <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
               추가
             </CalendarDateInputModalButton>
