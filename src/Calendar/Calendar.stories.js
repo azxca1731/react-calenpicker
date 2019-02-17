@@ -34,4 +34,5 @@ storiesOf("Calendar/Other Options", module)
   .add("캘린더 커스텀 테마 적용", () => <Calendar customTheme={{ backgroundColor: "#efefef", secondaryColor: "#fe88a0", fontColor: "#74c9c6" }} />)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />)
   .add("연속캘린더 듀플리케이트 날짜추가", () => <Calendar addText duplicate />)
+  .add("연속캘린더 듀플리케이트 커스텀엘리먼트", () => <Calendar addText duplicate customElements={<div>이렇게 넣을 수 있습니다.</div>} />)
   .add("일정이 있으시 글씨를 클릭해 수정 가능", () => <Calendar canUpdateDate schedules={[{ text: "미리담기", date: "2019-2-21", scheduleID: "pre-select" }]} />);
