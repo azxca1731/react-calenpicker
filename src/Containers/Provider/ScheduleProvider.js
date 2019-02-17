@@ -7,9 +7,16 @@ const Context = createContext();
 const { Provider, Consumer: ScheduleConsumer } = Context;
 
 class ScheduleProvider extends Component {
-  state = {
-    schedules: [] // [{ date, text, isHoliday, scheduleId }]
-  };
+  constructor (props) {
+    super(props);
+    const { scheduleObjects } = this.props
+    const ids = scheduleObjects.map(item=> item.scheduleId);
+    this.state = {
+      schedules: scheduleObjects, // [{ date, text, isHoliday, scheduleId }]
+      scheduleIDs: ids.filter((id, index, self) => {return self.indexOf(id) === index})
+    };
+
+  }
   actions = {
     /**
      * @function convertToSchedule - 기존 objectSetText를 ScheduleObject로 변환해주는 action
@@ -21,7 +28,10 @@ class ScheduleProvider extends Component {
       const schedule = scheduleObjects.map(item => {
         return {...item, scheduleId: id};
       });
-      return schedule;
+      this.setState({
+        schedules: [this.state.schedules, schedule],
+        scheduleIDs: [...this.scheduleIDs, id]
+      })
     },
     generateUniqueID: () => {
       function s4() {
