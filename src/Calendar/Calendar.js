@@ -8,7 +8,7 @@ import dark from "Styles/theme/dark";
 import TemplateContainer from "Containers/TemplateContainer";
 import CalendarHead from "Containers/CalendarHead";
 import CalendarBody from "Containers/CalendarBody";
-import { DateProvider, PropsProvider, CssProvider } from "Containers/Provider";
+import { DateProvider, PropsProvider, CssProvider, ScheduleProvider } from "Containers/Provider";
 
 const AppProvider = props => {
   const { contexts, children, ...otherOption } = props;
@@ -91,7 +91,7 @@ class Calendar extends React.Component {
     return (
       <div>
         <ThemeProvider theme={theme}>
-          <AppProvider contexts={[DateProvider, CssProvider]} {...props}>
+          <AppProvider contexts={[DateProvider, ScheduleProvider, CssProvider]} {...props}>
             <AppProvider contexts={[PropsProvider]} {...props}>
               <TemplateContainer head={<CalendarHead />}>
                 <CalendarBody />
@@ -136,7 +136,9 @@ Calendar.propTypes = {
   multiSelect: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
   addText: PropTypes.bool,
-  objectSetText: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })),
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
+  ),
   sizeOption: PropTypes.oneOfType([
     PropTypes.oneOf(["sm", "md", "lg"]),
     PropTypes.shape({
