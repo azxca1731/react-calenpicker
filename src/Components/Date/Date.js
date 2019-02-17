@@ -190,7 +190,7 @@ Date.propTypes = {
   isHoliday: PropTypes.bool,
   isToday: PropTypes.bool,
   isSaturday: PropTypes.bool,
-  indicatorType: PropTypes.oneOf(["date", "start", "end", "select"]),
+  indicatorType: PropTypes.oneOf(["date", "start", "end", "select", "schedule"]),
   handleModal: PropTypes.func,
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
