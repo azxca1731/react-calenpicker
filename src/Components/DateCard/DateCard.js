@@ -133,7 +133,7 @@ class DateCard extends React.Component {
         <ModifyCollapse open={collapseOpen} ref={this.form} onSubmit={e => e.preventDefault()}>
           <div>
             <label htmlFor="date">날짜: </label>
-            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="날짜를 입력하세요" type="text" pattern="[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-9]{2}" />
+            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="날짜를 입력하세요" type="text" pattern="[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-9]{2}" required />
           </div>
           <br />
           <div>
