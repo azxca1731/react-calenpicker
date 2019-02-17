@@ -16,7 +16,9 @@ class ScheduleProvider extends Component {
   }
 }
 
-ScheduleProvider.defaultProps = {};
+ScheduleProvider.defaultProps = {
+  children: <div/>
+};
 
 ScheduleProvider.propTypes = {
   children: PropTypes.node
