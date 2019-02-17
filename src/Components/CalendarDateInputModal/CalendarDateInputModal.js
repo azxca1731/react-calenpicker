@@ -215,7 +215,7 @@ class CalendarDateInputModal extends React.Component {
   };
 
   renderDateZone = () => {
-    const { size, target, type, anotherSchedules } = this.props;
+    const { size, type, anotherSchedules } = this.props;
     const height = size.height.substr(0, size.height.length - 2) * 0.12;
     return (
       <CalendarDateInputModalDateZone size={size}>
@@ -245,7 +245,7 @@ class CalendarDateInputModal extends React.Component {
   };
 
   render() {
-    const { size, target, type } = this.props;
+    const { size, type } = this.props;
     if (type == "NONE") {
       return null;
     }
@@ -257,9 +257,9 @@ class CalendarDateInputModal extends React.Component {
           {type == "READ" || type == "UPDATE" ? this.renderDateZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
-          {type != "READ" ? (
+          {type != "ADD" ? (
             <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
-              {target ? "저장" : "추가"}
+              추가
             </CalendarDateInputModalButton>
           ) : null}
           <CalendarDateInputModalButton onClick={this.handleCloseButtonClicked}>닫기</CalendarDateInputModalButton>
