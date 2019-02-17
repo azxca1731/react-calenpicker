@@ -35,7 +35,7 @@ const CalendarDateInputModalBody = styled.div`
   padding: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.025}px ${props => props.size.width.substr(0, props.size.width.length - 2) * 0.05}px;
 `;
 
-const CalendarDateInputModalInputZone = styled.div`
+const CalendarDateInputModalInputZone = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,6 +89,7 @@ class CalendarDateInputModal extends React.Component {
       isHoliday: target ? target.isHoliday : true,
       anotherSchedules
     };
+    this.form = React.createRef();
   }
 
   handleInputDateChange = event => {
@@ -114,10 +115,14 @@ class CalendarDateInputModal extends React.Component {
     const { text, date, isHoliday, anotherSchedules } = this.state;
     if (target && target.text) {
       updateCalendarText(target.date, anotherSchedules);
+      this.handleCloseButtonClicked();
     } else {
-      addCalendarText({ text, date, isHoliday });
+      if (this.form.current.reportValidity()) {
+        console.log("x");
+        addCalendarText({ text, date, isHoliday });
+        this.handleCloseButtonClicked();
+      }
     }
-    this.handleCloseButtonClicked();
   };
 
   handleDeleteButtonClicked = () => {
@@ -214,15 +219,15 @@ class CalendarDateInputModal extends React.Component {
     const { size } = this.props;
     const { isHoliday, date, text } = this.state;
     return (
-      <CalendarDateInputModalInputZone size={size}>
+      <CalendarDateInputModalInputZone size={size} ref={this.form} onSubmit={e => e.preventDefault()}>
         <div>
           <label>날짜: </label>
-          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+          <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="날짜를 입력하세요" type="text" pattern="[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-9]{2}" required />
         </div>
         <br />
         <div>
           <label>이름: </label>
-          <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+          <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="이벤트의 이름을 입력하세요" required />
         </div>
         <br />
         <div>
