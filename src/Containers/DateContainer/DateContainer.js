@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
+import { DayConnector, PropsConnector, CssConnector, ScheduleConnector } from "Containers/Provider";
 import Date from "Components/Date";
 
 class DateContainer extends React.Component {
@@ -23,28 +23,18 @@ class DateContainer extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      weekNumber,
-      day,
-      objectSetText,
-      duplicated,
-      duplicatedDateObjectArray,
-      indicateToday,
-      onlyThisMonth
-    } = props;
+    const { weekNumber, day, schedules, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
     const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString =
-        (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
+      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday, isToday, haveMoreDate;
       if (state.today === dateString && indicateToday) {
         text = "오늘";
         isToday = true;
       } else {
-        const filtered =
-          objectSetText.length > 0 ? objectSetText.filter(item => item.date === dateString) : [];
+        const filtered = schedules.length > 0 ? schedules.filter(item => item.date === dateString) : [];
         text = filtered.length > 0 ? filtered[0].text : "";
         haveMoreDate = filtered.length > 1;
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
@@ -63,6 +53,8 @@ class DateContainer extends React.Component {
         indicatorType = "select";
       }
 
+      const newScheduleIDs = schedules.map(item => item.scheduleID).filter((id, index, self) => self.indexOf(id) === index);
+
       return {
         dateString,
         text,
@@ -73,7 +65,9 @@ class DateContainer extends React.Component {
         isToday,
         isSaturday,
         indicatorType,
-        haveMoreDate
+        haveMoreDate,
+        schedules,
+        scheduleIDs: newScheduleIDs
       };
     }
     return null;
@@ -110,9 +104,7 @@ class DateContainer extends React.Component {
   static _isPeriodDate(props, state, type, dateString) {
     const { periods, periodStart, periodEnd } = props;
     let result;
-    result =
-      (type == "start" && periodStart === dateString) ||
-      (type === "end" && periodEnd === dateString);
+    result = (type == "start" && periodStart === dateString) || (type === "end" && periodEnd === dateString);
     result =
       result ||
       periods.filter(period => {
@@ -145,18 +137,7 @@ class DateContainer extends React.Component {
 
   render() {
     const { cssObject, handleModal, handleTargetSetValue } = this.props;
-    const {
-      text,
-      dayNumber,
-      isInPeriod,
-      isHoliday,
-      isInThisMonth,
-      isToday,
-      isSaturday,
-      indicatorType,
-      dateString,
-      haveMoreDate
-    } = this.state;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString, haveMoreDate } = this.state;
     return (
       <Date
         cssObject={cssObject}
@@ -190,12 +171,6 @@ DateContainer.propTypes = {
   dateClicked: PropTypes.func,
   onlyThisMonth: PropTypes.bool,
   isInPeriod: PropTypes.func,
-  objectSetText: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      date: PropTypes.date
-    })
-  ),
   periodStart: PropTypes.string,
   periodEnd: PropTypes.string,
   getTodayString: PropTypes.func,
@@ -212,31 +187,48 @@ DateContainer.propTypes = {
   cssObject: PropTypes.object,
   handleModal: PropTypes.func,
   handleTargetSetValue: PropTypes.func,
-  triggerState: PropTypes.string
+  triggerState: PropTypes.string,
+  schedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleId: PropTypes.string
+    })
+  ),
+  scheduleIDs: PropTypes.arrayOf(PropTypes.string),
+  convertToSchedule: PropTypes.func
 };
 
-export default PropsConnector(({ state, actions }) => ({
+let wrapped = PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
-  objectSetText: state.objectSetText,
   duplicated: state.duplicated,
-  handleModal: actions.handleModal,
-  handleTargetSetValue: actions.handleTargetSetValue,
   triggerState: state.triggerState
-}))(
-  DayConnector(({ state, actions }) => ({
-    dateObjectArray: state.dateObjectArray,
-    duplicatedDateObjectArray: state.duplicatedDateObjectArray,
-    dateClicked: actions.handleDateClicked,
-    isInPeriod: actions.isInPeriod,
-    periodStart: state.periodStart,
-    periodEnd: state.periodEnd,
-    getTodayString: actions.getTodayString,
-    indicateToday: state.indicateToday,
-    multiSelect: state.multiSelect,
-    periods: state.periods
-  }))(
-    CssConnector(({ state }) => ({
-      cssObject: state.DateCssObject
-    }))(DateContainer)
-  )
-);
+}))(DateContainer);
+
+wrapped = ScheduleConnector(({ state, actions }) => ({
+  schedules: state.schedules,
+  scheduleIDs: state.scheduleIDs,
+  convertToSchedule: actions.convertToSchedule,
+  handleModal: actions.handleModal,
+  handleTargetSetValue: actions.handleTargetSetValue
+}))(wrapped);
+
+wrapped = DayConnector(({ state, actions }) => ({
+  dateObjectArray: state.dateObjectArray,
+  duplicatedDateObjectArray: state.duplicatedDateObjectArray,
+  dateClicked: actions.handleDateClicked,
+  isInPeriod: actions.isInPeriod,
+  periodStart: state.periodStart,
+  periodEnd: state.periodEnd,
+  getTodayString: actions.getTodayString,
+  indicateToday: state.indicateToday,
+  multiSelect: state.multiSelect,
+  periods: state.periods
+}))(wrapped);
+
+wrapped = CssConnector(({ state }) => ({
+  cssObject: state.DateCssObject
+}))(wrapped);
+
+export default wrapped;

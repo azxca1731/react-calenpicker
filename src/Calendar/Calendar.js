@@ -26,6 +26,7 @@ const AppProvider = props => {
     WeekDayCssObject,
     CalendarBodyCssObject,
     CalendarHeadCssObject,
+    schedules,
     ...otherProps
   } = otherOption;
   const dateProps = {
@@ -34,6 +35,7 @@ const AppProvider = props => {
     indicateToday,
     multiSelect
   };
+  const scheduleProps = { schedules };
   const cssProps = {
     sizeOption,
     DateCssObject,
@@ -57,6 +59,9 @@ const AppProvider = props => {
         break;
       case PropsProvider:
         props = otherProps;
+        break;
+      case ScheduleProvider:
+        props = scheduleProps;
         break;
       default:
         break;
@@ -137,9 +142,6 @@ Calendar.propTypes = {
   multiSelect: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
   addText: PropTypes.bool,
-  objectSetText: PropTypes.arrayOf(
-    PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
-  ),
   sizeOption: PropTypes.oneOfType([
     PropTypes.oneOf(["sm", "md", "lg"]),
     PropTypes.shape({
@@ -158,7 +160,15 @@ Calendar.propTypes = {
   canMouseWheel: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
   scheduleListener: PropTypes.func,
-  triggerState: PropTypes.string
+  triggerState: PropTypes.string,
+  schedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleID: PropTypes.string
+    })
+  )
 };
 
 export default Calendar;

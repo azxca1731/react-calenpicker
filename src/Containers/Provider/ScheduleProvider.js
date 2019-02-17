@@ -7,35 +7,81 @@ const Context = createContext();
 const { Provider, Consumer: ScheduleConsumer } = Context;
 
 class ScheduleProvider extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-    const { scheduleObjects } = this.props
-    const ids = scheduleObjects.map(item=> item.scheduleID);
+    const { schedules } = this.props;
+    const ids = schedules
+      .map(item => item.scheduleID)
+      .filter((id, index, self) => {
+        return self.indexOf(id) === index;
+      });
     this.state = {
-      schedules: scheduleObjects, // [{ date, text, isHoliday, scheduleId }]
-      scheduleIDs: ids.filter((id, index, self) => {return self.indexOf(id) === index})
+      schedules: schedules, // [{ date, text, isHoliday, scheduleId }]
+      scheduleIDs: ids,
+      target: "",
+      modalType: "NONE"
     };
-
   }
   actions = {
     /**
+     * @function formatDateString - 날짜 형식 통일을 위한 변환 함수.
+     * @param {String} dateString - 날짜 형식을 변환할 스트링
+     * @return {String} - 변환된 날짜 스트링
+     */
+    formatDateString: dateString => {
+      const newDate = new Date(dateString);
+      return `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+    },
+    handleTargetSetValue: newTarget => {
+      this.setState({
+        target: newTarget
+      });
+    },
+    addCalendarText: newDateObject => {
+      const { date } = newDateObject;
+      newDateObject.date = this.actions.formatDateString(date);
+      this.setState({
+        schedules: [...this.state.schedules, newDateObject]
+      });
+    },
+    deleteCalendarText: deletedDateObject => {
+      const filterd = this.state.schedules.filter(({ date, text, isHoliday }) => !(date == deletedDateObject.date && text == deletedDateObject.text && isHoliday == deletedDateObject.isHoliday));
+      this.setState({
+        schedules: filterd
+      });
+    },
+    updateCalendarText: (deletedDate, newDateObjectArray) => {
+      const fomratedArray = newDateObjectArray.map(newDateObject => {
+        const { date } = newDateObject;
+        newDateObject.date = this.actions.formatDateString(date);
+        return newDateObject;
+      });
+      const filterd = this.state.schedules.filter(({ date }) => date != deletedDate);
+      this.setState({
+        schedules: [...filterd, ...fomratedArray]
+      });
+    },
+    handleModal: result => {
+      if (result == "READ" && this.props.canUpdateDate) result = "UPDATE";
+      this.setState({
+        modalType: result
+      });
+    },
+    /**
      * @function convertToSchedule - 기존 objectSetText를 ScheduleObject로 변환해주는 action
-     * @param {Array} scheduleObjects - objectSetText에 해당.
+     * @param {Array} schedules - objectSetText에 해당.
      * @return {Array} - schedule로 변환된 배열
      */
-    convertToSchedule: scheduleObjects => {
+    convertToSchedule: schedules => {
       const id = this.actions.generateUniqueID();
-      const schedule = scheduleObjects.map(item => {
-        return {...item, scheduleId: id};
+      const schedule = schedules.map(item => {
+        return { ...item, scheduleID: id };
       });
-      this.setState({
-        schedules: [this.state.schedules, schedule],
-        scheduleIDs: [...this.scheduleIDs, id]
-      })
+      return schedule;
     },
     generateUniqueID: () => {
       function s4() {
-        return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
       }
       return s4();
     }
@@ -49,19 +95,20 @@ class ScheduleProvider extends Component {
 
 ScheduleProvider.defaultProps = {
   children: <div />,
-  scheduleObjects: []
+  schedules: []
 };
 
 ScheduleProvider.propTypes = {
   children: PropTypes.node,
-  scheduleObjects: PropTypes.arrayOf(
+  schedules: PropTypes.arrayOf(
     PropTypes.shape({
       date: PropTypes.string,
       text: PropTypes.string,
       isHoliday: PropTypes.bool,
-      scheduleId: PropTypes.string
+      scheduleID: PropTypes.string
     })
-  )
+  ),
+  canUpdateDate: PropTypes.bool
 };
 
 const ScheduleConnector = createUseConsumer(ScheduleConsumer);
