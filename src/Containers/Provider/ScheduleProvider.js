@@ -8,7 +8,7 @@ const { Provider, Consumer: ScheduleConsumer } = Context;
 
 class ScheduleProvider extends Component {
   state = {
-    schedules: []
+    schedules: [] // [{ date, text, isHoliday, scheduleId }]
   };
   actions = {
     /**
@@ -16,7 +16,12 @@ class ScheduleProvider extends Component {
      * @param {Array} scheduleObjects - objectSetText에 해당.
      * @return {Array} - schedule로 변환된 배열
      */
-    extractSchedules: scheduleObjects => {}
+    extractSchedules: scheduleObjects => {
+      const schedule = scheduleObjects.map(item => {
+        return item;
+      });
+      return schedule;
+    }
   };
   render() {
     const { state, actions } = this;
