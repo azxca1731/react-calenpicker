@@ -21,11 +21,7 @@ class PropsProvider extends Component {
     canMouseWheel: this.props.canMouseWheel,
     canUpdateDate: this.props.canUpdateDate,
     modalType: "NONE",
-    target: {
-      dateString: "",
-      text: "",
-      isHoliday: false
-    },
+    target: "",
     triggerState: "UNIFIED"
   };
 
@@ -47,14 +43,7 @@ class PropsProvider extends Component {
       });
     },
     deleteCalendarText: deletedDateObject => {
-      const filterd = this.state.objectSetText.filter(
-        ({ date, text, isHoliday }) =>
-          !(
-            date == deletedDateObject.date &&
-            text == deletedDateObject.text &&
-            isHoliday == deletedDateObject.isHoliday
-          )
-      );
+      const filterd = this.state.objectSetText.filter(({ date, text, isHoliday }) => !(date == deletedDateObject.date && text == deletedDateObject.text && isHoliday == deletedDateObject.isHoliday));
       this.setState({
         objectSetText: filterd
       });

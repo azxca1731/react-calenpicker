@@ -82,12 +82,10 @@ const NoItemComment = styled.div`
 class CalendarDateInputModal extends React.Component {
   constructor(props) {
     super(props);
-    const { target, anotherSchedules } = props;
     this.state = {
-      date: target ? target.date : "",
-      text: target ? target.text : "",
-      isHoliday: target ? target.isHoliday : true,
-      anotherSchedules
+      date: "",
+      text: "",
+      isHoliday: true
     };
   }
 
@@ -110,13 +108,10 @@ class CalendarDateInputModal extends React.Component {
   };
 
   handleAddButtonClicked = () => {
-    const { target, updateCalendarText, addCalendarText } = this.props;
-    const { text, date, isHoliday, anotherSchedules } = this.state;
-    if (target && target.text) {
-      updateCalendarText(target.date, anotherSchedules);
-    } else {
-      addCalendarText({ text, date, isHoliday });
-    }
+    const { addCalendarText } = this.props;
+    const { text, date, isHoliday } = this.state;
+
+    addCalendarText({ text, date, isHoliday });
     this.handleCloseButtonClicked();
   };
 
@@ -128,15 +123,13 @@ class CalendarDateInputModal extends React.Component {
   };
 
   handleListOut = deleteindex => {
-    const { anotherSchedules } = this.state;
+    const { updateCalendarText, anotherSchedules, target } = this.props;
     const filtered = anotherSchedules.filter((_, index) => index != deleteindex);
-    this.setState({
-      anotherSchedules: filtered
-    });
+    updateCalendarText(target, filtered);
   };
 
   updateScheduleArray = (updatedIndex, updateSchedule) => {
-    const { anotherSchedules } = this.state;
+    const { updateCalendarText, anotherSchedules, target } = this.props;
     const filtered = anotherSchedules.map((item, index) => {
       if (index != updatedIndex) {
         return item;
@@ -144,42 +137,34 @@ class CalendarDateInputModal extends React.Component {
         return updateSchedule;
       }
     });
-    this.setState({
-      anotherSchedules: filtered
-    });
+    updateCalendarText(target, filtered);
   };
 
   handleListFirst = firstIndex => {
-    const { anotherSchedules } = this.state;
+    const { updateCalendarText, anotherSchedules, target } = this.props;
     if (firstIndex == 0) return;
     const frontSlice = anotherSchedules.slice(0, firstIndex);
     const backSlice = anotherSchedules.slice(firstIndex + 1, anotherSchedules.length);
     const returnArray = [anotherSchedules[firstIndex], ...frontSlice, ...backSlice];
-    this.setState({
-      anotherSchedules: returnArray
-    });
+    updateCalendarText(target, returnArray);
   };
 
   handleListUp = upIndex => {
-    const { anotherSchedules } = this.state;
+    const { updateCalendarText, anotherSchedules, target } = this.props;
     if (upIndex == 0) return;
     const frontSlice = anotherSchedules.slice(0, upIndex - 1);
     const backSlice = anotherSchedules.slice(upIndex + 1, anotherSchedules.length);
     const returnArray = [...frontSlice, anotherSchedules[upIndex], anotherSchedules[upIndex - 1], ...backSlice];
-    this.setState({
-      anotherSchedules: returnArray
-    });
+    updateCalendarText(target, returnArray);
   };
 
   handleListDown = downIndex => {
-    const { anotherSchedules } = this.state;
+    const { anotherSchedules, updateCalendarText, target } = this.props;
     if (downIndex == anotherSchedules.length - 1) return;
     const frontSlice = anotherSchedules.slice(0, downIndex);
     const backSlice = anotherSchedules.slice(downIndex + 2, anotherSchedules.length);
     const returnArray = [...frontSlice, anotherSchedules[downIndex + 1], anotherSchedules[downIndex], ...backSlice];
-    this.setState({
-      anotherSchedules: returnArray
-    });
+    updateCalendarText(target, returnArray);
   };
 
   handleCloseButtonClicked = () => {
@@ -189,11 +174,7 @@ class CalendarDateInputModal extends React.Component {
       date: "",
       isHoliday: true
     });
-    handleTargetSetValue({
-      text: "",
-      date: "",
-      isHoliday: true
-    });
+    handleTargetSetValue("");
     handleModal("NONE");
   };
 
@@ -234,14 +215,12 @@ class CalendarDateInputModal extends React.Component {
   };
 
   renderDateZone = () => {
-    const { size, target, type } = this.props;
-    const { anotherSchedules } = this.state;
+    const { size, target, type, anotherSchedules } = this.props;
     const height = size.height.substr(0, size.height.length - 2) * 0.12;
-    const list = target ? anotherSchedules.filter(({ date }) => date == target.date) : [];
     return (
       <CalendarDateInputModalDateZone size={size}>
-        {list.length != 0 ? (
-          list.map(({ text, isHoliday, date }, index) => (
+        {anotherSchedules.length != 0 ? (
+          anotherSchedules.map(({ text, isHoliday, date }, index) => (
             <DateCard
               key={text}
               text={text}
@@ -249,7 +228,7 @@ class CalendarDateInputModal extends React.Component {
               isHoliday={isHoliday}
               index={index + 1}
               date={date}
-              dateLength={list.length}
+              dateLength={anotherSchedules.length}
               handleDelete={() => this.handleListOut(index)}
               handleUp={() => this.handleListUp(index)}
               handleDown={() => this.handleListDown(index)}
@@ -280,7 +259,7 @@ class CalendarDateInputModal extends React.Component {
         <CalendarDateInputModalFooter size={size}>
           {type != "READ" ? (
             <CalendarDateInputModalButton isAccept onClick={this.handleAddButtonClicked}>
-              {target && target.text ? "저장" : "추가"}
+              {target ? "저장" : "추가"}
             </CalendarDateInputModalButton>
           ) : null}
           <CalendarDateInputModalButton onClick={this.handleCloseButtonClicked}>닫기</CalendarDateInputModalButton>
@@ -305,11 +284,7 @@ CalendarDateInputModal.propTypes = {
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
   size: PropTypes.object,
-  target: PropTypes.shape({
-    date: PropTypes.string,
-    text: PropTypes.string,
-    isHoliday: PropTypes.bool
-  }),
+  target: PropTypes.string,
   anotherSchedules: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
