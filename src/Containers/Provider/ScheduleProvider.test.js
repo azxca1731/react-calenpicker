@@ -8,17 +8,25 @@ class Deco extends React.Component {
     schedules: []
   }
 
+  static getDerivedStateFromProps = (nextProps) => {
+    const {objectSetText, convertToSchedule} = nextProps;
+    const schedules = convertToSchedule(objectSetText);
+    return {schedules};
+  }
+
   render() {
-    return ScheduleConnector(({state, actions}) => ({
-      schedules: state.schedules,
-      convertToSchedule: actions.convertToSchedule
-    }))(
+    return (
       <div>
         <pre>{this.state.schedules}</pre>
       </div>
     )
   }
 }
+
+ScheduleConnector(({state, actions}) => ({
+  schedules: state.schedules,
+  convertToSchedule: actions.convertToSchedule
+}))(Deco);
 
 describe("ScheduleProvider", () => {
   it("renders without crashing", () => {
