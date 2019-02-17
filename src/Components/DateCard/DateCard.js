@@ -41,7 +41,7 @@ const DateCardBody = styled.div`
   color: ${props => (props.isHoliday ? "red" : props.theme.fontColor)};
 `;
 
-const ModifyCollapse = styled.div`
+const ModifyCollapse = styled.form`
   max-height: ${props => (props.open ? "100px" : "0")};
   overflow: hidden;
   padding: 0px 30px;
@@ -80,6 +80,8 @@ class DateCard extends React.Component {
       text: props.text,
       isHoliday: props.isHoliday
     };
+
+    this.form = React.createRef();
   }
 
   handleInputDateChange = event => {
@@ -103,7 +105,9 @@ class DateCard extends React.Component {
   modifySchedule = () => {
     const { index, handleModify } = this.props;
     const { date, isHoliday, text } = this.state;
-    handleModify(index - 1, { date, text, isHoliday });
+    if (this.form.current.reportValidity()) {
+      handleModify(index - 1, { date, text, isHoliday });
+    }
   };
 
   render() {
@@ -126,15 +130,15 @@ class DateCard extends React.Component {
             <Close onClick={handleDelete} />
           </DateCardConfig>
         ) : null}
-        <ModifyCollapse open={collapseOpen}>
+        <ModifyCollapse open={collapseOpen} ref={this.form} onSubmit={e => e.preventDefault()}>
           <div>
             <label htmlFor="date">날짜: </label>
-            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="2019-12-10" />
+            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="날짜를 입력하세요" type="text" pattern="[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-9]{2}" required />
           </div>
           <br />
           <div>
             <label htmlFor="text">이름: </label>
-            <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="휴가" />
+            <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="이벤트의 이름을 입력하세요" required />
           </div>
           <br />
           <ModifyCollapseWithButton>
