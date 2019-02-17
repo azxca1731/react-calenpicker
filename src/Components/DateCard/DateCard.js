@@ -116,7 +116,7 @@ class DateCard extends React.Component {
     return (
       <DateCardDiv height={height} open={collapseOpen}>
         <DateCardText>
-          <DateCardBody isHoliday={isHoliday}>{text}</DateCardBody>
+          <DateCardBody isHoliday={this.props.isHoliday}>{this.props.text}</DateCardBody>
           <div>
             {index}/{dateLength}
           </div>
