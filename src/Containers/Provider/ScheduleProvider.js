@@ -61,8 +61,8 @@ class ScheduleProvider extends Component {
         schedules: [...filterd, ...fomratedArray]
       });
     },
-    handleModal: result => {
-      if (result == "READ" && this.props.canUpdateDate) result = "UPDATE";
+    handleModal: (result, canUpdateDate) => {
+      if (result == "READ" && canUpdateDate) result = "UPDATE";
       this.setState({
         modalType: result
       });

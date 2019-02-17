@@ -60,8 +60,8 @@ const EndIndicator = props => (
 
 const DateIndicator = props => {
   const handleTextClicked = event => {
-    const { dateString } = props;
-    props.handleModal("READ");
+    const { dateString, canUpdateDate } = props;
+    props.handleModal("READ", canUpdateDate);
     props.handleTargetSetValue(dateString);
     event.preventDefault();
     event.stopPropagation();
@@ -84,10 +84,26 @@ const SelectIndicator = props => (
 );
 
 const Date = props => {
-  const { isInPeriod, dayNumber, isHoliday, isInThisMonth, isToday, isSaturday, cssObject, text, indicatorType, handleDateClick, handleModal, dateString, handleTargetSetValue, haveMoreDate } = props;
+  const {
+    isInPeriod,
+    dayNumber,
+    isHoliday,
+    isInThisMonth,
+    isToday,
+    isSaturday,
+    cssObject,
+    text,
+    indicatorType,
+    handleDateClick,
+    handleModal,
+    dateString,
+    handleTargetSetValue,
+    haveMoreDate,
+    canUpdateDate
+  } = props;
   let contents;
   if (indicatorType == "date") {
-    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate });
+    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate });
   } else if (indicatorType == "start") {
     contents = StartIndicator({ dayNumber });
   } else if (indicatorType == "end") {
@@ -130,7 +146,8 @@ DateIndicator.propTypes = {
   handleModal: PropTypes.func,
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
-  haveMoreDate: PropTypes.haveMoreDate
+  haveMoreDate: PropTypes.haveMoreDate,
+  canUpdateDate: PropTypes.bool
 };
 
 SelectIndicator.propTypes = {
@@ -157,7 +174,8 @@ Date.propTypes = {
   handleModal: PropTypes.func,
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
-  haveMoreDate: PropTypes.bool
+  haveMoreDate: PropTypes.bool,
+  canUpdateDate: PropTypes.bool
 };
 
 export default Date;
