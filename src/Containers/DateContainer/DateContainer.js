@@ -23,18 +23,28 @@ class DateContainer extends React.Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { weekNumber, day, objectSetText, duplicated, duplicatedDateObjectArray, indicateToday, onlyThisMonth } = props;
+    const {
+      weekNumber,
+      day,
+      objectSetText,
+      duplicated,
+      duplicatedDateObjectArray,
+      indicateToday,
+      onlyThisMonth
+    } = props;
     const dateObjectArray = duplicated ? duplicatedDateObjectArray : props.dateObjectArray;
     if (dateObjectArray.length > 0) {
       const target = dateObjectArray[weekNumber * 7 + day - 1];
-      const dateString = (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
+      const dateString =
+        (onlyThisMonth && target.isInThisMonth) || !onlyThisMonth ? target.dateString : "";
       const isInThisMonth = target.isInThisMonth;
       let text, isHoliday, isToday, haveMoreDate;
       if (state.today === dateString && indicateToday) {
         text = "오늘";
         isToday = true;
       } else {
-        const filtered = objectSetText.length > 0 ? objectSetText.filter(item => item.date === dateString) : [];
+        const filtered =
+          objectSetText.length > 0 ? objectSetText.filter(item => item.date === dateString) : [];
         text = filtered.length > 0 ? filtered[0].text : "";
         haveMoreDate = filtered.length > 1;
         isHoliday = filtered.length > 0 ? filtered[0].isHoliday : false;
@@ -100,7 +110,9 @@ class DateContainer extends React.Component {
   static _isPeriodDate(props, state, type, dateString) {
     const { periods, periodStart, periodEnd } = props;
     let result;
-    result = (type == "start" && periodStart === dateString) || (type === "end" && periodEnd === dateString);
+    result =
+      (type == "start" && periodStart === dateString) ||
+      (type === "end" && periodEnd === dateString);
     result =
       result ||
       periods.filter(period => {
@@ -111,10 +123,11 @@ class DateContainer extends React.Component {
   }
 
   handleDateClick() {
-    const { dateClicked, isInPeriod } = this.props;
+    const { dateClicked, isInPeriod, triggerState } = this.props;
     const { isInThisMonth, dateString } = this.state;
+
     if (isInThisMonth) {
-      dateClicked(this.state);
+      dateClicked(this.state, triggerState);
     }
     if (isInPeriod(dateString)) {
       if (!isInPeriod) {
@@ -132,7 +145,18 @@ class DateContainer extends React.Component {
 
   render() {
     const { cssObject, handleModal, handleTargetSetValue } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString, haveMoreDate } = this.state;
+    const {
+      text,
+      dayNumber,
+      isInPeriod,
+      isHoliday,
+      isInThisMonth,
+      isToday,
+      isSaturday,
+      indicatorType,
+      dateString,
+      haveMoreDate
+    } = this.state;
     return (
       <Date
         cssObject={cssObject}
@@ -187,7 +211,8 @@ DateContainer.propTypes = {
   duplicatedDateObjectArray: PropTypes.array,
   cssObject: PropTypes.object,
   handleModal: PropTypes.func,
-  handleTargetSetValue: PropTypes.func
+  handleTargetSetValue: PropTypes.func,
+  triggerState: PropTypes.string
 };
 
 export default PropsConnector(({ state, actions }) => ({
@@ -195,7 +220,8 @@ export default PropsConnector(({ state, actions }) => ({
   objectSetText: state.objectSetText,
   duplicated: state.duplicated,
   handleModal: actions.handleModal,
-  handleTargetSetValue: actions.handleTargetSetValue
+  handleTargetSetValue: actions.handleTargetSetValue,
+  triggerState: state.triggerState
 }))(
   DayConnector(({ state, actions }) => ({
     dateObjectArray: state.dateObjectArray,

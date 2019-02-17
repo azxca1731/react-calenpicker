@@ -124,7 +124,8 @@ Calendar.defaultProps = {
   duplicate: false,
   multiSelect: false,
   indicateToday: false,
-  canUpdateDate: false
+  canUpdateDate: false,
+  triggerState: "UNIFIED"
 };
 
 Calendar.propTypes = {
@@ -136,7 +137,9 @@ Calendar.propTypes = {
   multiSelect: PropTypes.bool,
   onlyThisMonth: PropTypes.bool,
   addText: PropTypes.bool,
-  objectSetText: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })),
+  objectSetText: PropTypes.arrayOf(
+    PropTypes.shape({ text: PropTypes.string, date: PropTypes.string })
+  ),
   sizeOption: PropTypes.oneOfType([
     PropTypes.oneOf(["sm", "md", "lg"]),
     PropTypes.shape({
@@ -154,7 +157,8 @@ Calendar.propTypes = {
   CalendarHeadCssObject: PropTypes.object,
   canMouseWheel: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
-  scheduleListener: PropTypes.func
+  scheduleListener: PropTypes.func,
+  triggerState: PropTypes.string
 };
 
 export default Calendar;

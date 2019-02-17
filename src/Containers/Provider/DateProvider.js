@@ -25,7 +25,9 @@ class DateProvider extends Component {
   actions = {
     calculateMonth: (propMonthString, duplicated) => {
       const propMonth = new Date(propMonthString);
-      const month = duplicated ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1) : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
+      const month = duplicated
+        ? new Date(propMonth.getFullYear(), propMonth.getMonth() + 1, 1)
+        : new Date(propMonth.getFullYear(), propMonth.getMonth(), 1);
       const today = month;
       const currentMonthFirstDay = new Date(today.getFullYear(), today.getMonth());
       const previousMonthLastDay = new Date(today.getFullYear(), today.getMonth(), 0);
@@ -37,7 +39,8 @@ class DateProvider extends Component {
       for (let i = 1; i <= currentMonthFirstDay.getDay(); i++) {
         dateObjectArray.push({
           dayNumber: previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i,
-          dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() + 1}-${previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i}`,
+          dateString: `${previousMonthLastDay.getFullYear()}-${previousMonthLastDay.getMonth() +
+            1}-${previousMonthLastDay.getDate() - currentMonthFirstDay.getDay() + i}`,
           text: ""
         });
         count++;
@@ -65,7 +68,9 @@ class DateProvider extends Component {
       return dateObjectArray;
     },
     setDateObjectArray: (dateObjectArray, duplicated) => {
-      !duplicated ? this.setState({ dateObjectArray }) : this.setState({ duplicatedDateObjectArray: dateObjectArray });
+      !duplicated
+        ? this.setState({ dateObjectArray })
+        : this.setState({ duplicatedDateObjectArray: dateObjectArray });
     },
     increaseMonth: () => {
       const { year, month, dateObjectArray, duplicatedDateObjectArray } = this.state;
@@ -112,26 +117,61 @@ class DateProvider extends Component {
       nextState.duplicatedDateObjectArray = this.actions.calculateMonth(monthString, true);
       this.setState(nextState);
     },
-    handleDateClicked: dateState => {
+    handleDateClicked: (dateState, trigger) => {
       const { periodStart, multiSelect, periods } = this.state;
       const { callbackFunction } = this.props;
       const insertDate = `${dateState.dateString}`;
       let ps, newPeriods;
-      if (!periodStart) {
+
+      if (trigger == "START") {
+        // START
         ps = insertDate;
-        newPeriods = multiSelect ? [...periods, { periodStart: insertDate, periodEnd: "" }] : [{ periodStart: insertDate, periodEnd: "" }];
-      } else if (new Date(periodStart) <= new Date(insertDate)) {
-        ps = "";
-        const prevPeriod = periods.pop();
-        const lastPeriod = {
-          ...prevPeriod,
-          periodEnd: insertDate
-        };
-        newPeriods = multiSelect ? [...periods, lastPeriod] : [lastPeriod];
+        if (periods.length > 0) {
+          const prevPeriod = periods.pop();
+          if (new Date(ps) > new Date(prevPeriod.periodEnd)) {
+            prevPeriod.periodEnd = "";
+          }
+          prevPeriod.periodStart = ps;
+          newPeriods = multiSelect ? [...periods, prevPeriod] : [prevPeriod];
+        } else {
+          newPeriods = [{ periodStart: ps, periodEnd: "" }];
+        }
+      } else if (trigger == "END") {
+        // END
+        if (periods.length > 0) {
+          const prevPeriod = periods.pop();
+          if (new Date(prevPeriod.periodStart) > new Date(insertDate)) {
+            prevPeriod.periodStart = insertDate;
+            prevPeriod.periodEnd = "";
+          } else {
+            prevPeriod.periodEnd = insertDate;
+          }
+          newPeriods = multiSelect ? [...periods, prevPeriod] : [prevPeriod];
+        } else {
+          newPeriods = [{ periodStart: "", periodEnd: insertDate }];
+        }
       } else {
-        periods.pop();
-        ps = insertDate;
-        newPeriods = multiSelect ? [...periods, { periodStart: insertDate, periodEnd: "" }] : [{ periodStart: insertDate, periodEnd: "" }];
+        // UNIFIED
+        if (!periodStart) {
+          ps = insertDate;
+          newPeriods = multiSelect
+            ? [...periods, { periodStart: insertDate, periodEnd: "" }]
+            : [{ periodStart: insertDate, periodEnd: "" }];
+        } else if (new Date(periodStart) <= new Date(insertDate)) {
+          const prevPeriod = periods.pop();
+          ps = "";
+          const lastPeriod = {
+            ...prevPeriod,
+            periodEnd: insertDate
+          };
+          newPeriods = multiSelect ? [...periods, lastPeriod] : [lastPeriod];
+        } else {
+          periods.pop();
+          ps = insertDate;
+          newPeriods = multiSelect
+            ? [...periods, { periodStart: insertDate, periodEnd: "" }]
+            : [{ periodStart: insertDate, periodEnd: "" }];
+        }
       }
 
       this.setState({
@@ -145,7 +185,10 @@ class DateProvider extends Component {
       const result = periods
         .map(({ periodStart, periodEnd }) => {
           if (periodStart && periodEnd) {
-            if (new Date(periodStart) <= new Date(dateString) && new Date(dateString) <= new Date(periodEnd)) {
+            if (
+              new Date(periodStart) <= new Date(dateString) &&
+              new Date(dateString) <= new Date(periodEnd)
+            ) {
               return true;
             }
           }
