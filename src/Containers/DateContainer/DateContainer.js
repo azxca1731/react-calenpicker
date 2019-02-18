@@ -19,7 +19,8 @@ class DateContainer extends React.Component {
     isHoliday: false,
     isToday: false,
     isSaturday: false,
-    indicatorType: "date"
+    indicatorType: "date",
+    schedules: []
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -52,9 +53,21 @@ class DateContainer extends React.Component {
       if (selected.length > 0) {
         indicatorType = "select";
       }
-
-      const newScheduleIDs = schedules.map(item => item.scheduleID).filter((id, index, self) => self.indexOf(id) === index);
-
+      const filteredSchedule = schedules.filter(({ date }) => date === dateString); // length = 1
+      let isStart = false,
+        isEnd = false;
+      if (filteredSchedule.length > 0) {
+        indicatorType = "schedule";
+        const targetSchedule = schedules.filter(({scheduleID}) => filteredSchedule[0].scheduleID === scheduleID );
+        if (targetSchedule.length > 1) {
+          const pos = targetSchedule.map(item => item.date).indexOf(dateString);
+          isStart = pos === 0 ? true : false;
+          isEnd = pos === targetSchedule.length - 1 ? true: false;
+        } else {
+          isStart = true;
+          isEnd = true;
+        }
+      }
       return {
         dateString,
         text,
@@ -66,8 +79,9 @@ class DateContainer extends React.Component {
         isSaturday,
         indicatorType,
         haveMoreDate,
-        schedules,
-        scheduleIDs: newScheduleIDs
+        isStart,
+        isEnd,
+        schedules: filteredSchedule.slice(0,3)
       };
     }
     return null;
@@ -136,25 +150,32 @@ class DateContainer extends React.Component {
   }
 
   render() {
-    const { cssObject, handleModal, handleTargetSetValue, canUpdateDate } = this.props;
-    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString, haveMoreDate } = this.state;
+    const { cssObject, handleModal, handleTargetSetValue, canUpdateDate, scheduleIDs, indicateScheduleByStick } = this.props;
+    const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString, haveMoreDate, isStart, isEnd, schedules } = this.state;
     return (
       <Date
-        cssObject={cssObject}
-        text={text}
-        dayNumber={dayNumber}
-        isInThisMonth={isInThisMonth}
-        isToday={isToday}
-        isHoliday={isHoliday}
-        isInPeriod={isInPeriod}
-        isSaturday={isSaturday}
-        indicatorType={indicatorType}
-        handleDateClick={this.handleDateClick}
-        handleModal={handleModal}
-        dateString={dateString}
-        handleTargetSetValue={handleTargetSetValue}
-        haveMoreDate={haveMoreDate}
-        canUpdateDate={canUpdateDate}
+        {...{
+          cssObject,
+          text,
+          dayNumber,
+          isInThisMonth,
+          isToday,
+          isHoliday,
+          isInPeriod,
+          isSaturday,
+          indicatorType,
+          handleDateClick: this.handleDateClick,
+          handleModal,
+          dateString,
+          handleTargetSetValue,
+          haveMoreDate,
+          canUpdateDate,
+          schedules,
+          scheduleIDs,
+          isStart,
+          isEnd,
+          indicateScheduleByStick
+        }}
       />
     );
   }
@@ -199,14 +220,16 @@ DateContainer.propTypes = {
   ),
   scheduleIDs: PropTypes.arrayOf(PropTypes.string),
   convertToSchedule: PropTypes.func,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  indicateScheduleByStick: PropTypes.bool,
 };
 
 let wrapped = PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   duplicated: state.duplicated,
   triggerState: state.triggerState,
-  canUpdateDate: state.canUpdateDate
+  canUpdateDate: state.canUpdateDate,
+  indicateScheduleByStick: state.indicateScheduleByStick
 }))(DateContainer);
 
 wrapped = ScheduleConnector(({ state, actions }) => ({

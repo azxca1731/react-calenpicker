@@ -20,6 +20,7 @@ class PropsProvider extends Component {
     canUpdateDate: this.props.canUpdateDate,
     addText: this.props.addText,
     triggerState: "UNIFIED",
+    indicateScheduleByStick: this.props.indicateScheduleByStick,
     customElements: this.props.customElements
   };
 
@@ -71,7 +72,8 @@ PropsProvider.propTypes = {
   canUpdateDate: PropTypes.bool,
   scheduleListener: PropTypes.func,
   triggerState: PropTypes.string,
-  customElements: PropTypes.element
+  customElements: PropTypes.element,
+  indicateScheduleByStick: PropTypes.bool,
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);

@@ -170,6 +170,7 @@ Calendar.propTypes = {
       scheduleID: PropTypes.string
     })
   ),
+  indicateScheduleByStick: PropTypes.bool,
   customElements: PropTypes.element
 };
 

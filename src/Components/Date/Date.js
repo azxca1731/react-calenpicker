@@ -6,8 +6,7 @@ import endImg from "Styles/assets/end-period.png";
 
 const DateTd = styled.td`
   display: inline-block;
-  padding-left: 0.3%;
-  padding-right: 0.3%;
+  padding: 0;
   width: 13.6%;
   height: 100%;
   text-align: center;
@@ -42,6 +41,19 @@ const EndPointDiv = styled.div`
   height: 100%;
   background: url(${props => props.img}) no-repeat;
   background-size: 100% 100%;
+`;
+
+const ScheduleDiv = styled.div`
+  height: 5px;
+  width: 100%;
+  background-color: ${props => props.theme.secondaryColor};
+  border-top: 1px solid ${props => props.theme.fontColor};
+  border-bottom: 1px solid ${props => props.theme.fontColor};
+  ${props=> props.isStart && !props.isEnd? "border-right: 0" : "border-right: 1px"};
+  ${props=> !props.isStart && props.isEnd ? "border-left: 0" : "border-left: 1px"};
+  ${props => (props.isStart && !props.isEnd ? "border-radius: 5px 0 0 5px" : null)};
+  ${props => (!props.isStart && props.isEnd ? "border-radius: 0 5px 5px 0" : null)};
+  ${props => (props.isStart && props.isEnd ? "border-radius: 5px 5px 5px 5px" : null)};
 `;
 
 const StartIndicator = props => (
@@ -83,6 +95,25 @@ const SelectIndicator = props => (
   </DateDiv>
 );
 
+const ScheduleIndicator = props => {
+  const handleScheduleClicked = event => {
+    const { dateString, canUpdateDate } = props;
+    props.handleModal("READ", canUpdateDate);
+    props.handleTargetSetValue(dateString);
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  const { schedules } = props;
+  return (
+    <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
+      <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+      {schedules.map(({ text }, idx) => {
+        return <ScheduleDiv isStart={props.isStart} isEnd={props.isEnd} key={`${text}${idx}`} onClick={handleScheduleClicked} />;
+      })}
+    </DateDiv>
+  );
+};
+
 const Date = props => {
   const {
     isInPeriod,
@@ -99,17 +130,27 @@ const Date = props => {
     dateString,
     handleTargetSetValue,
     haveMoreDate,
-    canUpdateDate
+    canUpdateDate,
+    schedules,
+    isStart,
+    isEnd,
+    indicateScheduleByStick
   } = props;
   let contents;
-  if (indicatorType == "date") {
-    contents = DateIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate });
+  if (indicateScheduleByStick) {
+    contents = indicatorType === "schedule" ? (
+      <ScheduleIndicator
+        {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate, schedules, isStart, isEnd }}
+      />
+    ) : (<DateIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate }} />);
   } else if (indicatorType == "start") {
-    contents = StartIndicator({ dayNumber });
+    contents = <StartIndicator {...{ dayNumber }} />;
   } else if (indicatorType == "end") {
-    contents = EndIndicator({ dayNumber });
+    contents = <EndIndicator {...{ dayNumber }} />;
+  } else if (indicatorType == "select") {
+    contents = <SelectIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text }} />;
   } else {
-    contents = SelectIndicator({ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text });
+    contents = <DateIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate }} />;
   }
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
@@ -136,6 +177,30 @@ EndIndicator.propTypes = {
   dayNumber: PropTypes.number
 };
 
+ScheduleIndicator.propTypes = {
+  dayNumber: PropTypes.number,
+  isStart: PropTypes.bool,
+  isEnd: PropTypes.bool,
+  isHoliday: PropTypes.bool,
+  isToday: PropTypes.bool,
+  isInThisMonth: PropTypes.bool,
+  isSaturday: PropTypes.bool,
+  text: PropTypes.string,
+  handleModal: PropTypes.func,
+  dateString: PropTypes.string,
+  handleTargetSetValue: PropTypes.func,
+  haveMoreDate: PropTypes.bool,
+  canUpdateDate: PropTypes.bool,
+  schedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleID: PropTypes.string
+    })
+  )
+};
+
 DateIndicator.propTypes = {
   isHoliday: PropTypes.bool,
   isToday: PropTypes.bool,
@@ -146,7 +211,7 @@ DateIndicator.propTypes = {
   handleModal: PropTypes.func,
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
-  haveMoreDate: PropTypes.haveMoreDate,
+  haveMoreDate: PropTypes.bool,
   canUpdateDate: PropTypes.bool
 };
 
@@ -156,7 +221,9 @@ SelectIndicator.propTypes = {
   isInThisMonth: PropTypes.bool,
   isSaturday: PropTypes.bool,
   dayNumber: PropTypes.number,
-  text: PropTypes.string
+  text: PropTypes.string,
+  isStart: PropTypes.bool,
+  isEnd: PropTypes.bool
 };
 
 Date.propTypes = {
@@ -170,12 +237,25 @@ Date.propTypes = {
   isHoliday: PropTypes.bool,
   isToday: PropTypes.bool,
   isSaturday: PropTypes.bool,
-  indicatorType: PropTypes.oneOf(["date", "start", "end", "select"]),
+  indicatorType: PropTypes.oneOf(["date", "start", "end", "select", "schedule"]),
   handleModal: PropTypes.func,
   dateString: PropTypes.string,
   handleTargetSetValue: PropTypes.func,
   haveMoreDate: PropTypes.bool,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  schedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleId: PropTypes.string
+    })
+  ),
+  scheduleIDs: PropTypes.arrayOf(PropTypes.string),
+  isStart: PropTypes.bool,
+  isEnd: PropTypes.bool,
+  indicateScheduleByStick: PropTypes.bool,
+  
 };
 
 export default Date;
