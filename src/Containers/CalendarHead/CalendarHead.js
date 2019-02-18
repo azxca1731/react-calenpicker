@@ -24,22 +24,26 @@ class CalendarHead extends React.Component {
   }
 
   renderCalendarDateInputModal = () => {
-    const { target, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, schedules, modalType } = this.props;
+    const { target, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, schedules, modalType, duplicated, CustomElements } = this.props;
 
     const filtered = target ? schedules.filter(({ date }) => date == target) : [];
-    return (
-      <CalendarDateInputModal
-        addCalendarText={addCalendarText}
-        handleModal={handleModal}
-        target={target}
-        handleTargetSetValue={handleTargetSetValue}
-        deleteCalendarText={deleteCalendarText}
-        updateCalendarText={updateCalendarText}
-        size={size}
-        anotherSchedules={filtered}
-        type={modalType}
-      />
-    );
+    if (duplicated) {
+      return <CalendarDateInputModal handleModal={handleModal} handleTargetSetValue={handleTargetSetValue} size={size} type={"DUPLICATED"} customComponent={CustomElements} />;
+    } else {
+      return (
+        <CalendarDateInputModal
+          addCalendarText={addCalendarText}
+          handleModal={handleModal}
+          target={target}
+          handleTargetSetValue={handleTargetSetValue}
+          deleteCalendarText={deleteCalendarText}
+          updateCalendarText={updateCalendarText}
+          size={size}
+          anotherSchedules={filtered}
+          type={modalType}
+        />
+      );
+    }
   };
 
   render() {
@@ -67,6 +71,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="none" onClick={() => {}} />
+            {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
           </CalendarHeadDiv>
         ) : (
           <CalendarHeadDiv>
@@ -80,6 +85,10 @@ class CalendarHead extends React.Component {
     );
   }
 }
+
+CalendarHead.defaultProps = {
+  CustomElements: React.createElement("div")
+};
 
 CalendarHead.propTypes = {
   month: PropTypes.string.isRequired,
@@ -96,6 +105,7 @@ CalendarHead.propTypes = {
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
   size: PropTypes.object,
+  CustomElements: PropTypes.element,
   schedules: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
@@ -118,7 +128,8 @@ wrapped = DayConnector(({ state, actions }) => ({
 
 wrapped = PropsConnector(({ state }) => ({
   duplicated: state.duplicated,
-  duplicate: state.duplicate
+  duplicate: state.duplicate,
+  CustomElements: state.customElements
 }))(wrapped);
 
 wrapped = ScheduleConnector(({ state, actions }) => ({
