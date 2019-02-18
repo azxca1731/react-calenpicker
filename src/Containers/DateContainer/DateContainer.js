@@ -63,6 +63,9 @@ class DateContainer extends React.Component {
           const pos = targetSchedule.map(item => item.date).indexOf(dateString);
           isStart = pos === 0 ? true : false;
           isEnd = pos === targetSchedule.length - 1 ? true: false;
+        } else {
+          isStart = true;
+          isEnd = true;
         }
       }
       return {

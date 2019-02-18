@@ -47,11 +47,13 @@ const ScheduleDiv = styled.div`
   height: 5px;
   width: 100%;
   background-color: ${props => props.theme.secondaryColor};
-  border: 1px solid ${props => props.theme.fontColor};
-  border-right: ${props=> props.isStart ? "0" : "1px"};
-  border-left: ${props=> props.isEnd ? "0" : "1px"};
-  ${props => (props.isStart ? "border-radius: 5px 0 0 5px" : null)};
-  ${props => (props.isEnd ? "border-radius: 0 5px 5px 0" : null)};
+  border-top: 1px solid ${props => props.theme.fontColor};
+  border-bottom: 1px solid ${props => props.theme.fontColor};
+  ${props=> props.isStart && !props.isEnd? "border-right: 0" : "border-right: 1px"};
+  ${props=> !props.isStart && props.isEnd ? "border-left: 0" : "border-left: 1px"};
+  ${props => (props.isStart && !props.isEnd ? "border-radius: 5px 0 0 5px" : null)};
+  ${props => (!props.isStart && props.isEnd ? "border-radius: 0 5px 5px 0" : null)};
+  ${props => (props.isStart && props.isEnd ? "border-radius: 5px 5px 5px 5px" : null)};
 `;
 
 const StartIndicator = props => (
