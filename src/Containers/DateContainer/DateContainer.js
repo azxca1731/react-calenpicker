@@ -81,7 +81,7 @@ class DateContainer extends React.Component {
         haveMoreDate,
         isStart,
         isEnd,
-        schedules: filteredSchedule
+        schedules: filteredSchedule.slice(0,3)
       };
     }
     return null;
