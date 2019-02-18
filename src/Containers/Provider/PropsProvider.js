@@ -19,7 +19,8 @@ class PropsProvider extends Component {
     canMouseWheel: this.props.canMouseWheel,
     canUpdateDate: this.props.canUpdateDate,
     addText: this.props.addText,
-    triggerState: "UNIFIED"
+    triggerState: "UNIFIED",
+    indicateScheduleByStick: this.props.indicateScheduleByStick
   };
 
   actions = {
@@ -69,7 +70,8 @@ PropsProvider.propTypes = {
   canMouseWheel: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
   scheduleListener: PropTypes.func,
-  triggerState: PropTypes.string
+  triggerState: PropTypes.string,
+  indicateScheduleByStick: PropTypes.bool,
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);

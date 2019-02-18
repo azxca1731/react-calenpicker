@@ -150,7 +150,7 @@ class DateContainer extends React.Component {
   }
 
   render() {
-    const { cssObject, handleModal, handleTargetSetValue, canUpdateDate, scheduleIDs } = this.props;
+    const { cssObject, handleModal, handleTargetSetValue, canUpdateDate, scheduleIDs, indicateScheduleByStick } = this.props;
     const { text, dayNumber, isInPeriod, isHoliday, isInThisMonth, isToday, isSaturday, indicatorType, dateString, haveMoreDate, isStart, isEnd, schedules } = this.state;
     return (
       <Date
@@ -173,7 +173,8 @@ class DateContainer extends React.Component {
           schedules,
           scheduleIDs,
           isStart,
-          isEnd
+          isEnd,
+          indicateScheduleByStick
         }}
       />
     );
@@ -219,14 +220,16 @@ DateContainer.propTypes = {
   ),
   scheduleIDs: PropTypes.arrayOf(PropTypes.string),
   convertToSchedule: PropTypes.func,
-  canUpdateDate: PropTypes.bool
+  canUpdateDate: PropTypes.bool,
+  indicateScheduleByStick: PropTypes.bool,
 };
 
 let wrapped = PropsConnector(({ state }) => ({
   onlyThisMonth: state.onlyThisMonth,
   duplicated: state.duplicated,
   triggerState: state.triggerState,
-  canUpdateDate: state.canUpdateDate
+  canUpdateDate: state.canUpdateDate,
+  indicateScheduleByStick: state.indicateScheduleByStick
 }))(DateContainer);
 
 wrapped = ScheduleConnector(({ state, actions }) => ({

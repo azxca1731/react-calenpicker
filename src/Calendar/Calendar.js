@@ -168,7 +168,8 @@ Calendar.propTypes = {
       isHoliday: PropTypes.bool,
       scheduleID: PropTypes.string
     })
-  )
+  ),
+  indicateScheduleByStick: PropTypes.bool,
 };
 
 export default Calendar;

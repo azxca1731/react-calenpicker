@@ -132,13 +132,17 @@ const Date = props => {
     haveMoreDate,
     canUpdateDate,
     schedules,
-    scheduleIDs,
     isStart,
-    isEnd
+    isEnd,
+    indicateScheduleByStick
   } = props;
   let contents;
-  if (indicatorType == "date") {
-    contents = <DateIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate }} />;
+  if (indicateScheduleByStick) {
+    contents = indicatorType === "schedule" ? (
+      <ScheduleIndicator
+        {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate, schedules, isStart, isEnd }}
+      />
+    ) : (<DateIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate }} />);
   } else if (indicatorType == "start") {
     contents = <StartIndicator {...{ dayNumber }} />;
   } else if (indicatorType == "end") {
@@ -146,11 +150,7 @@ const Date = props => {
   } else if (indicatorType == "select") {
     contents = <SelectIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text }} />;
   } else {
-    contents = (
-      <ScheduleIndicator
-        {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate, schedules, scheduleIDs, isStart, isEnd }}
-      />
-    );
+    contents = <DateIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate }} />;
   }
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
@@ -253,7 +253,9 @@ Date.propTypes = {
   ),
   scheduleIDs: PropTypes.arrayOf(PropTypes.string),
   isStart: PropTypes.bool,
-  isEnd: PropTypes.bool
+  isEnd: PropTypes.bool,
+  indicateScheduleByStick: PropTypes.bool,
+  
 };
 
 export default Date;
