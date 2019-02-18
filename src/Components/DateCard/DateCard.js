@@ -44,30 +44,44 @@ const DateCardBody = styled.div`
 const ModifyCollapse = styled.form`
   max-height: ${props => (props.open ? "100px" : "0")};
   overflow: hidden;
-  padding: 0px 30px;
   transition: all 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const CalendarDateInputModalButton = styled.button`
-  background-color: ${props => (props.isAccept ? props.theme.acceptColor : props.isDelete ? "red" : props.theme.cancelColor)};
+const ModifyButton = styled.button`
+  background-color: ${props => props.theme.acceptColor};
   color: ${props => props.theme.backgroundColor};
   border: 2px solid ${props => props.theme.fontColor};
-  padding: 0.5em 1em;
+  padding: 5px 10px;
   opacity: 0.7;
   transition: 0.5s;
   cursor: pointer;
   position: relative;
   top: -5px;
-  right: 5px;
 
   &:hover {
     opacity: 1;
   }
 `;
 
-const ModifyCollapseWithButton = styled.div`
+const ModifyCollapseBetween = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const ModifyCollapseBody = styled.div`
+  width: 80%;
+`;
+
+const ModifyCollapseBodyInput = styled.input`
+  width: 70%;
+`;
+
+const ModifyCollapseLabel = styled.label`
+  position: relative;
 `;
 
 class DateCard extends React.Component {
@@ -131,25 +145,33 @@ class DateCard extends React.Component {
           </DateCardConfig>
         ) : null}
         <ModifyCollapse open={collapseOpen} ref={this.form} onSubmit={e => e.preventDefault()}>
-          <div>
-            <label htmlFor="date">날짜: </label>
-            <input id="date" value={date} onChange={this.handleInputDateChange} placeholder="날짜를 입력하세요" type="text" pattern="[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-9]{2}" required />
-          </div>
-          <br />
-          <div>
-            <label htmlFor="text">이름: </label>
-            <input id="text" value={text} onChange={this.handleInputTextChange} placeholder="이벤트의 이름을 입력하세요" required />
-          </div>
-          <br />
-          <ModifyCollapseWithButton>
-            <div>
-              <label htmlFor="isHoliday">휴일 여부: </label>
-              <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
-            </div>
-            <CalendarDateInputModalButton isAccept onClick={this.modifySchedule}>
-              수정
-            </CalendarDateInputModalButton>
-          </ModifyCollapseWithButton>
+          <ModifyCollapseBody>
+            <ModifyCollapseBetween>
+              <ModifyCollapseLabel htmlFor="date">날짜: </ModifyCollapseLabel>
+              <ModifyCollapseBodyInput
+                id="date"
+                value={date}
+                onChange={this.handleInputDateChange}
+                placeholder="날짜를 입력하세요"
+                type="text"
+                pattern="[0-9]{4}-[0-1]{0,1}[0-9]{1}-[0-9]{2}"
+                required
+              />
+            </ModifyCollapseBetween>
+            <br />
+            <ModifyCollapseBetween>
+              <ModifyCollapseLabel htmlFor="text">이름: </ModifyCollapseLabel>
+              <ModifyCollapseBodyInput id="text" value={text} onChange={this.handleInputTextChange} placeholder="이벤트의 이름을 입력하세요" required />
+            </ModifyCollapseBetween>
+            <br />
+            <ModifyCollapseBetween>
+              <div>
+                <label htmlFor="isHoliday">휴일 여부: </label>
+                <input id="isHoliday" type="checkbox" checked={isHoliday} onChange={this.handleInputIsHoliday} />
+              </div>
+              <ModifyButton onClick={this.modifySchedule}>수정</ModifyButton>
+            </ModifyCollapseBetween>
+          </ModifyCollapseBody>
         </ModifyCollapse>
       </DateCardDiv>
     );
