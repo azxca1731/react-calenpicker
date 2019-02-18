@@ -6,8 +6,7 @@ import endImg from "Styles/assets/end-period.png";
 
 const DateTd = styled.td`
   display: inline-block;
-  padding-left: 0.3%;
-  padding-right: 0.3%;
+  padding: 0;
   width: 13.6%;
   height: 100%;
   text-align: center;
@@ -49,6 +48,8 @@ const ScheduleDiv = styled.div`
   width: 100%;
   background-color: ${props => props.theme.secondaryColor};
   border: 1px solid ${props => props.theme.fontColor};
+  border-right: ${props=> props.isStart ? "0" : "1px"};
+  border-left: ${props=> props.isEnd ? "0" : "1px"};
   ${props => (props.isStart ? "border-radius: 5px 0 0 5px" : null)};
   ${props => (props.isEnd ? "border-radius: 0 5px 5px 0" : null)};
 `;

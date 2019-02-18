@@ -53,16 +53,16 @@ class DateContainer extends React.Component {
       if (selected.length > 0) {
         indicatorType = "select";
       }
-      const filteredSchedule = schedules.filter(({ date }) => date === dateString);
+      const filteredSchedule = schedules.filter(({ date }) => date === dateString); // length = 1
       let isStart = false,
         isEnd = false;
       if (filteredSchedule.length > 0) {
         indicatorType = "schedule";
-        if (filteredSchedule.length === 1) {
-          isStart = isEnd = true;
-        } else {
-          isStart = filteredSchedule[0].date === dateString ? true : false;
-          isEnd = filteredSchedule[filteredSchedule.length - 1].date === dateString ? true : false;
+        const targetSchedule = schedules.filter(({scheduleID}) => filteredSchedule[0].scheduleID === scheduleID );
+        if (targetSchedule.length > 1) {
+          const pos = targetSchedule.map(item => item.date).indexOf(dateString);
+          isStart = pos === 0 ? true : false;
+          isEnd = pos === targetSchedule.length - 1 ? true: false;
         }
       }
       return {
