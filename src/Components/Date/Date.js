@@ -45,10 +45,12 @@ const EndPointDiv = styled.div`
 `;
 
 const ScheduleDiv = styled.div`
-  height: 25%;
+  height: 5px;
   width: 100%;
-  ${props => (props.isStart ? "border-radius: 50% 0 0 50%" : null)}
-  ${props => (props.isEnd ? "border-radius: 0 50% 50% 0" : null)}
+  background-color: ${props => props.theme.secondaryColor};
+  border: 1px solid ${props => props.theme.fontColor};
+  ${props => (props.isStart ? "border-radius: 5px 0 0 5px" : null)};
+  ${props => (props.isEnd ? "border-radius: 0 5px 5px 0" : null)};
 `;
 
 const StartIndicator = props => (
@@ -90,12 +92,24 @@ const SelectIndicator = props => (
   </DateDiv>
 );
 
-const ScheduleIndicator = props => (
-  <DateDiv>
-    <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
-    <ScheduleDiv />
-  </DateDiv>
-);
+const ScheduleIndicator = props => {
+  const handleScheduleClicked = event => {
+    const { dateString, canUpdateDate } = props;
+    props.handleModal("READ", canUpdateDate);
+    props.handleTargetSetValue(dateString);
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  const { schedules } = props;
+  return (
+    <DateDiv isHoliday={props.isHoliday} isToday={props.isToday} isInThisMonth={props.isInThisMonth} isSaturday={props.isSaturday} dayNumber={props.dayNumber}>
+      <DateDayNumberDiv>{props.dayNumber}</DateDayNumberDiv>
+      {schedules.map(({ text }, idx) => {
+        return <ScheduleDiv isStart={props.isStart} isEnd={props.isEnd} key={`${text}${idx}`} onClick={handleScheduleClicked} />;
+      })}
+    </DateDiv>
+  );
+};
 
 const Date = props => {
   const {
@@ -114,6 +128,8 @@ const Date = props => {
     handleTargetSetValue,
     haveMoreDate,
     canUpdateDate,
+    schedules,
+    scheduleIDs,
     isStart,
     isEnd
   } = props;
@@ -127,7 +143,11 @@ const Date = props => {
   } else if (indicatorType == "select") {
     contents = <SelectIndicator {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text }} />;
   } else {
-    contents = <ScheduleDiv isStart={isStart} isEnd={isEnd} />;
+    contents = (
+      <ScheduleIndicator
+        {...{ isHoliday, isToday, isInThisMonth, isSaturday, dayNumber, text, handleModal, dateString, handleTargetSetValue, haveMoreDate, canUpdateDate, schedules, scheduleIDs, isStart, isEnd }}
+      />
+    );
   }
   return (
     <DateTd onClick={handleDateClick} style={cssObject} isInPeriod={isInPeriod}>
@@ -157,7 +177,25 @@ EndIndicator.propTypes = {
 ScheduleIndicator.propTypes = {
   dayNumber: PropTypes.number,
   isStart: PropTypes.bool,
-  isEnd: PropTypes.bool
+  isEnd: PropTypes.bool,
+  isHoliday: PropTypes.bool,
+  isToday: PropTypes.bool,
+  isInThisMonth: PropTypes.bool,
+  isSaturday: PropTypes.bool,
+  text: PropTypes.string,
+  handleModal: PropTypes.func,
+  dateString: PropTypes.string,
+  handleTargetSetValue: PropTypes.func,
+  haveMoreDate: PropTypes.bool,
+  canUpdateDate: PropTypes.bool,
+  schedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleID: PropTypes.string
+    })
+  )
 };
 
 DateIndicator.propTypes = {
@@ -202,6 +240,15 @@ Date.propTypes = {
   handleTargetSetValue: PropTypes.func,
   haveMoreDate: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
+  schedules: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      text: PropTypes.string,
+      isHoliday: PropTypes.bool,
+      scheduleId: PropTypes.string
+    })
+  ),
+  scheduleIDs: PropTypes.arrayOf(PropTypes.string),
   isStart: PropTypes.bool,
   isEnd: PropTypes.bool
 };
