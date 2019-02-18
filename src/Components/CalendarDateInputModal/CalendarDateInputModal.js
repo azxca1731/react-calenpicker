@@ -11,7 +11,7 @@ const CalendarDateInputModalDiv = styled.div`
   border: 1px solid ${props => props.theme.fontColor};
   background-color: ${props => props.theme.backgroundColor};
   top: -1px;
-  left: 0px;
+  right: 0px;
 `;
 
 const CalendarDateInputModalHead = styled.div`
@@ -54,6 +54,15 @@ const CalendarDateInputModalDateZone = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.6 + 10}px;
   overflow-y: scroll;
+  padding: 0px 5%;
+`;
+
+const CalendarDateInputModalCustomZone = styled.div`
+  width: 90%;
+  border: 1px solid ${props => props.theme.fontColor};
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: ${props => props.size.height.substr(0, props.size.height.length - 2) * 0.6 + 10}px;
   padding: 0px 5%;
 `;
 
@@ -188,8 +197,10 @@ class CalendarDateInputModal extends React.Component {
       head = "자세히 보기";
     } else if (type == "UPDATE") {
       head = "일정 수정";
-    } else {
+    } else if (type == "ADD") {
       head = "일정 추가";
+    } else {
+      head = "추가 정보";
     }
     return head;
   };
@@ -219,7 +230,7 @@ class CalendarDateInputModal extends React.Component {
 
   renderDateZone = () => {
     const { size, type, anotherSchedules } = this.props;
-    const height = size.height.substr(0, size.height.length - 2) * 0.12;
+    const height = size.height.substr(0, size.height.length - 2) * 0.15;
     return (
       <CalendarDateInputModalDateZone size={size}>
         {anotherSchedules.length != 0 ? (
@@ -247,6 +258,11 @@ class CalendarDateInputModal extends React.Component {
     );
   };
 
+  renderCustomZone = () => {
+    const { size, customComponent } = this.props;
+    return <CalendarDateInputModalCustomZone size={size}>{customComponent}</CalendarDateInputModalCustomZone>;
+  };
+
   render() {
     const { size, type } = this.props;
     if (type == "NONE") {
@@ -258,6 +274,7 @@ class CalendarDateInputModal extends React.Component {
         <CalendarDateInputModalBody size={size}>
           {type == "ADD" ? this.renderInputZone() : null}
           {type == "READ" || type == "UPDATE" ? this.renderDateZone() : null}
+          {type == "DUPLICATED" ? this.renderCustomZone() : null}
         </CalendarDateInputModalBody>
         <CalendarDateInputModalFooter size={size}>
           {type == "ADD" ? (
@@ -277,7 +294,8 @@ CalendarDateInputModal.defaultProps = {
   handleModal: () => {},
   size: { height: "450px", width: "300px" },
   anotherSchedules: [],
-  type: "READ"
+  type: "READ",
+  customComponent: React.createElement("div")
 };
 
 CalendarDateInputModal.propTypes = {
@@ -295,12 +313,14 @@ CalendarDateInputModal.propTypes = {
       isHoliday: PropTypes.bool
     })
   ),
+  customComponent: PropTypes.element,
   /**
    * ADD - 일정을 더 할때의 모달, 다른 스케줄이 보이면 안된다.
    * UPDATE - 일정을 업데이트 한다. 다른 일정을 볼 수 있고 수정도 가능하다.
    * READ - 다른 일정이 뭐가 있는지만 볼 수 가 있다.
+   * DUPLICATED - 추가적인 정보를 렌더 할 수 있다.
    */
-  type: PropTypes.oneOf(["ADD", "UPDATE", "READ"])
+  type: PropTypes.oneOf(["ADD", "UPDATE", "READ", "DUPLICATED"])
 };
 
 export default CalendarDateInputModal;
