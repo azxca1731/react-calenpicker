@@ -219,7 +219,7 @@ class CalendarDateInputModal extends React.Component {
 
   renderDateZone = () => {
     const { size, type, anotherSchedules } = this.props;
-    const height = size.height.substr(0, size.height.length - 2) * 0.12;
+    const height = size.height.substr(0, size.height.length - 2) * 0.15;
     return (
       <CalendarDateInputModalDateZone size={size}>
         {anotherSchedules.length != 0 ? (
