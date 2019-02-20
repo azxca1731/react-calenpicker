@@ -37,12 +37,6 @@ class PropsProvider extends Component {
     }
   };
 
-  componentDidUpdate(_, prevState) {
-    if (prevState.objectSetText != this.state.objectSetText) {
-      this.props.scheduleListener(this.state.objectSetText);
-    }
-  }
-
   static getDerivedStateFromProps(nextProps) {
     const { triggerState } = nextProps;
     return { triggerState };
@@ -56,7 +50,10 @@ class PropsProvider extends Component {
 }
 
 PropsProvider.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   sizeOption: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
@@ -70,10 +67,9 @@ PropsProvider.propTypes = {
   addText: PropTypes.bool,
   canMouseWheel: PropTypes.bool,
   canUpdateDate: PropTypes.bool,
-  scheduleListener: PropTypes.func,
   triggerState: PropTypes.string,
   customElements: PropTypes.element,
-  indicateScheduleByStick: PropTypes.bool,
+  indicateScheduleByStick: PropTypes.bool
 };
 
 const PropsConnector = createUseConsumer(PropsConsumer);
