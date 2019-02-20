@@ -70,15 +70,17 @@ ChartContainer.propTypes = {
   data: PropType.array
 };
 
+const externalSchedule = [
+  { text: "오픈", date: "2019-2-19" },
+  { text: "휴가", date: "2019-2-25", isHoliday: true }
+];
+
 class ScheduleRecipeWithChart extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      schedule: [
-        { text: "오픈", date: "2019-2-19" },
-        { text: "휴가", date: "2019-2-25", isHoliday: true }
-      ]
+      schedule: externalSchedule
     };
   }
 
@@ -92,10 +94,7 @@ class ScheduleRecipeWithChart extends Component {
     return (
       <Screen>
         <Calendar
-          schedules={[
-            { text: "오픈", date: "2019-2-19" },
-            { text: "휴가", date: "2019-2-25", isHoliday: true }
-          ]}
+          schedules={externalSchedule}
           scheduleListener={this.handleSchedule}
           canUpdateDate
           addText
