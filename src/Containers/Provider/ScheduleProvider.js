@@ -22,6 +22,13 @@ class ScheduleProvider extends Component {
       modalType: "NONE"
     };
   }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.schedules != this.state.schedules) {
+      this.props.scheduleListener(this.state.schedules);
+    }
+  }
+
   actions = {
     /**
      * @function formatDateString - 날짜 형식 통일을 위한 변환 함수.
@@ -30,7 +37,8 @@ class ScheduleProvider extends Component {
      */
     formatDateString: dateString => {
       const newDate = new Date(dateString);
-      return `${newDate.getFullYear()}-${newDate.getMonth() + 1}-${newDate.getDate()}`;
+      return `${newDate.getFullYear()}-${newDate.getMonth() +
+        1}-${newDate.getDate()}`;
     },
     handleTargetSetValue: newTarget => {
       this.setState({
@@ -45,7 +53,14 @@ class ScheduleProvider extends Component {
       });
     },
     deleteCalendarText: deletedDateObject => {
-      const filterd = this.state.schedules.filter(({ date, text, isHoliday }) => !(date == deletedDateObject.date && text == deletedDateObject.text && isHoliday == deletedDateObject.isHoliday));
+      const filterd = this.state.schedules.filter(
+        ({ date, text, isHoliday }) =>
+          !(
+            date == deletedDateObject.date &&
+            text == deletedDateObject.text &&
+            isHoliday == deletedDateObject.isHoliday
+          )
+      );
       this.setState({
         schedules: filterd
       });
@@ -56,7 +71,9 @@ class ScheduleProvider extends Component {
         newDateObject.date = this.actions.formatDateString(date);
         return newDateObject;
       });
-      const filterd = this.state.schedules.filter(({ date }) => date != deletedDate);
+      const filterd = this.state.schedules.filter(
+        ({ date }) => date != deletedDate
+      );
       this.setState({
         schedules: [...filterd, ...fomratedArray]
       });
@@ -100,6 +117,7 @@ ScheduleProvider.defaultProps = {
 
 ScheduleProvider.propTypes = {
   children: PropTypes.node,
+  scheduleListener: PropTypes.func,
   schedules: PropTypes.arrayOf(
     PropTypes.shape({
       date: PropTypes.string,
