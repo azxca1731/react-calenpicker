@@ -8,5 +8,9 @@ import input1code from "./input1code.md";
 import input2code from "./input2code.md";
 
 storiesOf("Recipes", module)
-  .add("캘린더 인풋 예제 1", () => <InputEx1 />, { notes: { markdown: input1code } })
-  .add("캘린더 인풋 예제 2", () => <InputEx2 />, { notes: { markdown: input2code } });
+  .add("캘린더 하나의 인풋을 활용한 예제", () => <InputEx1 />, {
+    notes: { markdown: input1code }
+  })
+  .add("캘린더 두개의 인풋으로 나누어 보는 예제", () => <InputEx2 />, {
+    notes: { markdown: input2code }
+  });

@@ -24,7 +24,8 @@ const InputEx1Div2 = styled.div`
 `;
 
 const InputEx1Str = styled.div`
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+    sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: rgb(72, 72, 72);
@@ -32,7 +33,8 @@ const InputEx1Str = styled.div`
 
 const InputEx1BtnContent = styled.div`
   overflow-wrap: break-word;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+    sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.44444em;
@@ -64,6 +66,7 @@ const InputEx1Input = styled.input`
   padding: 0px;
   height: 25px;
 `;
+
 const InputEx1SearchBtn = styled.button`
   display: inline-block;
   width: 76px;
@@ -76,6 +79,13 @@ const InputEx1SearchBtn = styled.button`
   text-align: center;
   margin-left: 10px;
 `;
+
+const RecipeBorder = styled.div`
+  border: 1px solid #ebebeb;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`;
+
 class InputEx1 extends Component {
   constructor(props) {
     super(props);
@@ -102,7 +112,16 @@ class InputEx1 extends Component {
       this.btnShow = tempStart[1] + "월 " + tempStart[2] + "일";
       this.setState({ turn: !this.state.turn });
     } else if (periodStart && periodEnd) {
-      this.btnShow = tempStart[1] + "월 " + tempStart[2] + "일" + " - " + tempEnd[1] + "월 " + tempEnd[2] + "일";
+      this.btnShow =
+        tempStart[1] +
+        "월 " +
+        tempStart[2] +
+        "일" +
+        " - " +
+        tempEnd[1] +
+        "월 " +
+        tempEnd[2] +
+        "일";
       if (periodEnd != "") {
         this.setState({ turn: !this.state.turn });
       }
@@ -111,13 +130,15 @@ class InputEx1 extends Component {
 
   render() {
     return (
-      <div>
+      <RecipeBorder>
         <InputEx1Div1 style={{ width: "200px" }}>
           <InputEx1Str>목적지</InputEx1Str>
-          <InputEx1Input />
+          <InputEx1Input placeholder="서울, 대한민국" />
         </InputEx1Div1>
 
-        <InputEx1Div1 style={this.state.turn ? { width: "240px" } : { width: "180px" }}>
+        <InputEx1Div1
+          style={this.state.turn ? { width: "240px" } : { width: "180px" }}
+        >
           <InputEx1Div2>
             <InputEx1Str>날짜</InputEx1Str>
             <div>
@@ -129,16 +150,26 @@ class InputEx1 extends Component {
         </InputEx1Div1>
         <InputEx1Div1 style={{ width: "100px" }}>
           <InputEx1Str>인원</InputEx1Str>
-          <InputEx1Input />
+          <InputEx1Input placeholder="6명" />
         </InputEx1Div1>
         <InputEx1SearchBtn>
           <InputEx1Str style={{ color: "white" }}>검색</InputEx1Str>
         </InputEx1SearchBtn>
 
-        <div style={this.state.turn ? { position: "relative", right: "-200px" } : { display: "none" }}>
-          <Calendar callbackFunction={periods => this.handlePeriods(periods[0])} sizeOption="md" theme="light" />
+        <div
+          style={
+            this.state.turn
+              ? { position: "relative", right: "-200px" }
+              : { display: "none" }
+          }
+        >
+          <Calendar
+            callbackFunction={periods => this.handlePeriods(periods[0])}
+            sizeOption="md"
+            theme="light"
+          />
         </div>
-      </div>
+      </RecipeBorder>
     );
   }
 }

@@ -4,7 +4,18 @@ import Calendar from "../../Calendar";
 import PropType from "prop-types";
 import styled from "styled-components";
 
-const ColorSet = ["#f98866", "#ff420e", "#80bd9e", "#89da59", "#90afc5", "336b87", "#2a3132", "#763626", "#505165", "#c4dfd6"];
+const ColorSet = [
+  "#f98866",
+  "#ff420e",
+  "#80bd9e",
+  "#89da59",
+  "#90afc5",
+  "336b87",
+  "#2a3132",
+  "#763626",
+  "#505165",
+  "#c4dfd6"
+];
 
 const Screen = styled.div`
   width: 1000px;
@@ -65,7 +76,10 @@ class ScheduleRecipeWithChart extends Component {
     super(props);
 
     this.state = {
-      schedule: [{ text: "연말", date: "2018-12-31" }, { text: "휴가", date: "2018-12-26", isHoliday: true }]
+      schedule: [
+        { text: "오픈", date: "2019-2-19" },
+        { text: "휴가", date: "2019-2-25", isHoliday: true }
+      ]
     };
   }
 
@@ -78,7 +92,15 @@ class ScheduleRecipeWithChart extends Component {
   render() {
     return (
       <Screen>
-        <Calendar objectSetText={[{ text: "연말", date: "2018-12-31" }, { text: "휴가", date: "2018-12-26", isHoliday: true }]} scheduleListener={this.handleSchedule} canUpdateDate addText />
+        <Calendar
+          schedules={[
+            { text: "오픈", date: "2019-2-19" },
+            { text: "휴가", date: "2019-2-25", isHoliday: true }
+          ]}
+          scheduleListener={this.handleSchedule}
+          canUpdateDate
+          addText
+        />
         <ChartContainer data={this.state.schedule} />
       </Screen>
     );
