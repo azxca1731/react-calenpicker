@@ -6,6 +6,7 @@ import MonthContainer from "Containers/MonthContainer";
 import MonthArrowContainer from "Containers/MonthArrowContainer";
 import CalendarDateInputModal from "Components/CalendarDateInputModal";
 import { DayConnector, PropsConnector, CssConnector } from "Containers/Provider";
+import { ScheduleConnector } from "../Provider/ScheduleProvider";
 
 const CalendarHeadDiv = styled.div`
   width: 87%;
@@ -23,22 +24,26 @@ class CalendarHead extends React.Component {
   }
 
   renderCalendarDateInputModal = () => {
-    const { target, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, objectSetText, modalType } = this.props;
+    const { target, addCalendarText, handleModal, handleTargetSetValue, deleteCalendarText, updateCalendarText, size, schedules, modalType, duplicated, CustomElements } = this.props;
 
-    const filtered = target ? objectSetText.filter(({ date }) => date == target) : [];
-    return (
-      <CalendarDateInputModal
-        addCalendarText={addCalendarText}
-        handleModal={handleModal}
-        target={target}
-        handleTargetSetValue={handleTargetSetValue}
-        deleteCalendarText={deleteCalendarText}
-        updateCalendarText={updateCalendarText}
-        size={size}
-        anotherSchedules={filtered}
-        type={modalType}
-      />
-    );
+    const filtered = target ? schedules.filter(({ date }) => date == target) : [];
+    if (duplicated) {
+      return <CalendarDateInputModal handleModal={handleModal} handleTargetSetValue={handleTargetSetValue} size={size} type={"DUPLICATED"} customComponent={CustomElements} />;
+    } else {
+      return (
+        <CalendarDateInputModal
+          addCalendarText={addCalendarText}
+          handleModal={handleModal}
+          target={target}
+          handleTargetSetValue={handleTargetSetValue}
+          deleteCalendarText={deleteCalendarText}
+          updateCalendarText={updateCalendarText}
+          size={size}
+          anotherSchedules={filtered}
+          type={modalType}
+        />
+      );
+    }
   };
 
   render() {
@@ -66,6 +71,7 @@ class CalendarHead extends React.Component {
             <MonthArrowContainer type="left" onClick={showPreviousMonth} />
             <MonthContainer month={month} />
             <MonthArrowContainer type="none" onClick={() => {}} />
+            {modalType != "NONE" ? this.renderCalendarDateInputModal() : null}
           </CalendarHeadDiv>
         ) : (
           <CalendarHeadDiv>
@@ -79,6 +85,10 @@ class CalendarHead extends React.Component {
     );
   }
 }
+
+CalendarHead.defaultProps = {
+  CustomElements: React.createElement("div")
+};
 
 CalendarHead.propTypes = {
   month: PropTypes.string.isRequired,
@@ -95,7 +105,8 @@ CalendarHead.propTypes = {
   deleteCalendarText: PropTypes.func,
   updateCalendarText: PropTypes.func,
   size: PropTypes.object,
-  objectSetText: PropTypes.arrayOf(
+  CustomElements: PropTypes.element,
+  schedules: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
       date: PropTypes.string,
@@ -104,26 +115,31 @@ CalendarHead.propTypes = {
   )
 };
 
-export default PropsConnector(({ state, actions }) => ({
+let wrapped = CssConnector(({ state }) => ({
+  cssObject: state.CalendarHeadCssObject,
+  size: state.TemplateCssObject
+}))(CalendarHead);
+
+wrapped = DayConnector(({ state, actions }) => ({
+  month: `${state.year}.${state.month + 1}`,
+  showPreviousMonth: actions.decreaseMonth,
+  showNextMonth: actions.increaseMonth
+}))(wrapped);
+
+wrapped = PropsConnector(({ state }) => ({
   duplicated: state.duplicated,
   duplicate: state.duplicate,
+  CustomElements: state.customElements
+}))(wrapped);
+
+wrapped = ScheduleConnector(({ state, actions }) => ({
+  schedules: state.schedules,
   addCalendarText: actions.addCalendarText,
   modalType: state.modalType,
   handleModal: actions.handleModal,
   target: state.target,
   handleTargetSetValue: actions.handleTargetSetValue,
   deleteCalendarText: actions.deleteCalendarText,
-  updateCalendarText: actions.updateCalendarText,
-  objectSetText: state.objectSetText
-}))(
-  DayConnector(({ state, actions }) => ({
-    month: `${state.year}.${state.month + 1}`,
-    showPreviousMonth: actions.decreaseMonth,
-    showNextMonth: actions.increaseMonth
-  }))(
-    CssConnector(({ state }) => ({
-      cssObject: state.CalendarHeadCssObject,
-      size: state.TemplateCssObject
-    }))(CalendarHead)
-  )
-);
+  updateCalendarText: actions.updateCalendarText
+}))(wrapped);
+export default wrapped;

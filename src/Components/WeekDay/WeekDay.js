@@ -16,7 +16,7 @@ const WeekDayTr = styled.tr`
 
 const WeekDayTd = styled.td`
   display: inline-block;
-  padding: 1vh 0.3%;
+  padding: 1vh 0;
   width: 13.6%;
   text-align: center;
 `;

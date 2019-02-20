@@ -24,7 +24,9 @@ storiesOf("Calendar/Sizing/By Object", module).add("By Object Specification", ()
 storiesOf("Calendar/Other Options", module)
   .add("오늘 표시 옵션", () => <Calendar indicateToday />)
   .add("이번달만 보여주기 옵션", () => <Calendar onlyThisMonth />)
-  .add("텍스트 커스터마이징", () => <Calendar objectSetText={[{ text: "연말", date: "2018-12-31" }, { text: "휴가", date: "2018-12-26", isHoliday: true }]} />)
+  .add("텍스트 커스터마이징", () => (
+    <Calendar schedules={[{ text: "연말", date: "2018-12-31", scheduleID: "endOfYear" }, { text: "휴가", date: "2018-12-26", isHoliday: true, scheduleID: "vacation" }]} />
+  ))
   .add("캘린더 중복선택가능", () => <Calendar multiSelect />)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />)
   .add("캘린더 날짜추가", () => <Calendar addText />)
@@ -32,4 +34,56 @@ storiesOf("Calendar/Other Options", module)
   .add("캘린더 커스텀 테마 적용", () => <Calendar customTheme={{ backgroundColor: "#efefef", secondaryColor: "#fe88a0", fontColor: "#74c9c6" }} />)
   .add("연속캘린더 듀플리케이트", () => <Calendar duplicate />)
   .add("연속캘린더 듀플리케이트 날짜추가", () => <Calendar addText duplicate />)
-  .add("일정이 있으시 글씨를 클릭해 수정 가능", () => <Calendar canUpdateDate objectSetText={[{ text: "미리담기", date: "2019-2-21" }]} />);
+  .add("일정이 있으시 글씨를 클릭해 수정 가능", () => <Calendar canUpdateDate schedules={[{ text: "미리담기", date: "2019-2-21", scheduleID: "pre-select" }]} />)
+  .add("일정 표시 방법을 변경", () => <Calendar schedules={[
+    {
+      text: "결승",
+      date: "2019-2-27",
+      isHoliday: false,
+      scheduleID: "final"
+    },
+    {
+      text: "휴가",
+      date: "2019-2-27",
+      isHoliday: true,
+      scheduleID: "holiday"
+    },
+    {
+      text: "드디어 끝",
+      date: "2019-2-27",
+      isHoliday: true,
+      scheduleID: "fin"
+    },
+    {
+      text: "하지만 개학 좀있음 함 시발",
+      date: "2019-2-27",
+      isHoliday: false,
+      scheduleID: "new"
+    },
+    {
+      text: "휴가",
+      date: "2019-2-1",
+      isHoliday: true,
+      scheduleID: "vacation"
+    },
+    {
+      text: "휴가",
+      date: "2019-2-2",
+      isHoliday: true,
+      scheduleID: "vacation"
+    },
+    {
+      text: "휴가",
+      date: "2019-2-3",
+      isHoliday: true,
+      scheduleID: "vacation"
+    },
+    {
+      text: "휴가",
+      date: "2019-2-4",
+      isHoliday: true,
+      scheduleID: "vacation"
+    }
+  ]} 
+  indicateScheduleByStick
+  />);
