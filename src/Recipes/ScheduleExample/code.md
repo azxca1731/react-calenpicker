@@ -1,5 +1,6 @@
+```javascript
 import React, { Component } from "react";
-import Calendar from "../../Calendar";
+import Calendar from "react-calenpicker";
 import PropType from "prop-types";
 import styled from "styled-components";
 
@@ -70,19 +71,15 @@ ChartContainer.propTypes = {
   data: PropType.array
 };
 
-const externalSchedule = [
-  { text: "오픈", date: "2019-2-19" },
-  { text: "휴가", date: "2019-2-25", isHoliday: true },
-  { text: "중요", date: "2019-2-27" },
-  { text: "정정기간", date: "2019-2-27", isHoliday: true }
-];
-
 class ScheduleRecipeWithChart extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      schedule: externalSchedule
+      schedule: [
+        { text: "오픈", date: "2019-2-19" },
+        { text: "휴가", date: "2019-2-25", isHoliday: true }
+      ]
     };
   }
 
@@ -96,7 +93,10 @@ class ScheduleRecipeWithChart extends Component {
     return (
       <Screen>
         <Calendar
-          schedules={externalSchedule}
+          schedules={[
+            { text: "오픈", date: "2019-2-19" },
+            { text: "휴가", date: "2019-2-25", isHoliday: true }
+          ]}
           scheduleListener={this.handleSchedule}
           canUpdateDate
           addText
@@ -108,3 +108,4 @@ class ScheduleRecipeWithChart extends Component {
 }
 
 export default ScheduleRecipeWithChart;
+```

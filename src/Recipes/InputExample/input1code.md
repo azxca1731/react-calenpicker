@@ -1,5 +1,6 @@
+```javascript
 import React, { Component } from "react";
-import Calendar from "../../Calendar";
+import Calendar from "react-calenpicker";
 import styled from "styled-components";
 
 const InputEx1Div1 = styled.div`
@@ -23,8 +24,8 @@ const InputEx1Div2 = styled.div`
 `;
 
 const InputEx1Str = styled.div`
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    "Helvetica Neue", sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+    sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: rgb(72, 72, 72);
@@ -32,8 +33,8 @@ const InputEx1Str = styled.div`
 
 const InputEx1BtnContent = styled.div`
   overflow-wrap: break-word;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-    "Helvetica Neue", sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+    sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.44444em;
@@ -174,3 +175,4 @@ class InputEx1 extends Component {
 }
 
 export default InputEx1;
+```
