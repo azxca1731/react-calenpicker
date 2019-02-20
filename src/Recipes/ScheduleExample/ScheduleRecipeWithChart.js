@@ -72,7 +72,9 @@ ChartContainer.propTypes = {
 
 const externalSchedule = [
   { text: "오픈", date: "2019-2-19" },
-  { text: "휴가", date: "2019-2-25", isHoliday: true }
+  { text: "휴가", date: "2019-2-25", isHoliday: true },
+  { text: "중요", date: "2019-2-27" },
+  { text: "정정기간", date: "2019-2-27", isHoliday: true }
 ];
 
 class ScheduleRecipeWithChart extends Component {

@@ -1,6 +1,6 @@
 ```javascript
 import React, { Component } from "react";
-import Calendar from "../../Calendar";
+import Calendar from "react-calenpicker";
 import PropType from "prop-types";
 import styled from "styled-components";
 
