@@ -10,6 +10,7 @@
   <a href="https://react-calenpicker-storybook.netlify.com">
     <img src="https://github.com/storybooks/press/blob/master/badges/storybook.svg"/>
   </a>
+  <img src="https://img.shields.io/badge/NaverFest-Finalist-brightgreen.svg">
 </p>
 
 <p>
